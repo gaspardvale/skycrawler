@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkyCrawler — Businessplan</title>
+  <title>SkyCrawler — Over Ons</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { background: #000; }
 
     :root {
       --black: #000;
@@ -72,18 +74,83 @@
       cursor: pointer; color: var(--white); font-size: 1.3rem;
     }
 
-    /* ── PAGE HEADER (dark hero) ── */
-    .page-header {
+    /* ── HERO ── */
+    .hero {
       position: relative;
-      background: var(--black);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
       overflow: hidden;
     }
 
-    .page-header-content {
+    .hero-bg {
+      position: absolute;
+      inset: -20%;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.72) 100%),
+        url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=3840&q=90&fit=crop') center/cover no-repeat;
+      will-change: transform;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 3rem 7rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    .hero h1 em { font-style: italic; }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 7rem 3rem;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 10rem 3rem 6rem;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin: 0 3rem;
+      max-width: 1100px;
+    }
+
+    /* Centering for dividers within max-width */
+    .divider-wrap {
+      max-width: calc(1100px + 6rem);
+      margin: 0 auto;
+      padding: 0 3rem;
     }
 
     .section-label {
@@ -91,98 +158,134 @@
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: var(--mid);
       margin-bottom: 1rem;
     }
 
-    .page-title {
-      font-size: clamp(2.4rem, 5vw, 4rem);
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.06;
-      color: var(--white);
-      margin-bottom: 1.4rem;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--off-black);
+      max-width: 580px;
+      margin-bottom: 2rem;
     }
 
-    .page-sub {
+    .section-title em { font-style: italic; }
+
+    .prose {
       font-size: 1rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.6);
-      max-width: 520px;
-      line-height: 1.7;
+      color: var(--mid);
+      line-height: 1.78;
+      max-width: 560px;
     }
 
-    /* ── CANVAS GRID ── */
-    .canvas {
-      padding: 6rem 3rem;
-      max-width: 1100px;
-      margin: 0 auto;
+    .prose + .prose { margin-top: 1.2rem; }
+
+    /* Two-column alternating layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
     }
 
-    .canvas-grid {
+    .two-col img {
+      width: 100%;
+      border-radius: 24px;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+
+    /* Values grid */
+    .values-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.2rem;
+      margin-top: 3.5rem;
     }
 
-    .canvas-card {
+    .value-card {
       border: 1px solid rgba(0,0,0,0.1);
       border-radius: 20px;
-      padding: 2.6rem 2.4rem 3rem;
+      padding: 2.4rem 2rem 2.8rem;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
-      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
-                  box-shadow 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
-                  border-color 0.32s;
+      gap: 0.8rem;
+      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+                  box-shadow 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+                  border-color 0.3s;
     }
 
-    .canvas-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 56px rgba(0,0,0,0.08);
-      border-color: rgba(0,0,0,0.18);
+    .value-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.16);
     }
 
-    .canvas-card.wide {
-      grid-column: span 2;
-    }
-
-    .canvas-card.full {
-      grid-column: span 3;
-    }
-
-    .card-label {
+    .value-index {
       font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(0,0,0,0.28);
+      color: rgba(0,0,0,0.22);
     }
 
-    .card-title {
-      font-size: 1.15rem;
+    .value-title {
+      font-size: 1.1rem;
       font-weight: 600;
       letter-spacing: -0.025em;
       color: var(--off-black);
     }
 
-    .card-body {
+    .value-body {
       font-size: 0.88rem;
       font-weight: 300;
       color: var(--mid);
-      line-height: 1.72;
+      line-height: 1.68;
     }
 
-    .card-body ul {
-      list-style: none;
+    /* Team row */
+    .team-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .team-card {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 2.4rem 2rem;
+      text-align: center;
+    }
+
+    .team-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--light);
+      margin: 0 auto 1.2rem;
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
     }
 
-    .card-body ul li::before {
-      content: '— ';
-      color: rgba(0,0,0,0.2);
+    .team-name {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--off-black);
+      margin-bottom: 0.3rem;
+    }
+
+    .team-role {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--mid);
     }
 
     /* ── FOOTER ── */
@@ -210,8 +313,11 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .canvas-grid { grid-template-columns: 1fr 1fr; }
-      .canvas-card.wide, .canvas-card.full { grid-column: span 2; }
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .two-col.reverse .text-col { order: 0; }
+      .two-col.reverse .img-col  { order: 1; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .team-row    { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -224,9 +330,9 @@
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .page-header-content, .canvas { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .canvas-grid { grid-template-columns: 1fr; }
-      .canvas-card.wide, .canvas-card.full { grid-column: span 1; }
+      .hero-content, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .section { padding-top: 4rem; padding-bottom: 4rem; }
+      .values-grid, .team-row { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
   </style>
@@ -240,133 +346,118 @@
       <li><a href="home.html">Home</a></li>
       <li><a href="techniek.html">Techniek</a></li>
       <li><a href="tarieven.html">Tarieven</a></li>
-      <li><a href="businessplan.html" class="active">Businessplan</a></li>
+      <li><a href="businessplan.html" class="active">Over Ons</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <div class="page-header">
-    <div class="page-header-content">
-      <p class="section-label">Business Model Canvas</p>
-      <h1 class="page-title">Ons Business Model</h1>
-      <p class="page-sub">Transparantie is een van onze kernwaarden. Bekijk hier hoe SkyCrawler is opgebouwd via ons Business Model Canvas.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Het Verhaal Achter SkyCrawler</p>
+      <h1>Gebouwd door<br>studenten. Gemaakt<br>voor de <em>wereld.</em></h1>
+      <p class="hero-sub">Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 1: Text left, Image right — Origin -->
+  <div class="section">
+    <div class="two-col">
+      <div class="text-col">
+        <p class="section-label">Onze Oorsprong</p>
+        <h2 class="section-title">Van UGent-lab tot internationale ambities.</h2>
+        <p class="prose">SkyCrawler werd opgericht aan de Universiteit Gent door Mauro Standaert, Gaspard Creus en Ruben De Ruyter. Wat begon als een fictief project voor de DOE-week groeide al snel uit tot een ernstig concept met echte technologische en commerciële ambities.</p>
+        <p class="prose">Van Brussel tot Dubai — overal waar wolkenkrabbers staan, hoort SkyCrawler thuis.</p>
+      </div>
+      <div class="img-col">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=85&fit=crop" alt="Team SkyCrawler aan het werk" />
+      </div>
     </div>
   </div>
 
-  <div class="canvas">
-    <div class="canvas-grid">
+  <hr style="border:none;border-top:1px solid rgba(0,0,0,0.08);margin:0 3rem;">
 
-      <div class="canvas-card">
-        <p class="card-label">01</p>
-        <h3 class="card-title">Key Partners</h3>
-        <div class="card-body">
-          <ul>
-            <li>Chemiebedrijven voor gespecialiseerde zeep en kuisproducten</li>
-            <li>Wolkenkrabberbouwers zoals Besix</li>
-            <li>Investeerders voor financiële ondersteuning</li>
-            <li>AI-datacenters (op termijn) voor geveldata-analyse</li>
-          </ul>
-        </div>
+  <!-- SECTION 2: Image left, Text right — Missie -->
+  <div class="section">
+    <div class="two-col reverse">
+      <div class="img-col">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=85&fit=crop" alt="Wolkenkrabber gevel" />
       </div>
-
-      <div class="canvas-card">
-        <p class="card-label">02</p>
-        <h3 class="card-title">Key Activities</h3>
-        <div class="card-body">
-          <ul>
-            <li>Plaatsen van robots en oplaadstations</li>
-            <li>Productie en assemblage van de robots</li>
-            <li>Periodiek onderhoud van geplaatste robots</li>
-          </ul>
-        </div>
+      <div class="text-col">
+        <p class="section-label">Onze Missie</p>
+        <h2 class="section-title">Veiligheid en duurzaamheid, <em>zonder compromis.</em></h2>
+        <p class="prose">Traditionele gevelreiniging brengt arbeiders in gevaarlijke situaties op grote hoogte. SkyCrawler elimineert dit risico volledig. Onze autonome robots werken 24/7, gebruiken geen chemicaliën en verbruiken gefilterd regenwater.</p>
+        <p class="prose">Ons doel is niet alleen efficiëntie — het is een fundamentele heruitvinding van hoe de wereld haar grootste gebouwen onderhoudt.</p>
       </div>
+    </div>
+  </div>
 
-      <div class="canvas-card">
-        <p class="card-label">03</p>
-        <h3 class="card-title">Key Resources</h3>
-        <div class="card-body">
-          <ul>
-            <li>Intellectueel eigendomsrecht & patenten</li>
-            <li>Diepgaande technische engineering expertise</li>
-            <li>Gespecialiseerd personeel voor onderhoud en service</li>
-          </ul>
-        </div>
+  <hr style="border:none;border-top:1px solid rgba(0,0,0,0.08);margin:0 3rem;">
+
+  <!-- SECTION 3: Kernwaarden -->
+  <div class="section">
+    <p class="section-label">Kernwaarden</p>
+    <h2 class="section-title">Wat ons drijft.</h2>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-index">01</span>
+        <h3 class="value-title">Veiligheid Eerst</h3>
+        <p class="value-body">Geen menselijke arbeiders meer op gevaarlijke hoogtes. Operators werken veilig vanaf de grond of het dak.</p>
       </div>
-
-      <div class="canvas-card wide">
-        <p class="card-label">04</p>
-        <h3 class="card-title">Value Propositions</h3>
-        <div class="card-body">
-          <ul>
-            <li>Efficiëntie — een weinig arbeidsintensieve manier van ramen wassen</li>
-            <li>Veiligheid — geen menselijke arbeiders meer op grote hoogtes</li>
-            <li>Innovatie — dagelijkse verbetering van onze technologieën</li>
-            <li>24/7 Flexibiliteit — geen overuren, pauzes of daglicht nodig</li>
-            <li>Consistentie — menselijke fouten volledig geëlimineerd</li>
-          </ul>
-        </div>
+      <div class="value-card">
+        <span class="value-index">02</span>
+        <h3 class="value-title">Ecologische Impact</h3>
+        <p class="value-body">Gefilterd regenwater, gereduceerde zepen en microvezelborstels — streeploos resultaat zonder milieuvervuiling.</p>
       </div>
-
-      <div class="canvas-card">
-        <p class="card-label">05</p>
-        <h3 class="card-title">Customer Relationships</h3>
-        <div class="card-body">
-          <ul>
-            <li>Toegewijde, langdurige B2B-relaties</li>
-            <li>Persoonlijk en direct contact</li>
-            <li>Techniekers altijd bereikbaar en stand-by</li>
-          </ul>
-        </div>
+      <div class="value-card">
+        <span class="value-index">03</span>
+        <h3 class="value-title">Technologische Vooruitgang</h3>
+        <p class="value-body">Dagelijkse verbetering van AI-algoritmes, LiDAR-navigatie en vacuümtechnologie voor maximale efficiëntie.</p>
       </div>
-
-      <div class="canvas-card">
-        <p class="card-label">06</p>
-        <h3 class="card-title">Channels</h3>
-        <div class="card-body">
-          <ul>
-            <li>Website, e-mail en telefoon</li>
-            <li>Technologiebeurzen en demonstraties</li>
-            <li>Strategische introducties via partners</li>
-          </ul>
-        </div>
+      <div class="value-card">
+        <span class="value-index">04</span>
+        <h3 class="value-title">24/7 Flexibiliteit</h3>
+        <p class="value-body">Geen overuren, pauzes of daglicht nodig. SkyCrawler werkt wanneer het meest efficiënt is, aangepast aan het weer.</p>
       </div>
-
-      <div class="canvas-card">
-        <p class="card-label">07</p>
-        <h3 class="card-title">Customer Segments</h3>
-        <div class="card-body">
-          <ul>
-            <li>B2B — beheerders van grote wolkenkrabbers</li>
-            <li>B2C — zeldzame particulieren met wolkenkrabbers</li>
-            <li>Focusmarkt — initiële lancering in regio Brussel</li>
-          </ul>
-        </div>
+      <div class="value-card">
+        <span class="value-index">05</span>
+        <h3 class="value-title">Consistentie</h3>
+        <p class="value-body">Menselijke fouten volledig geëlimineerd. Elke reiniging is identiek nauwkeurig, van het eerste tot het laatste raam.</p>
       </div>
-
-      <div class="canvas-card">
-        <p class="card-label">08</p>
-        <h3 class="card-title">Cost Structure</h3>
-        <div class="card-body">
-          <ul>
-            <li>Productiekosten robots en oplaadstations</li>
-            <li>Doorlopend onderhoud en materialen</li>
-            <li>Personeelskosten — ontwikkeling, verkoop, techniekers</li>
-            <li>Op termijn: AI-datacenters en data-analyse</li>
-          </ul>
-        </div>
+      <div class="value-card">
+        <span class="value-index">06</span>
+        <h3 class="value-title">Partnerschap</h3>
+        <p class="value-body">Langdurige B2B-relaties, toegewijde techniekers en persoonlijk contact. Wij zijn meer dan een leverancier.</p>
       </div>
+    </div>
+  </div>
 
-      <div class="canvas-card">
-        <p class="card-label">09</p>
-        <h3 class="card-title">Revenue Streams</h3>
-        <div class="card-body">
-          <ul>
-            <li>Setup fee — eenmalige installatie van infrastructuur</li>
-            <li>Abonnementsmodel — vaste maandelijkse betalingen voor gebruik, service en onderhoud</li>
-          </ul>
-        </div>
+  <hr style="border:none;border-top:1px solid rgba(0,0,0,0.08);margin:0 3rem;">
+
+  <!-- SECTION 4: Team -->
+  <div class="section">
+    <p class="section-label">Het Team</p>
+    <h2 class="section-title">De mensen achter de robot.</h2>
+    <p class="prose">Drie studenten ingenieurswetenschappen aan de UGent, verenigd door een gedeelde visie op de toekomst van gebouwbeheer.</p>
+
+    <div class="team-row">
+      <div class="team-card">
+        <div class="team-avatar">M</div>
+        <div class="team-name">Mauro Standaert</div>
+        <div class="team-role">Co-Founder · Mechanica & Hardware</div>
       </div>
-
+      <div class="team-card">
+        <div class="team-avatar">G</div>
+        <div class="team-name">Gaspard Creus</div>
+        <div class="team-role">Co-Founder · Software & AI</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">R</div>
+        <div class="team-name">Ruben De Ruyter</div>
+        <div class="team-role">Co-Founder · Business & Strategie</div>
+      </div>
     </div>
   </div>
 
@@ -380,6 +471,11 @@
   </footer>
 
   <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('heroBg').style.transform =
+        `translateY(${window.scrollY * 0.4}px)`;
+    }, { passive: true });
+
     (function() {
       const nav = document.getElementById('mainNav');
       window.addEventListener('scroll', () => {

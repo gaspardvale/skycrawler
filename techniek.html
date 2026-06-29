@@ -248,23 +248,29 @@
       line-height: 1.65;
     }
 
-    /* Specs */
-    .specs-grid {
+    /* Specs — clean bordered table */
+    .specs-table {
+      margin-top: 3rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .specs-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+    }
+
+    .specs-row + .specs-row {
       border-top: 1px solid rgba(0,0,0,0.1);
-      margin-top: 3rem;
     }
 
     .spec-item {
-      padding: 2.5rem 0 2.5rem 0;
+      padding: 2.2rem 2.4rem;
       border-right: 1px solid rgba(0,0,0,0.1);
-      padding-right: 2rem;
-      margin-right: 2rem;
     }
 
-    .spec-item:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .spec-item:last-child { border-right: none; }
 
     .spec-value {
       font-size: clamp(1.8rem, 3vw, 2.6rem);
@@ -355,7 +361,7 @@
     @media (max-width: 900px) {
       .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
       .feat-grid { grid-template-columns: 1fr 1fr; }
-      .specs-grid { grid-template-columns: 1fr 1fr; }
+      .specs-row { grid-template-columns: 1fr 1fr; }
       .stats-row { grid-template-columns: 1fr 1fr; }
     }
 
@@ -370,7 +376,7 @@
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
       .section { padding: 4rem 1.5rem; }
-      .feat-grid, .specs-grid, .stats-row { grid-template-columns: 1fr; }
+      .feat-grid, .specs-row, .stats-row { grid-template-columns: 1fr; }
       .img-wrap { padding: 0 1.5rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
@@ -386,7 +392,7 @@
         <li><a href="home.html">Home</a></li>
         <li><a href="techniek.html" class="active">Techniek</a></li>
         <li><a href="tarieven.html">Tarieven</a></li>
-        <li><a href="businessplan.html">Businessplan</a></li>
+        <li><a href="businessplan.html">Over Ons</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -467,30 +473,34 @@
     <h2 class="section-title">Gemaakt voor extreme omgevingen.</h2>
     <p class="prose">Ontworpen voor prestaties in ijzige kou tot intense hitte.</p>
 
-    <div class="specs-grid">
-      <div class="spec-item">
-        <div class="spec-value">18.4 kg</div>
-        <div class="spec-label">Chassis & Drooggewicht</div>
+    <div class="specs-table">
+      <div class="specs-row">
+        <div class="spec-item">
+          <div class="spec-value">18.4 kg</div>
+          <div class="spec-label">Chassis & Drooggewicht</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-value">680 N</div>
+          <div class="spec-label">Zuigkracht per vacuümpad</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-value">50 / u</div>
+          <div class="spec-label">Ramen gereinigd per uur</div>
+        </div>
       </div>
-      <div class="spec-item">
-        <div class="spec-value">680 N</div>
-        <div class="spec-label">Zuigkracht per vacuümpad</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-value">50 / u</div>
-        <div class="spec-label">Ramen gereinigd per uur</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-value">125 km/u</div>
-        <div class="spec-label">Windbestendigheid</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-value">6.5 u</div>
-        <div class="spec-label">Batterijduur continu</div>
-      </div>
-      <div class="spec-item">
-        <div class="spec-value">5G</div>
-        <div class="spec-label">Telemetrie & LiDAR Mesh</div>
+      <div class="specs-row">
+        <div class="spec-item">
+          <div class="spec-value">125 km/u</div>
+          <div class="spec-label">Windbestendigheid</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-value">6.5 u</div>
+          <div class="spec-label">Batterijduur continu</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-value">5G</div>
+          <div class="spec-label">Telemetrie & LiDAR Mesh</div>
+        </div>
       </div>
     </div>
 

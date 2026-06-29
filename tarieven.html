@@ -7,6 +7,8 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { background: #000; }
+
     :root {
       --black: #000;
       --off-black: #1d1d1f;
@@ -426,7 +428,7 @@
       <li><a href="home.html">Home</a></li>
       <li><a href="techniek.html">Techniek</a></li>
       <li><a href="tarieven.html" class="active">Tarieven</a></li>
-      <li><a href="businessplan.html">Businessplan</a></li>
+      <li><a href="businessplan.html">Over Ons</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -576,7 +578,7 @@ void main() {
   if (iFlipX>0.5) fc.x=iResolution.x-fc.x;
   if (iFlipY>0.5) fc.y=iResolution.y-fc.y;
   vec2 coord=vec2(fc.x,iResolution.y-fc.y);
-  vec2 rp=vec2(iResolution.x*1.1,-0.5*iResolution.y);
+  vec2 rp=vec2(iResolution.x*1.05,iResolution.y*0.28);
   float tr=iTilt*3.14159265/180.0; float cs=cos(tr),sn=sin(tr);
   vec2 rel=coord-rp;
   vec2 tc=vec2(rel.x*cs-rel.y*sn,rel.x*sn+rel.y*cs)+rp;

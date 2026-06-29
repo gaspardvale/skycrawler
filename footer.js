@@ -26,6 +26,9 @@
     /* social icon hover */
     '.sc-soc{opacity:.52;cursor:pointer;transition:opacity .22s,filter .22s}' +
     '.sc-soc:hover{opacity:1;filter:drop-shadow(0 0 7px rgba(88,182,255,.95))}' +
+    /* footer nav links */
+    '.sc-fnav text{fill:rgba(255,255,255,.28);transition:fill .22s;cursor:pointer}' +
+    '.sc-fnav:hover text{fill:rgba(255,255,255,.88)}' +
     /* VALE bottom strip */
     '.sc-vale-bar{' +
       'display:flex;align-items:center;justify-content:center;gap:8px;' +
@@ -180,6 +183,34 @@
   /* feet */
   el('rect', {x:BB_CX-28, y:BB_Y+BB_H+26, width:26, height:8, rx:3, fill:'#8090a8'}, bbg);
   el('rect', {x:BB_CX+2,  y:BB_Y+BB_H+26, width:26, height:8, rx:3, fill:'#8090a8'}, bbg);
+
+  /* ─── Footer nav links (below robot) ─────────────────────── */
+  var FNV_FONT = 'system-ui,-apple-system,BlinkMacSystemFont,sans-serif';
+  var FNV_PAGES = [
+    {label:'HOME',      href:'home.html'},
+    {label:'TECHNIEK',  href:'techniek.html'},
+    {label:'TARIEVEN',  href:'tarieven.html'},
+    {label:'OVER ONS',  href:'businessplan.html'},
+    {label:'CONTACT',   href:'contact.html'}
+  ];
+  var fnvY0 = 175, fnvStep = 14;
+  /* thin divider line */
+  el('line', {x1:BB_CX-30, y1:fnvY0-8, x2:BB_CX+30, y2:fnvY0-8, stroke:'rgba(255,255,255,.1)', 'stroke-width':'.7'}, svg);
+  FNV_PAGES.forEach(function(lk, i) {
+    var a = document.createElementNS(NS, 'a');
+    a.setAttribute('href', lk.href);
+    a.classList.add('sc-fnav');
+    var t = document.createElementNS(NS, 'text');
+    t.setAttribute('x', BB_CX);
+    t.setAttribute('y', fnvY0 + i * fnvStep);
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('font-size', '7');
+    t.setAttribute('font-family', FNV_FONT);
+    t.setAttribute('letter-spacing', '2');
+    t.textContent = lk.label;
+    a.appendChild(t);
+    svg.appendChild(a);
+  });
 
   /* ─── Social icons (right gap, below moon) ───────────────── */
   /* 4 icons × 22px + 3 × 14px gaps = 130px → center at 1059 → start x=994 */
