@@ -34,17 +34,23 @@
       justify-content: space-between;
       padding: 0 3rem;
       height: 64px;
-      background: rgba(255,255,255,0.88);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(0,0,0,0.75);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      border-bottom-color: rgba(255,255,255,0.08);
     }
 
     .logo-text {
       font-size: 1rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      color: var(--off-black);
+      color: var(--white);
       text-decoration: none;
     }
 
@@ -54,24 +60,30 @@
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: 400;
-      color: var(--mid);
+      color: rgba(255,255,255,0.55);
       transition: color 0.18s;
     }
 
-    nav ul a:hover, nav ul a.active { color: var(--off-black); }
+    nav ul a:hover, nav ul a.active { color: var(--white); }
 
     .hamburger {
       display: none;
       background: none; border: none;
-      cursor: pointer; color: var(--off-black); font-size: 1.3rem;
+      cursor: pointer; color: var(--white); font-size: 1.3rem;
     }
 
-    /* ── PAGE HEADER ── */
+    /* ── PAGE HEADER (dark hero) ── */
     .page-header {
-      padding: 10rem 3rem 5rem;
+      position: relative;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .page-header-content {
       max-width: 1100px;
       margin: 0 auto;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 10rem 3rem 6rem;
     }
 
     .section-label {
@@ -79,7 +91,7 @@
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--mid);
+      color: rgba(255,255,255,0.45);
       margin-bottom: 1rem;
     }
 
@@ -88,14 +100,14 @@
       font-weight: 700;
       letter-spacing: -0.035em;
       line-height: 1.06;
-      color: var(--off-black);
+      color: var(--white);
       margin-bottom: 1.4rem;
     }
 
     .page-sub {
       font-size: 1rem;
       font-weight: 300;
-      color: var(--mid);
+      color: rgba(255,255,255,0.6);
       max-width: 520px;
       line-height: 1.7;
     }
@@ -212,7 +224,7 @@
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .page-header, .canvas { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .page-header-content, .canvas { padding-left: 1.5rem; padding-right: 1.5rem; }
       .canvas-grid { grid-template-columns: 1fr; }
       .canvas-card.wide, .canvas-card.full { grid-column: span 1; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
@@ -221,7 +233,7 @@
 </head>
 <body>
 
-  <nav>
+  <nav id="mainNav">
     <a class="logo-text" href="home.html">SkyCrawler</a>
     <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
     <ul>
@@ -234,9 +246,11 @@
   </nav>
 
   <div class="page-header">
-    <p class="section-label">Business Model Canvas</p>
-    <h1 class="page-title">Ons Business Model</h1>
-    <p class="page-sub">Transparantie is een van onze kernwaarden. Bekijk hier hoe SkyCrawler is opgebouwd via ons Business Model Canvas.</p>
+    <div class="page-header-content">
+      <p class="section-label">Business Model Canvas</p>
+      <h1 class="page-title">Ons Business Model</h1>
+      <p class="page-sub">Transparantie is een van onze kernwaarden. Bekijk hier hoe SkyCrawler is opgebouwd via ons Business Model Canvas.</p>
+    </div>
   </div>
 
   <div class="canvas">
@@ -364,6 +378,15 @@
       <a href="contact.html">Contact</a>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      const nav = document.getElementById('mainNav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+      }, { passive: true });
+    })();
+  </script>
 
 </body>
 </html>
