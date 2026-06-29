@@ -36,7 +36,7 @@
       'letter-spacing:.28em;text-transform:uppercase;color:rgba(88,182,255,.35)' +
     '}' +
     '.sc-vale-logo{' +
-      'height:18px;opacity:.72;' +
+      'height:24px;opacity:.82;' +
       'filter:drop-shadow(0 0 8px rgba(88,182,255,.6));' +
       'vertical-align:middle' +
     '}' +
@@ -140,25 +140,56 @@
   el('circle',{cx:1071,cy:48,r:3.5,fill:'#b8cfe6',opacity:.38},svg);
   el('circle',{cx:1055,cy:53,r:2.5,fill:'#b8cfe6',opacity:.32},svg);
 
-  /* ─── SkyCrawler logo (left gap, x=295..508) ─────────────── */
-  /* gap center x = 295 + (508-295)/2 = 401.5 */
-  el('image', {
-    href: 'TRANSPARENT%20LOGO.png',
-    x: 327, y: 18,
-    width: 150, height: 205,
-    filter: 'url(#scLoF)',
-    preserveAspectRatio: 'xMidYMid meet'
-  }, svg);
+  /* ─── Big decorative robot (left gap, x=295..508, center≈401) ─── */
+  var BB_CX = 401, BB_Y = 72, BB_W = 80, BB_H = 55;
+  var bbg = el('g', {}, svg);
+  /* antenna */
+  el('rect', {x:BB_CX-2.5, y:BB_Y-28, width:5, height:28, fill:'#142235'}, bbg);
+  el('circle', {cx:BB_CX, cy:BB_Y-30, r:10, fill:'#60b0ff', opacity:.8, filter:'url(#scBGF)'}, bbg);
+  el('circle', {cx:BB_CX, cy:BB_Y-30, r:5.5, fill:'#90d0ff'}, bbg);
+  /* neck */
+  el('rect', {x:BB_CX-8, y:BB_Y-5, width:16, height:6, rx:2, fill:'#9090b5'}, bbg);
+  /* body */
+  el('rect', {x:BB_CX-BB_W/2, y:BB_Y, width:BB_W, height:BB_H, rx:7, fill:'#d5d5ec', stroke:'#8080a8', 'stroke-width':1.2}, bbg);
+  /* face panel inset */
+  el('rect', {x:BB_CX-28, y:BB_Y+6, width:56, height:36, rx:4, fill:'#c8c8e0'}, bbg);
+  /* eyes */
+  [BB_CX-13, BB_CX+13].forEach(function(ex) {
+    el('circle', {cx:ex, cy:BB_Y+22, r:11, fill:'#020810'}, bbg);
+    el('circle', {cx:ex, cy:BB_Y+22, r:6.5, fill:'#50a8ff', filter:'url(#scEGF)'}, bbg);
+    el('circle', {cx:ex+3, cy:BB_Y+18, r:2.5, fill:'#b0d8ff', opacity:.6}, bbg);
+  });
+  /* mouth display */
+  el('rect', {x:BB_CX-17, y:BB_Y+36, width:34, height:4, rx:2, fill:'#040e1c'}, bbg);
+  [-10,-3,4,11].forEach(function(lx, i) {
+    el('rect', {x:BB_CX+lx, y:BB_Y+37, width:3, height:2, rx:.5, fill:i%2===0?'#50a8ff':'#30e890', opacity:.9}, bbg);
+  });
+  /* chest LEDs */
+  el('rect', {x:BB_CX-18, y:BB_Y+44, width:36, height:8, rx:2, fill:'#040e1c', opacity:.6}, bbg);
+  [BB_CX-10, BB_CX, BB_CX+10].forEach(function(lx) {
+    el('circle', {cx:lx, cy:BB_Y+48, r:2.5, fill:'#50a8ff', opacity:.75, filter:'url(#scEGF)'}, bbg);
+  });
+  /* arms */
+  el('rect', {x:BB_CX-BB_W/2-18, y:BB_Y+10, width:18, height:10, rx:5, fill:'#9090b5'}, bbg);
+  el('circle', {cx:BB_CX-BB_W/2-18, cy:BB_Y+15, r:5.5, fill:'#8080a8'}, bbg);
+  el('rect', {x:BB_CX+BB_W/2, y:BB_Y+10, width:18, height:10, rx:5, fill:'#9090b5'}, bbg);
+  el('circle', {cx:BB_CX+BB_W/2+18, cy:BB_Y+15, r:5.5, fill:'#8080a8'}, bbg);
+  /* legs */
+  el('rect', {x:BB_CX-24, y:BB_Y+BB_H,   width:18, height:26, rx:4, fill:'#b0c8e0'}, bbg);
+  el('rect', {x:BB_CX+6,  y:BB_Y+BB_H,   width:18, height:26, rx:4, fill:'#b0c8e0'}, bbg);
+  /* feet */
+  el('rect', {x:BB_CX-28, y:BB_Y+BB_H+26, width:26, height:8, rx:3, fill:'#8090a8'}, bbg);
+  el('rect', {x:BB_CX+2,  y:BB_Y+BB_H+26, width:26, height:8, rx:3, fill:'#8090a8'}, bbg);
 
   /* ─── Social icons (right gap, below moon) ───────────────── */
   /* 4 icons × 22px + 3 × 14px gaps = 130px → center at 1059 → start x=994 */
   var FONT = 'system-ui,-apple-system,BlinkMacSystemFont,sans-serif';
-  var socY = 104; /* center y for icons */
+  var socY = 122; /* center y for icons — moved down from moon */
 
   /* "FOLLOW US" label above icons */
   var flEl = document.createElementNS(NS, 'text');
   flEl.setAttribute('x', 1059);
-  flEl.setAttribute('y', 90);
+  flEl.setAttribute('y', 107);
   flEl.setAttribute('fill', 'rgba(255,255,255,.25)');
   flEl.setAttribute('font-size', '6');
   flEl.setAttribute('font-family', FONT);
