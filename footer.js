@@ -15,7 +15,7 @@
       'padding:0!important;border-top:none!important;' +
       'display:block!important;flex-direction:unset!important;' +
       'align-items:unset!important;justify-content:unset!important;' +
-      'background:#02030c;overflow:visible;position:relative' +
+      'background:#02030c;overflow:visible;position:relative!important' +
     '}' +
     /* SVG must also have overflow:visible so beams render above the footer */
     '.sc-footer svg{display:block;width:100%;overflow:visible}' +
@@ -324,8 +324,9 @@
   txt.textContent = '© 2026 SkyCrawler — Alle rechten voorbehouden.';
   footer.appendChild(txt);
 
-  var nav = document.createElement('nav');
+  var nav = document.createElement('div');
   nav.className = 'sc-foot-nav';
+  nav.setAttribute('role', 'navigation');
   nav.setAttribute('aria-label', 'Footer navigatie');
   [
     ['home.html',         'Home'],
