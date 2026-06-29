@@ -41,12 +41,6 @@
       transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
     }
 
-    nav.scrolled {
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom-color: rgba(255,255,255,0.08);
-    }
 
     .logo-text {
       font-size: 1rem;
@@ -460,12 +454,6 @@
         `translateY(${window.scrollY * 0.4}px)`;
     }, { passive: true });
 
-    (function() {
-      const nav = document.getElementById('mainNav');
-      window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 20);
-      }, { passive: true });
-    })();
   </script>
   <script src="footer.js"></script>
 
