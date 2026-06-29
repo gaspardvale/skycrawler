@@ -1,62 +1,66 @@
-/* SkyCrawler — Animated SVG Footer
-   Injects a cartoon skyscraper (lying on its side) with small robots
-   crawling across its windows. Drop-in: just load this script before </body>.
+/* SkyCrawler — Night-Cityscape Footer v2
+   Full-width night skyline with sky-blue structural support beams rising
+   upward into the page, and SkyCrawler robots crawling across window faces.
 */
 (function () {
   'use strict';
 
-  /* ─── CSS ─────────────────────────────────────────── */
+  var NS = 'http://www.w3.org/2000/svg';
+
+  /* ─── CSS ──────────────────────────────────────────────── */
   var css = document.createElement('style');
   css.textContent =
-    /* Reset conflicting simple-footer styles */
-    'footer.sc-footer{padding:0!important;border-top:none!important;' +
-    'display:block!important;flex-direction:unset!important;' +
-    'align-items:unset!important;justify-content:unset!important;' +
-    'background:#05050f;overflow:hidden}' +
-
-    /* SVG fills width, capped so it doesn't become enormous on 4K screens */
-    '.sc-footer svg{display:block;width:100%;max-height:240px}' +
-
+    /* Override any existing footer styles */
+    'footer.sc-footer{' +
+      'padding:0!important;border-top:none!important;' +
+      'display:block!important;flex-direction:unset!important;' +
+      'align-items:unset!important;justify-content:unset!important;' +
+      'background:#02030c;overflow:visible;position:relative' +
+    '}' +
+    /* SVG must also have overflow:visible so beams render above the footer */
+    '.sc-footer svg{display:block;width:100%;overflow:visible}' +
     /* ── Robot crawl right ── */
     '@keyframes sc-r{' +
       '0%{transform:translateX(0);opacity:0}' +
-      '4%{opacity:1}' +
-      '90%{opacity:1}' +
+      '3%{opacity:1}90%{opacity:1}' +
       '95%{transform:translateX(var(--dx));opacity:0}' +
       '100%{transform:translateX(0);opacity:0}' +
     '}' +
-
     /* ── Robot crawl left ── */
     '@keyframes sc-l{' +
       '0%{transform:translateX(0);opacity:0}' +
-      '4%{opacity:1}' +
-      '90%{opacity:1}' +
+      '3%{opacity:1}90%{opacity:1}' +
       '95%{transform:translateX(calc(var(--dx)*-1));opacity:0}' +
       '100%{transform:translateX(0);opacity:0}' +
     '}' +
-
-    '.sc-br{animation:sc-r var(--t,30s) linear var(--dl,0s) infinite}' +
-    '.sc-bl{animation:sc-l var(--t,28s) linear var(--dl,0s) infinite}' +
-
-    /* Copyright strip */
-    '.sc-foot-txt{text-align:center;padding:.4rem 2rem .5rem;' +
-    'font-size:.72rem;color:rgba(255,255,255,.18);' +
-    'font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
-    'letter-spacing:.1em}' +
-
+    '.sc-br{animation:sc-r var(--t,28s) linear var(--dl,0s) infinite}' +
+    '.sc-bl{animation:sc-l var(--t,26s) linear var(--dl,0s) infinite}' +
+    /* Footer text strip */
+    '.sc-foot-txt{' +
+      'text-align:center;padding:.4rem 2rem .3rem;' +
+      'font-size:.72rem;color:rgba(255,255,255,.2);' +
+      'font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
+      'letter-spacing:.1em;background:#02030c' +
+    '}' +
     /* Footer nav */
-    '.sc-foot-nav{display:flex;align-items:center;justify-content:center;' +
-    'flex-wrap:wrap;gap:1.6rem 2rem;padding:.55rem 3rem .8rem;' +
-    'border-top:1px solid rgba(255,255,255,.06)}' +
-    '.sc-foot-nav a{font-size:.78rem;color:rgba(255,255,255,.3);' +
-    'text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
-    'transition:color .18s}' +
-    '.sc-foot-nav a:hover{color:rgba(255,255,255,.7)}';
+    '.sc-foot-nav{' +
+      'display:flex;align-items:center;justify-content:center;' +
+      'flex-wrap:wrap;gap:1.6rem 2rem;padding:.55rem 3rem .8rem;' +
+      'border-top:1px solid rgba(80,160,255,.12);background:#02030c' +
+    '}' +
+    '.sc-foot-nav a{' +
+      'font-size:.78rem;color:rgba(255,255,255,.32);text-decoration:none;' +
+      'font-family:-apple-system,BlinkMacSystemFont,sans-serif;transition:color .18s' +
+    '}' +
+    '.sc-foot-nav a:hover{color:rgba(255,255,255,.8)}';
 
   document.head.appendChild(css);
 
-  /* ─── SVG helpers ──────────────────────────────────── */
-  var NS = 'http://www.w3.org/2000/svg';
+  /* ─── Mount ─────────────────────────────────────────────── */
+  var footer = document.querySelector('footer');
+  if (!footer) { return; }
+  footer.className = 'sc-footer';
+  footer.innerHTML = '';
 
   function el(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
@@ -65,229 +69,256 @@
     return e;
   }
 
-  /* ─── Mount point ──────────────────────────────────── */
-  var footer = document.querySelector('footer');
-  if (!footer) { return; }
-
-  footer.className = 'sc-footer';
-  footer.innerHTML = '';
-
-  /* ── ViewBox: 1440 × 180
-     Building path (stepped skyscraper on its side):
-       Left  = base/lobby (full height, all 4 floors)
-       Right = top/spire  (steps narrower floor by floor)
-
-     Floor y-bands:  [12–50] [50–88] [88–126] [126–165]
-     Step x-edges:    1100    1170    1240     1285
+  /* ─── SVG
+     ViewBox: 1440 × 280 px
+     overflow: visible → beams extend above the SVG boundary into the page
   ─── */
   var svg = el('svg', {
-    viewBox: '0 0 1440 180',
+    viewBox: '0 0 1440 280',
     width: '100%',
     preserveAspectRatio: 'xMidYMid meet',
+    overflow: 'visible',
     'aria-hidden': 'true'
   }, footer);
 
   /* ── Defs ── */
   var defs = el('defs', {}, svg);
 
-  /* Sky gradient */
+  /* Night sky gradient */
   var skyG = el('linearGradient', {id:'scSky', x1:0, y1:0, x2:0, y2:1}, defs);
-  el('stop', {'offset':'0%',  'stop-color':'#04040c'}, skyG);
-  el('stop', {'offset':'100%','stop-color':'#09091b'}, skyG);
+  el('stop', {'offset':'0%',  'stop-color':'#010209'}, skyG);
+  el('stop', {'offset':'100%','stop-color':'#050a1c'}, skyG);
 
-  /* Building face gradient */
-  var blG = el('linearGradient', {id:'scBl', x1:0, y1:0, x2:0, y2:1}, defs);
-  el('stop', {'offset':'0%',  'stop-color':'#1b1d30'}, blG);
-  el('stop', {'offset':'100%','stop-color':'#11121e'}, blG);
+  /* Support-beam gradient — fades from 0 opacity far above to solid near rooftops.
+     gradientUnits="userSpaceOnUse" lets us use absolute SVG y-coordinates. */
+  var bmG = el('linearGradient', {
+    id:'scBmG', gradientUnits:'userSpaceOnUse',
+    x1:0, y1:-600, x2:0, y2:80
+  }, defs);
+  el('stop', {'offset':'0%',  'stop-color':'#70c4ff','stop-opacity':'0'},   bmG);
+  el('stop', {'offset':'70%', 'stop-color':'#70c4ff','stop-opacity':'.35'}, bmG);
+  el('stop', {'offset':'100%','stop-color':'#70c4ff','stop-opacity':'.70'}, bmG);
 
-  /* Antenna glow */
-  var aGF = el('filter', {id:'scAG', x:'-60%', y:'-60%', width:'220%', height:'220%'}, defs);
-  el('feGaussianBlur', {stdDeviation:'3', result:'b'}, aGF);
-  var aM  = el('feMerge', {}, aGF);
-  el('feMergeNode', {in:'b'}, aM);
-  el('feMergeNode', {in:'SourceGraphic'}, aM);
+  /* Beam inner bright core gradient */
+  var bmGc = el('linearGradient', {
+    id:'scBmGc', gradientUnits:'userSpaceOnUse',
+    x1:0, y1:-600, x2:0, y2:80
+  }, defs);
+  el('stop', {'offset':'0%',  'stop-color':'white','stop-opacity':'0'},    bmGc);
+  el('stop', {'offset':'100%','stop-color':'white','stop-opacity':'.30'},  bmGc);
 
-  /* Eye glow */
-  var eGF = el('filter', {id:'scEG', x:'-60%', y:'-60%', width:'220%', height:'220%'}, defs);
-  el('feGaussianBlur', {stdDeviation:'1.4', result:'b'}, eGF);
-  var eM  = el('feMerge', {}, eGF);
+  /* Glow filter for beam and antenna */
+  var bGF = el('filter', {
+    id:'scBGF', x:'-250%', y:'-2%', width:'600%', height:'104%'
+  }, defs);
+  el('feGaussianBlur', {stdDeviation:'3.5', result:'b'}, bGF);
+  var bM = el('feMerge', {}, bGF);
+  el('feMergeNode', {in:'b'}, bM);
+  el('feMergeNode', {in:'SourceGraphic'}, bM);
+
+  /* Eye glow filter */
+  var eGF = el('filter', {
+    id:'scEGF', x:'-80%', y:'-80%', width:'260%', height:'260%'
+  }, defs);
+  el('feGaussianBlur', {stdDeviation:'1.2', result:'b'}, eGF);
+  var eM = el('feMerge', {}, eGF);
   el('feMergeNode', {in:'b'}, eM);
   el('feMergeNode', {in:'SourceGraphic'}, eM);
 
-  /* ── Background ── */
-  el('rect', {width:1440, height:180, fill:'url(#scSky)'}, svg);
+  /* ── Night sky background ── */
+  el('rect', {width:1440, height:280, fill:'url(#scSky)'}, svg);
 
   /* Stars */
   [
-    [22,8,.85],[90,3,.65],[185,9,.7],[350,5,.55],[495,11,.7],
-    [635,4,.5],[820,8,.8],[1000,4,.6],[1145,9,.72],[1300,5,.5],[1405,11,.6]
+    [38,18,1],[95,6,.8],[185,24,1.1],[272,11,.9],[355,21,1],
+    [440,5,.7],[525,14,.9],[612,8,.8],[690,27,1],[775,6,.7],
+    [858,19,1.1],[942,9,.9],[1028,23,1],[1112,5,.7],[1195,15,1],
+    [1280,9,.9],[1388,21,1.1],[1428,7,.7],
+    [58,42,.6],[168,38,.5],[315,44,.7],[478,39,.6],[638,34,.5],
+    [748,47,.7],[898,41,.6],[1055,37,.7],[1248,43,.6],[1378,39,.5]
   ].forEach(function(d) {
-    el('circle', {cx:d[0], cy:d[1], r:d[2], fill:'white', opacity:.32}, svg);
+    el('circle', {cx:d[0], cy:d[1], r:d[2], fill:'white', opacity:.38}, svg);
   });
 
-  /* Faint city skyline hint at horizon */
-  el('rect', {x:0, y:166, width:1440, height:14, fill:'#0a0a1a'}, svg);
+  /* Faint moon glow */
+  el('circle', {cx:1310, cy:28, r:24, fill:'#c8deff', opacity:.055}, svg);
+  el('circle', {cx:1310, cy:28, r:16, fill:'#d8e8ff', opacity:.055}, svg);
 
-  /* ── Building main body (stepped polygon) ── */
-  el('path', {
-    d: 'M 22,12 H 1100 V 50 H 1170 V 88 H 1240 V 126 H 1285 V 165 H 22 Z',
-    fill: 'url(#scBl)'
-  }, svg);
+  /* ── Building definitions ──────────────────────────────────
+     Buildings span the FULL viewBox width (x=0 to x=1440 exactly).
+     Total: 120+155+135+200+165+140+195+155+175 = 1440
 
-  /* Decorative corner blocks at each step (Art Deco look) */
-  el('rect', {x:1094, y:12,  width:12, height:38, fill:'#20203c', rx:1}, svg);
-  el('rect', {x:1164, y:50,  width:12, height:38, fill:'#1b1b34', rx:1}, svg);
-  el('rect', {x:1234, y:88,  width:12, height:38, fill:'#181828', rx:1}, svg);
+     Ground line: y = 270.
+     Window grid:  WW=14, WH=12, col step=24, row step=20
+     Window padding: 10 px H, 12 px V (from building top)
+  ─── */
+  var GROUND = 270;
+  var WW=14, WH=12, WCST=24, WRST=20, WPADH=10, WPADV=12;
 
-  /* Floor separators */
-  el('rect', {x:22, y:49,  width:1078, height:2, fill:'#07071a', opacity:.98}, svg);
-  el('rect', {x:22, y:87,  width:1148, height:2, fill:'#07071a', opacity:.98}, svg);
-  el('rect', {x:22, y:125, width:1218, height:2, fill:'#07071a', opacity:.98}, svg);
+  var BLDGS = [
+    {x:0,    w:120, top:168, col:'#0c1428'},
+    {x:120,  w:155, top:93,  col:'#0d1730'},
+    {x:275,  w:135, top:133, col:'#0b1322'},
+    {x:410,  w:200, top:53,  col:'#0c1526'},
+    {x:610,  w:165, top:98,  col:'#0b1322'},
+    {x:775,  w:140, top:153, col:'#0a1220'},
+    {x:915,  w:195, top:78,  col:'#0d1730'},
+    {x:1110, w:155, top:118, col:'#0c1428'},
+    {x:1265, w:175, top:158, col:'#0b1220'}
+  ];
 
-  /* Top accent band of each floor */
-  el('rect', {x:22, y:12,  width:1078, height:3,   fill:'#38385c', opacity:.65}, svg);
-  el('rect', {x:22, y:51,  width:1148, height:2.5, fill:'#2d2d50', opacity:.45}, svg);
-  el('rect', {x:22, y:89,  width:1218, height:2.5, fill:'#2d2d50', opacity:.40}, svg);
-  el('rect', {x:22, y:127, width:1263, height:2.5, fill:'#2d2d50', opacity:.35}, svg);
+  /* Deterministic window colour lookup */
+  function winCol(bi, row, col) {
+    var h  = (bi * 3 + row * 5 + col * 7) % 11;
+    var h2 = (bi * 5 + row * 7 + col * 11 + 3) % 9;
+    if (h  < 3)  { return ['#f4c040', '.74']; } /* warm lit     */
+    if (h2 < 2)  { return ['#4a9ad5', '.58']; } /* sky-blue reflect */
+    return ['#050d1c', '.92'];                   /* dark / unlit */
+  }
 
-  /* ── Lobby / left end ── */
-  el('rect', {x:22, y:12, width:90, height:153, fill:'#121228'}, svg);
-  /* Sign header band */
-  el('rect', {x:22, y:12, width:90, height:18, fill:'#1e1e3c'}, svg);
-  var signTxt = el('text', {
-    x:67, y:24.5, 'text-anchor':'middle',
-    'font-family':'-apple-system, BlinkMacSystemFont, sans-serif',
-    'font-size':'6.5', fill:'rgba(255,255,255,0.52)',
-    'letter-spacing':'.1em'
-  }, svg);
-  signTxt.textContent = 'SKYCRAWLER';
+  /* Identify which buildings get support beams (tallest ones: top < 130) */
+  var beamBuildings = BLDGS.filter(function(b) { return b.top < 130; });
 
-  /* Lobby upper windows (2 × 1) */
-  el('rect', {x:29, y:35, width:36, height:28, fill:'#0d2340', rx:2}, svg);
-  el('rect', {x:32, y:38, width:30, height:22, fill:'#1a3860', opacity:.88, rx:1}, svg);
-  el('rect', {x:34, y:40, width:8,  height:7,  fill:'white',   opacity:.07, rx:1}, svg);
-  el('rect', {x:68, y:35, width:36, height:28, fill:'#0d2340', rx:2}, svg);
-  el('rect', {x:71, y:38, width:30, height:22, fill:'#1a3860', opacity:.88, rx:1}, svg);
-  el('rect', {x:73, y:40, width:8,  height:7,  fill:'white',   opacity:.07, rx:1}, svg);
+  /* ─ 1. Draw support beams FIRST (rendered behind buildings) ─ */
+  beamBuildings.forEach(function(b) {
+    var cx = b.x + b.w / 2;
+    var beamH = 600 + b.top + 6; /* from y=-600 down to just past rooftop */
 
-  /* Lobby entrance doors */
-  el('rect', {x:29, y:68, width:80, height:97, fill:'#0b1c34', rx:1}, svg);
-  el('rect', {x:35, y:74, width:28, height:87, fill:'#153050', opacity:.88, rx:1}, svg);
-  el('rect', {x:68, y:74, width:28, height:87, fill:'#153050', opacity:.88, rx:1}, svg);
-  el('rect', {x:37, y:76, width:8,  height:14, fill:'white',   opacity:.07, rx:1}, svg);
-  el('rect', {x:70, y:76, width:8,  height:14, fill:'white',   opacity:.07, rx:1}, svg);
-  el('rect', {x:61, y:96, width:2,  height:30, fill:'#4880c0', opacity:.4,  rx:1}, svg);
-  /* Warm light at lobby ceiling */
-  el('rect', {x:29, y:68, width:80, height:6, fill:'#f0c040', opacity:.07, rx:1}, svg);
+    /* Outer glow (wide, soft) */
+    el('rect', {
+      x: cx - 3.5, y: -600,
+      width: 7, height: beamH,
+      fill: 'url(#scBmG)', filter: 'url(#scBGF)'
+    }, svg);
 
-  /* ── Rooftop HVAC / mechanical units ── */
-  [
-    [142,7,22,5], [305,8,16,4], [480,7,20,5],
-    [645,8,16,4], [825,7,22,5], [990,8,18,4]
-  ].forEach(function(d) {
-    el('rect', {x:d[0], y:d[1], width:d[2], height:d[3], fill:'#1e1e38', rx:1}, svg);
+    /* Solid beam */
+    el('rect', {
+      x: cx - 1.8, y: -600,
+      width: 3.6, height: beamH,
+      fill: 'url(#scBmG)'
+    }, svg);
+
+    /* Bright inner core */
+    el('rect', {
+      x: cx - .9, y: -600,
+      width: 1.8, height: beamH,
+      fill: 'url(#scBmGc)'
+    }, svg);
   });
 
-  /* ── Antenna mast + beacon ──
-     Mast rises from y=1 down through the sky, anchors into floor-2 zone.
-     Beacon sits at the very top (y≈1).
-  ── */
-  el('rect', {x:1279, y:1, width:3.5, height:126, fill:'#30305a', opacity:.9}, svg);
-  el('circle', {
-    cx:1280.75, cy:1, r:4.5,
-    fill:'#5227FF', opacity:1, filter:'url(#scAG)'
-  }, svg);
+  /* ─ 2. Draw buildings ─ */
+  BLDGS.forEach(function(b, bi) {
+    var bH = GROUND - b.top;
 
-  /* ── Window grid ──────────────────────────────────── */
-  var WX0   = 115;   /* first column x  */
-  var WSTEP = 40;    /* column spacing  */
-  var WW    = 30;    /* window width    */
-  var WH    = 26;    /* window height   */
-  /* y-top of windows per floor: floor_top + (38-26)/2 = floor_top + 6 */
-  var FY  = [18, 56, 94, 132];
-  /* max columns per floor (limited by setback) */
-  var FMX = [24, 26, 28, 29];
+    /* Body */
+    el('rect', {x:b.x, y:b.top, width:b.w, height:bH, fill:b.col}, svg);
 
-  /* Lit windows (warm office light) */
-  var LIT = {
-    '0-2':1,'0-7':1,'0-11':1,'0-16':1,'0-21':1,
-    '1-0':1,'1-5':1,'1-10':1,'1-14':1,'1-20':1,'1-25':1,
-    '2-3':1,'2-8':1,'2-13':1,'2-18':1,'2-23':1,'2-27':1,
-    '3-1':1,'3-6':1,'3-11':1,'3-16':1,'3-21':1,'3-26':1
-  };
-  /* Sky-reflection windows (bright blue glass) */
-  var REFL = {
-    '0-0':1,'0-5':1,'0-9':1,'0-14':1,'0-19':1,'0-23':1,
-    '1-2':1,'1-7':1,'1-12':1,'1-17':1,'1-22':1,
-    '2-1':1,'2-6':1,'2-11':1,'2-16':1,'2-21':1,'2-25':1,
-    '3-4':1,'3-9':1,'3-14':1,'3-19':1,'3-24':1,'3-28':1
-  };
+    /* Left-edge highlight (subtle 3-D) */
+    el('rect', {x:b.x, y:b.top, width:3, height:bH, fill:'#1c2c4e', opacity:.55}, svg);
 
-  var wg = el('g', {}, svg);
-  FY.forEach(function(fy, row) {
-    for (var c = 0; c < FMX[row]; c++) {
-      var wx  = WX0 + c * WSTEP;
-      var key = row + '-' + c;
-      var fill, op;
-      if      (LIT[key])  { fill = '#f0c040'; op = '.74'; }
-      else if (REFL[key]) { fill = '#5a9ad5'; op = '.55'; }
-      else                { fill = '#0e2442'; op = '.90'; }
-      el('rect', {x:wx, y:fy, width:WW, height:WH, rx:2, fill:fill, opacity:op}, wg);
+    /* Roof edge */
+    el('rect', {x:b.x, y:b.top, width:b.w, height:3, fill:'#1c305a', opacity:.75}, svg);
+
+    /* ── Rooftop details (cartoon flavour) ── */
+    if (bi === 1) {
+      /* Water tower */
+      var tx = b.x + b.w - 32, ty = b.top - 18;
+      el('rect',    {x:tx+2,  y:ty,    width:16, height:18, fill:'#09152a', rx:2}, svg);
+      el('ellipse', {cx:tx+10, cy:ty,   rx:10,   ry:4,      fill:'#0c1c38'}, svg);
+      el('rect',    {x:tx+9,  y:ty-12, width:2,  height:12, fill:'#1a2a48'}, svg); /* flagpole */
+    }
+    if (bi === 3) {
+      /* Tall building antenna — the beam glow helps it look electric */
+      el('rect', {x:b.x+b.w/2-1.5, y:b.top-32, width:3, height:32, fill:'#263050'}, svg);
+      el('circle', {cx:b.x+b.w/2, cy:b.top-32, r:4.5,
+        fill:'#70c4ff', opacity:.95, filter:'url(#scBGF)'}, svg);
+    }
+    if (bi === 6) {
+      /* HVAC units */
+      el('rect', {x:b.x+12,  y:b.top-8, width:22, height:8, fill:'#09152a', rx:1}, svg);
+      el('rect', {x:b.x+46,  y:b.top-6, width:16, height:6, fill:'#09152a', rx:1}, svg);
+      el('rect', {x:b.x+b.w-34, y:b.top-7, width:20, height:7, fill:'#09152a', rx:1}, svg);
+    }
+
+    /* ── Window grid ── */
+    var numCols = Math.floor((b.w - WPADH * 2 + (WCST - WW)) / WCST);
+    var numRows = Math.floor((bH - WPADV + (WRST - WH)) / WRST);
+
+    for (var row = 0; row < numRows; row++) {
+      for (var col = 0; col < numCols; col++) {
+        var wx = b.x + WPADH + col * WCST;
+        var wy = b.top + WPADV + row * WRST;
+        var wc = winCol(bi, row, col);
+        el('rect', {
+          x:wx, y:wy, width:WW, height:WH,
+          rx:1, fill:wc[0], opacity:wc[1]
+        }, svg);
+      }
     }
   });
 
-  /* ── Robots ────────────────────────────────────────
-     Each robot:  14 × 10 px body, two glowing blue eyes, side arms, cleaning pad.
-     Animation:   fade in → crawl → fade out → teleport back → repeat.
-  ── */
+  /* ─ 3. Ground line ─ */
+  el('rect', {x:0, y:270, width:1440, height:10, fill:'#020408'}, svg);
+  el('rect', {x:0, y:270, width:1440, height:1.5, fill:'#2a5888', opacity:.45}, svg);
+
+  /* ─ 4. Robots — appended last so they render above everything ─
+     Each robot crawls across an ENTIRE row of windows on its building.
+     Starting/ending positions are the left/right edge windows of that row.
+     [bldgIndex, row, startCol, dir('r'|'l'), delaySec]
+  ─ */
+  var ROBOTS = [
+    [1, 4, 0,   'r',  0],   /* Building 1 (x=120),  row 4, left → right  */
+    [3, 6, 6,   'l',  5],   /* Building 3 (x=410),  row 6, right → left  */
+    [6, 3, 0,   'r', 10]    /* Building 6 (x=915),  row 3, left → right  */
+  ];
+
   function mkBot() {
     var g = el('g', {}, null);
     /* Body */
     el('rect', {
-      width:13, height:10, rx:2,
-      fill:'#d5d5e8', stroke:'#8585a5', 'stroke-width':'.5'
+      width:12, height:9, rx:1.5,
+      fill:'#d8d8ec', stroke:'#8080a8', 'stroke-width':'.4'
     }, g);
     /* Eyes */
-    [3.2, 9.3].forEach(function(cx) {
-      el('circle', {cx:cx, cy:4, r:2.2, fill:'#060e1a'}, g);
-      el('circle', {cx:cx, cy:4, r:1.3, fill:'#3a8aff', filter:'url(#scEG)'}, g);
+    [3.0, 9.0].forEach(function(cx) {
+      el('circle', {cx:cx, cy:3.5, r:2,   fill:'#03090f'}, g);
+      el('circle', {cx:cx, cy:3.5, r:1.1, fill:'#50a8ff', filter:'url(#scEGF)'}, g);
     });
     /* Arms */
-    el('rect', {x:-4,  y:3.5, width:4,  height:1.8, rx:.8, fill:'#8888a8'}, g);
-    el('rect', {x:13,  y:3.5, width:4,  height:1.8, rx:.8, fill:'#8888a8'}, g);
-    /* Cleaning pad (bottom) */
-    el('rect', {x:1, y:9.5, width:11, height:2, rx:1, fill:'#b8d8f0', opacity:'.85'}, g);
+    el('rect', {x:-3.5, y:3, width:3.5, height:1.5, rx:.7, fill:'#8080a8'}, g);
+    el('rect', {x:12,   y:3, width:3.5, height:1.5, rx:.7, fill:'#8080a8'}, g);
+    /* Cleaning squeegee pad */
+    el('rect', {x:.5,  y:8.5, width:11, height:2, rx:1, fill:'#a8ccee', opacity:'.85'}, g);
     return g;
   }
 
-  var bg = el('g', {}, svg);
+  var botsG = el('g', {}, svg);
 
-  /* [floor, startCol, dir ('r'|'l'), delaySec] */
-  [
-    [1,  0, 'r',  0],   /* floor 1: crawls  left → right */
-    [0, 21, 'l',  4],   /* floor 0: crawls right → left  */
-    [2,  4, 'r',  9],   /* floor 2: crawls  left → right */
-    [3, 26, 'l',  2]    /* floor 3: crawls right → left  */
-  ].forEach(function(d) {
-    var floor = d[0], sCol = d[1], dir = d[2], delay = d[3];
-    var bot   = mkBot();
-    var maxC  = FMX[floor] - 1;
-    var cols  = dir === 'r' ? (maxC - sCol) : sCol;
-    var dist  = cols * WSTEP;                      /* px in SVG units */
-    var dur   = (cols / 0.85).toFixed(1) + 's';   /* ~0.85 cols/sec  */
-    /* Starting position: horizontally centred inside first window */
-    var sx = WX0 + sCol * WSTEP + (WW - 13) / 2;
-    var sy = FY[floor] + (WH - 10) / 2;
-    bot.setAttribute('transform', 'translate(' + sx + ',' + sy + ')');
+  ROBOTS.forEach(function(r) {
+    var bi = r[0], robotRow = r[1], startCol = r[2], dir = r[3], delay = r[4];
+    var b = BLDGS[bi];
+
+    var numCols = Math.floor((b.w - WPADH * 2 + (WCST - WW)) / WCST);
+    var maxCol  = numCols - 1;
+    var cols    = dir === 'r' ? (maxCol - startCol) : startCol;
+    var dist    = cols * WCST;                         /* px in SVG units */
+    var dur     = (cols / 0.65).toFixed(1) + 's';     /* ~0.65 cols/sec  */
+
+    /* Position: robot centred on the starting window */
+    var winX = b.x + WPADH + startCol * WCST + (WW - 12) / 2;
+    var winY = b.top + WPADV + robotRow * WRST + (WH - 9) / 2;
+
+    var bot = mkBot();
+    bot.setAttribute('transform', 'translate(' + winX + ',' + winY + ')');
     bot.style.cssText =
       '--dx:' + dist + 'px;' +
       '--t:'  + dur  + ';' +
       '--dl:' + delay + 's';
     bot.classList.add(dir === 'r' ? 'sc-br' : 'sc-bl');
-    bg.appendChild(bot);
+    botsG.appendChild(bot);
   });
 
-  /* ── Footer text & nav ── */
+  /* ─ Footer text & nav ─ */
   var txt = document.createElement('div');
   txt.className = 'sc-foot-txt';
   txt.textContent = '© 2026 SkyCrawler — Alle rechten voorbehouden.';
@@ -304,8 +335,7 @@
     ['contact.html',      'Contact']
   ].forEach(function(item) {
     var a = document.createElement('a');
-    a.href = item[0];
-    a.textContent = item[1];
+    a.href = item[0]; a.textContent = item[1];
     nav.appendChild(a);
   });
   footer.appendChild(nav);
