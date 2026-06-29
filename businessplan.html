@@ -251,31 +251,18 @@
     .team-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1.2rem;
       margin-top: 3rem;
     }
 
     .team-card {
       border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      padding: 2.4rem 2rem;
-      text-align: center;
-    }
-
-    .team-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--light);
-      margin: 0 auto 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
+      border-radius: 16px;
+      padding: 1.6rem 1.8rem;
     }
 
     .team-name {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: -0.02em;
       color: var(--off-black);
@@ -283,9 +270,10 @@
     }
 
     .team-role {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 300;
       color: var(--mid);
+      line-height: 1.5;
     }
 
     /* ── FOOTER ── */
@@ -355,7 +343,6 @@
   <section class="hero">
     <div class="hero-bg" id="heroBg"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Het Verhaal Achter SkyCrawler</p>
       <h1>Gebouwd door<br>studenten. Gemaakt<br>voor de <em>wereld.</em></h1>
       <p class="hero-sub">Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd.</p>
     </div>
@@ -444,17 +431,14 @@
 
     <div class="team-row">
       <div class="team-card">
-        <div class="team-avatar">M</div>
         <div class="team-name">Mauro Standaert</div>
         <div class="team-role">Co-Founder · Business & Strategie</div>
       </div>
       <div class="team-card">
-        <div class="team-avatar">G</div>
         <div class="team-name">Gaspard Creus</div>
         <div class="team-role">Co-Founder · Mechanica & Hardware</div>
       </div>
       <div class="team-card">
-        <div class="team-avatar">R</div>
         <div class="team-name">Ruben De Ruyter</div>
         <div class="team-role">Co-Founder · Software & AI</div>
       </div>
