@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyCrawler — Techniek</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000;
+      --off-black: #1d1d1f;
+      --mid: #6e6e73;
+      --light: #f5f5f7;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--white);
+      color: var(--off-black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: transparent;
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
+      transition: color 0.18s;
+    }
+
+    nav ul a:hover, nav ul a.active { color: var(--white); }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 1.3rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: -20%;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.6) 100%),
+        url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=3840&q=90&fit=crop') center/cover no-repeat;
+      will-change: transform;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em { font-style: italic; }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    /* ── CONTENT SECTIONS ── */
+    .section {
+      padding: 7rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section + .section {
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--off-black);
+      max-width: 640px;
+      margin-bottom: 2.4rem;
+    }
+
+    .section-title em { font-style: italic; }
+
+    .prose {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.75;
+      max-width: 680px;
+    }
+
+    /* Two-col layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .two-col img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+
+    /* Sub-sections */
+    .sub-section {
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .sub-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.3);
+      margin-bottom: 0.7rem;
+    }
+
+    .sub-title {
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--off-black);
+      margin-bottom: 1.2rem;
+    }
+
+    /* Feature grid (AI section) */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 3.5rem;
+    }
+
+    .feat-card {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 2.4rem 2rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
+                  box-shadow 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
+                  border-color 0.32s;
+    }
+
+    .feat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.18);
+    }
+
+    .feat-card h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--off-black);
+    }
+
+    .feat-card p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+
+    /* Specs */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      margin-top: 3rem;
+    }
+
+    .spec-item {
+      padding: 2.5rem 0 2.5rem 0;
+      border-right: 1px solid rgba(0,0,0,0.1);
+      padding-right: 2rem;
+      margin-right: 2rem;
+    }
+
+    .spec-item:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+
+    .spec-value {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--off-black);
+      margin-bottom: 0.3rem;
+    }
+
+    .spec-label {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--mid);
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 3.5rem;
+    }
+
+    .stat-card {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 2.4rem 2rem;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--off-black);
+    }
+
+    .stat-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--mid);
+      margin-top: 0.4rem;
+    }
+
+    /* Full-width image */
+    .full-img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .img-wrap {
+      padding: 0 3rem;
+      max-width: 1100px;
+      margin: 0 auto 7rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--off-black);
+      text-decoration: none;
+    }
+
+    footer p { font-size: 0.78rem; color: var(--mid); }
+
+    .foot-links { display: flex; gap: 1.8rem; }
+    .foot-links a {
+      font-size: 0.78rem;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .foot-links a:hover { color: var(--off-black); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1.5rem; }
+      .hamburger { display: block; }
+      nav ul {
+        display: none; position: fixed; inset: 0;
+        flex-direction: column; align-items: center; justify-content: center;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
+      }
+      nav ul.open { display: flex; }
+      nav ul.open a { font-size: 1.5rem; color: var(--white); }
+      .section { padding: 4rem 1.5rem; }
+      .feat-grid, .specs-grid, .stats-row { grid-template-columns: 1fr; }
+      .img-wrap { padding: 0 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <nav>
+      <a class="logo-text" href="home.html">SkyCrawler</a>
+      <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="techniek.html" class="active">Techniek</a></li>
+        <li><a href="tarieven.html">Tarieven</a></li>
+        <li><a href="businessplan.html">Businessplan</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Geavanceerde Robotica</p>
+      <h1>Ongeëvenaarde<br><em>Precisie.</em></h1>
+      <p class="hero-sub">De revolutionaire technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken.</p>
+    </div>
+  </section>
+
+  <!-- MECHANICS -->
+  <div class="section">
+    <p class="section-label">Geavanceerde Mechanica</p>
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">Dynamische Voortbeweging & Verankering</h2>
+        <p class="prose">Tijdens het reinigen blijft de robot veilig verankerd door twee lange horizontale zuignappen (boven en onder) en twee verticale zuignappen (zijkanten). Terwijl de boven- en onderkant vastzitten, glijdt het hoofdlichaam onafhankelijk zijwaarts over de gevel in een efficiënte slangbeweging.</p>
+
+        <div class="sub-section">
+          <p class="sub-label">Actieradius</p>
+          <h3 class="sub-title">Maximalisatie van de Range of Motion</h3>
+          <p class="prose">De robot heeft van bovenaf gezien een vierkante vorm met aan alle vier de randen een langwerpige zuignap. Tijdens het zijwaarts wassen zijn de horizontale strips verankerd, terwijl het lichaam soepel tussendoor glijdt. Zodra de ROM bereikt is, nemen de verticale zij-nappen het over — een naadloze stafettewissel.</p>
+        </div>
+
+        <div class="sub-section">
+          <p class="sub-label">Raam-tot-Raam Transfer</p>
+          <h3 class="sub-title">Over randen en kozijnen</h3>
+          <p class="prose">Twee robuuste robotarmen met zware vacuümpads grijpen het volgende raam stevig vast. Pas daarna ontkoppelt het hoofdlichaam, waarna de robot zichzelf veilig naar de nieuwe positie trekt.</p>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?w=1600&q=85&fit=crop" alt="Robot mechanica" />
+    </div>
+  </div>
+
+  <!-- AI / SOFTWARE -->
+  <div class="section">
+    <p class="section-label">Intelligente Software</p>
+    <h2 class="section-title">Slimme AI ontmoet ecologisch design.</h2>
+    <p class="prose">SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid.</p>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <h4>Weersvoorspelling</h4>
+        <p>De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is.</p>
+      </div>
+      <div class="feat-card">
+        <h4>Slimme Routeplanning</h4>
+        <p>Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau.</p>
+      </div>
+      <div class="feat-card">
+        <h4>Ecologisch Wassen</h4>
+        <p>Gefilterd regenwater en sterk gereduceerde ecologische zepen, in combinatie met microvezelborstels — streeploos zonder chemische vervuiling.</p>
+      </div>
+      <div class="feat-card">
+        <h4>Auto-Dock & Recharge</h4>
+        <p>Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen.</p>
+      </div>
+      <div class="feat-card">
+        <h4>Toekomst: Inspecties</h4>
+        <p>Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord.</p>
+      </div>
+      <div class="feat-card">
+        <h4>Drievoudige Veiligheid</h4>
+        <p>Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL IMAGE -->
+  <div class="img-wrap">
+    <img class="full-img" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=3840&q=85&fit=crop" alt="Technologie" />
+  </div>
+
+  <!-- SPECS -->
+  <div class="section">
+    <p class="section-label">Technische Specificaties</p>
+    <h2 class="section-title">Gemaakt voor extreme omgevingen.</h2>
+    <p class="prose">Ontworpen voor prestaties in ijzige kou tot intense hitte.</p>
+
+    <div class="specs-grid">
+      <div class="spec-item">
+        <div class="spec-value">18.4 kg</div>
+        <div class="spec-label">Chassis & Drooggewicht</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-value">680 N</div>
+        <div class="spec-label">Zuigkracht per vacuümpad</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-value">50 / u</div>
+        <div class="spec-label">Ramen gereinigd per uur</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-value">125 km/u</div>
+        <div class="spec-label">Windbestendigheid</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-value">6.5 u</div>
+        <div class="spec-label">Batterijduur continu</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-value">5G</div>
+        <div class="spec-label">Telemetrie & LiDAR Mesh</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val">100%</div>
+        <div class="stat-desc">Ecologische zepen & regenwater</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">0</div>
+        <div class="stat-desc">Risico's voor mensen op hoogte</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">24/7</div>
+        <div class="stat-desc">Weer-gebaseerde inzetbaarheid</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-brand" href="home.html">SkyCrawler</a>
+    <p>© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
+    <div class="foot-links">
+      <a href="tarieven.html">Tarieven</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('heroBg').style.transform =
+        `translateY(${window.scrollY * 0.4}px)`;
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

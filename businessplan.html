@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyCrawler — Businessplan</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000;
+      --off-black: #1d1d1f;
+      --mid: #6e6e73;
+      --light: #f5f5f7;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--white);
+      color: var(--off-black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--off-black);
+      text-decoration: none;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2.2rem; }
+
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--mid);
+      transition: color 0.18s;
+    }
+
+    nav ul a:hover, nav ul a.active { color: var(--off-black); }
+
+    .hamburger {
+      display: none;
+      background: none; border: none;
+      cursor: pointer; color: var(--off-black); font-size: 1.3rem;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 10rem 3rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.06;
+      color: var(--off-black);
+      margin-bottom: 1.4rem;
+    }
+
+    .page-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ── CANVAS GRID ── */
+    .canvas {
+      padding: 6rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+
+    .canvas-card {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 2.6rem 2.4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
+                  box-shadow 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
+                  border-color 0.32s;
+    }
+
+    .canvas-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.18);
+    }
+
+    .canvas-card.wide {
+      grid-column: span 2;
+    }
+
+    .canvas-card.full {
+      grid-column: span 3;
+    }
+
+    .card-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.28);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: var(--off-black);
+    }
+
+    .card-body {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.72;
+    }
+
+    .card-body ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-body ul li::before {
+      content: '— ';
+      color: rgba(0,0,0,0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--off-black); text-decoration: none;
+    }
+
+    footer p { font-size: 0.78rem; color: var(--mid); }
+
+    .foot-links { display: flex; gap: 1.8rem; }
+    .foot-links a {
+      font-size: 0.78rem; color: var(--mid);
+      text-decoration: none; transition: color 0.18s;
+    }
+    .foot-links a:hover { color: var(--off-black); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .canvas-grid { grid-template-columns: 1fr 1fr; }
+      .canvas-card.wide, .canvas-card.full { grid-column: span 2; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1.5rem; }
+      .hamburger { display: block; }
+      nav ul {
+        display: none; position: fixed; inset: 0;
+        flex-direction: column; align-items: center; justify-content: center;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
+      }
+      nav ul.open { display: flex; }
+      nav ul.open a { font-size: 1.5rem; color: var(--white); }
+      .page-header, .canvas { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .canvas-grid { grid-template-columns: 1fr; }
+      .canvas-card.wide, .canvas-card.full { grid-column: span 1; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo-text" href="home.html">SkyCrawler</a>
+    <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="techniek.html">Techniek</a></li>
+      <li><a href="tarieven.html">Tarieven</a></li>
+      <li><a href="businessplan.html" class="active">Businessplan</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="section-label">Business Model Canvas</p>
+    <h1 class="page-title">Ons Business Model</h1>
+    <p class="page-sub">Transparantie is een van onze kernwaarden. Bekijk hier hoe SkyCrawler is opgebouwd via ons Business Model Canvas.</p>
+  </div>
+
+  <div class="canvas">
+    <div class="canvas-grid">
+
+      <div class="canvas-card">
+        <p class="card-label">01</p>
+        <h3 class="card-title">Key Partners</h3>
+        <div class="card-body">
+          <ul>
+            <li>Chemiebedrijven voor gespecialiseerde zeep en kuisproducten</li>
+            <li>Wolkenkrabberbouwers zoals Besix</li>
+            <li>Investeerders voor financiële ondersteuning</li>
+            <li>AI-datacenters (op termijn) voor geveldata-analyse</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">02</p>
+        <h3 class="card-title">Key Activities</h3>
+        <div class="card-body">
+          <ul>
+            <li>Plaatsen van robots en oplaadstations</li>
+            <li>Productie en assemblage van de robots</li>
+            <li>Periodiek onderhoud van geplaatste robots</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">03</p>
+        <h3 class="card-title">Key Resources</h3>
+        <div class="card-body">
+          <ul>
+            <li>Intellectueel eigendomsrecht & patenten</li>
+            <li>Diepgaande technische engineering expertise</li>
+            <li>Gespecialiseerd personeel voor onderhoud en service</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card wide">
+        <p class="card-label">04</p>
+        <h3 class="card-title">Value Propositions</h3>
+        <div class="card-body">
+          <ul>
+            <li>Efficiëntie — een weinig arbeidsintensieve manier van ramen wassen</li>
+            <li>Veiligheid — geen menselijke arbeiders meer op grote hoogtes</li>
+            <li>Innovatie — dagelijkse verbetering van onze technologieën</li>
+            <li>24/7 Flexibiliteit — geen overuren, pauzes of daglicht nodig</li>
+            <li>Consistentie — menselijke fouten volledig geëlimineerd</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">05</p>
+        <h3 class="card-title">Customer Relationships</h3>
+        <div class="card-body">
+          <ul>
+            <li>Toegewijde, langdurige B2B-relaties</li>
+            <li>Persoonlijk en direct contact</li>
+            <li>Techniekers altijd bereikbaar en stand-by</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">06</p>
+        <h3 class="card-title">Channels</h3>
+        <div class="card-body">
+          <ul>
+            <li>Website, e-mail en telefoon</li>
+            <li>Technologiebeurzen en demonstraties</li>
+            <li>Strategische introducties via partners</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">07</p>
+        <h3 class="card-title">Customer Segments</h3>
+        <div class="card-body">
+          <ul>
+            <li>B2B — beheerders van grote wolkenkrabbers</li>
+            <li>B2C — zeldzame particulieren met wolkenkrabbers</li>
+            <li>Focusmarkt — initiële lancering in regio Brussel</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">08</p>
+        <h3 class="card-title">Cost Structure</h3>
+        <div class="card-body">
+          <ul>
+            <li>Productiekosten robots en oplaadstations</li>
+            <li>Doorlopend onderhoud en materialen</li>
+            <li>Personeelskosten — ontwikkeling, verkoop, techniekers</li>
+            <li>Op termijn: AI-datacenters en data-analyse</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="canvas-card">
+        <p class="card-label">09</p>
+        <h3 class="card-title">Revenue Streams</h3>
+        <div class="card-body">
+          <ul>
+            <li>Setup fee — eenmalige installatie van infrastructuur</li>
+            <li>Abonnementsmodel — vaste maandelijkse betalingen voor gebruik, service en onderhoud</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-brand" href="home.html">SkyCrawler</a>
+    <p>© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
+    <div class="foot-links">
+      <a href="tarieven.html">Tarieven</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

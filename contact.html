@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyCrawler — Contact</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000;
+      --off-black: #1d1d1f;
+      --mid: #6e6e73;
+      --light: #f5f5f7;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--white);
+      color: var(--off-black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: transparent;
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2.2rem; }
+
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
+      transition: color 0.18s;
+    }
+
+    nav ul a:hover, nav ul a.active { color: var(--white); }
+
+    .hamburger {
+      display: none;
+      background: none; border: none;
+      cursor: pointer; color: var(--white); font-size: 1.3rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: -20%;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.65) 100%),
+        url('https://4kwallpapers.com/images/wallpapers/futuristic-modern-2560x1440-12471.jpg') center/cover no-repeat;
+      will-change: transform;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em { font-style: italic; }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 500px;
+      line-height: 1.65;
+    }
+
+    /* ── ORIGIN SECTION ── */
+    .section {
+      padding: 7rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section + .section { border-top: 1px solid rgba(0,0,0,0.08); }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--off-black);
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .prose {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.75;
+      max-width: 620px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .two-col img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+
+    /* ── CONTACT INFO ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .info-card {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 2.4rem 2.4rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .info-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.28);
+      margin-bottom: 0.4rem;
+    }
+
+    .info-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--off-black);
+      margin-bottom: 0.4rem;
+    }
+
+    .info-card p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+
+    /* ── FORM ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-full { grid-column: span 2; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .field label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--off-black);
+      letter-spacing: 0.01em;
+    }
+
+    .field input,
+    .field textarea {
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(0,0,0,0.14);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--off-black);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(0,0,0,0.4);
+    }
+
+    .field textarea { min-height: 130px; }
+
+    .btn-submit {
+      margin-top: 1.2rem;
+      padding: 0.85rem 2.4rem;
+      background: var(--off-black);
+      color: var(--white);
+      border: none;
+      border-radius: 980px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--black);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--off-black); text-decoration: none;
+    }
+
+    footer p { font-size: 0.78rem; color: var(--mid); }
+
+    .foot-links { display: flex; gap: 1.8rem; }
+    .foot-links a {
+      font-size: 0.78rem; color: var(--mid);
+      text-decoration: none; transition: color 0.18s;
+    }
+    .foot-links a:hover { color: var(--off-black); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .hamburger { display: block; }
+      nav ul {
+        display: none; position: fixed; inset: 0;
+        flex-direction: column; align-items: center; justify-content: center;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
+      }
+      nav ul.open { display: flex; }
+      nav ul.open a { font-size: 1.5rem; color: var(--white); }
+      .section { padding: 4rem 1.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid, .form-grid { grid-template-columns: 1fr; }
+      .form-full { grid-column: span 1; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <nav>
+      <a class="logo-text" href="home.html">SkyCrawler</a>
+      <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="techniek.html">Techniek</a></li>
+        <li><a href="tarieven.html">Tarieven</a></li>
+        <li><a href="businessplan.html">Businessplan</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Gedreven door Innovatie</p>
+      <h1>Gebouwd in<br><em>België.</em></h1>
+      <p class="hero-sub">Leer het team achter SkyCrawler kennen — drie ingenieursstudenten met één gezamenlijke missie.</p>
+    </div>
+  </section>
+
+  <!-- ORIGIN -->
+  <div class="section">
+    <p class="section-label">Onze Oorsprong</p>
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">Van UGent-lab tot internationale ambities.</h2>
+        <p class="prose">SkyCrawler werd opgericht aan de Universiteit Gent door Mauro Standaert, Gaspard Creus en Ruben De Ruyter. Wat begon als een fictief project voor de DOE-week groeide uit tot een werkelijk bedrijf met internationale ambities.</p>
+        <p class="prose" style="margin-top: 1.2rem;">Van Brussel tot Dubai — overal waar wolkenkrabbers staan, hoort SkyCrawler thuis.</p>
+      </div>
+      <img src="https://www.ringcentral.com/gb/en/blog/wp-content/uploads/2021/05/happy-manager-leads-a-meeting-in-the-office-640x427.jpg" alt="Team SkyCrawler" />
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <p class="section-label">Neem Contact Op</p>
+    <h2 class="section-title">Interesse in een pilotproject of investering?</h2>
+
+    <div class="contact-grid">
+      <div class="info-card">
+        <p class="info-label">Hoofdkwartier</p>
+        <h4>Locatie</h4>
+        <p>Gent / Technologiepark Zwijnaarde<br>Oost-Vlaanderen, België</p>
+      </div>
+      <div class="info-card">
+        <p class="info-label">E-mail</p>
+        <h4>Direct Contact</h4>
+        <p>contact@skycrawler.com<br>invest@skycrawler.com</p>
+      </div>
+      <div class="info-card" style="grid-column: span 2;">
+        <p class="info-label">Academische Partners</p>
+        <h4>Universiteit Gent</h4>
+        <p>Faculteit Ingenieurswetenschappen</p>
+      </div>
+    </div>
+
+    <form onsubmit="return false;">
+      <div class="form-grid">
+        <div class="field">
+          <label>Voornaam</label>
+          <input type="text" placeholder="Jan" />
+        </div>
+        <div class="field">
+          <label>Achternaam</label>
+          <input type="text" placeholder="Janssen" />
+        </div>
+        <div class="field">
+          <label>Bedrijf / Organisatie</label>
+          <input type="text" placeholder="Besix NV" />
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" placeholder="jan@besix.com" />
+        </div>
+        <div class="field form-full">
+          <label>Onderwerp</label>
+          <input type="text" placeholder="Pilotproject, investering, ..." />
+        </div>
+        <div class="field form-full">
+          <label>Bericht</label>
+          <textarea placeholder="Vertel ons meer over uw project of vraag..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">Verstuur Bericht</button>
+    </form>
+  </div>
+
+  <footer>
+    <a class="footer-brand" href="home.html">SkyCrawler</a>
+    <p>© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
+    <div class="foot-links">
+      <a href="tarieven.html">Tarieven</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('heroBg').style.transform =
+        `translateY(${window.scrollY * 0.4}px)`;
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

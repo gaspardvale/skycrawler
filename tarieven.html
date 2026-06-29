@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyCrawler — Tarieven</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000;
+      --off-black: #1d1d1f;
+      --mid: #6e6e73;
+      --light: #f5f5f7;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--white);
+      color: var(--off-black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV (fixed, dark text — no hero image on this page) ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--off-black);
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--mid);
+      transition: color 0.18s;
+    }
+
+    nav ul a:hover, nav ul a.active { color: var(--off-black); }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--off-black);
+      font-size: 1.3rem;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 10rem 3rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.06;
+      color: var(--off-black);
+      max-width: 600px;
+      margin-bottom: 1.4rem;
+    }
+
+    .page-title em { font-style: italic; }
+
+    .page-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--mid);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ── CALCULATOR ── */
+    .calculator {
+      padding: 6rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .calc-panel {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 3rem 2.8rem;
+    }
+
+    .panel-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 2.2rem;
+    }
+
+    .field {
+      margin-bottom: 2.2rem;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--off-black);
+      margin-bottom: 0.8rem;
+    }
+
+    .field label span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--off-black);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 2px;
+      background: rgba(0,0,0,0.12);
+      outline: none;
+      border-radius: 2px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--off-black);
+      cursor: pointer;
+    }
+
+    /* Output panel */
+    .output-panel {
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 20px;
+      padding: 3rem 2.8rem;
+      background: var(--light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .output-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .output-row:last-of-type { border-bottom: none; }
+
+    .output-row .label {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--mid);
+    }
+
+    .output-row .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--off-black);
+      letter-spacing: -0.02em;
+    }
+
+    .output-total {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .output-total .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .output-total .capex {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--off-black);
+    }
+
+    .output-total .opex {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--mid);
+      margin-top: 0.3rem;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      margin-top: 2.4rem;
+      padding: 0.85rem 2.2rem;
+      background: var(--off-black);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 980px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn-cta:hover {
+      background: var(--black);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--off-black);
+      text-decoration: none;
+    }
+
+    footer p { font-size: 0.78rem; color: var(--mid); }
+
+    .foot-links { display: flex; gap: 1.8rem; }
+    .foot-links a {
+      font-size: 0.78rem; color: var(--mid);
+      text-decoration: none; transition: color 0.18s;
+    }
+    .foot-links a:hover { color: var(--off-black); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .hamburger { display: block; }
+      nav ul {
+        display: none; position: fixed; inset: 0;
+        flex-direction: column; align-items: center; justify-content: center;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
+      }
+      nav ul.open { display: flex; }
+      nav ul.open a { font-size: 1.5rem; color: var(--white); }
+      .page-header, .calculator { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .calc-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo-text" href="home.html">SkyCrawler</a>
+    <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="techniek.html">Techniek</a></li>
+      <li><a href="tarieven.html" class="active">Tarieven</a></li>
+      <li><a href="businessplan.html">Businessplan</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="section-label">Prijsmodel</p>
+    <h1 class="page-title">Doordachte prijzen,<br>gesteund door <em>Analyse.</em></h1>
+    <p class="page-sub">Het prijsmodel schaalt mee met uw behoeften. Pas de parameters aan om de optimale vlootgrootte en koststructuur te berekenen. Minimale afname: 4 robots per project.</p>
+  </div>
+
+  <div class="calculator">
+    <div class="calc-grid">
+      <div class="calc-panel">
+        <p class="panel-title">Gebouw Parameters</p>
+
+        <div class="field">
+          <label>Totale geveloppervlakte (glas) <span id="oppLabel">5.000 m²</span></label>
+          <input type="range" id="opp" min="1000" max="50000" step="500" value="5000">
+        </div>
+
+        <div class="field">
+          <label>Gewenste snelheid (dagen / beurt) <span id="snelLabel">14 dagen</span></label>
+          <input type="range" id="snel" min="3" max="60" step="1" value="14">
+        </div>
+
+        <div class="field">
+          <label>Rondes per jaar <span id="rondesLabel">4×</span></label>
+          <input type="range" id="rondes" min="1" max="52" step="1" value="4">
+        </div>
+      </div>
+
+      <div class="output-panel">
+        <p class="panel-title">Infrastructuur & Kosten</p>
+
+        <div>
+          <div class="output-row">
+            <span class="label">Robots (min. 4)</span>
+            <span class="value" id="outRobots">4</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Basisstations</span>
+            <span class="value" id="outStations">2</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Reinigingsbeurten / jaar</span>
+            <span class="value" id="outRondes">4</span>
+          </div>
+        </div>
+
+        <div class="output-total">
+          <p class="label">Eenmalige installatie (CapEx)</p>
+          <p class="capex" id="outCapex">€ —</p>
+          <p class="opex" id="outOpex">€ — / maand</p>
+        </div>
+
+        <a href="contact.html" class="btn-cta">Vraag maatwerk offerte aan</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-brand" href="home.html">SkyCrawler</a>
+    <p>© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
+    <div class="foot-links">
+      <a href="techniek.html">Techniek</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const opp    = document.getElementById('opp');
+    const snel   = document.getElementById('snel');
+    const rondes = document.getElementById('rondes');
+
+    function fmt(n) { return '€ ' + Math.round(n).toLocaleString('nl-BE'); }
+
+    function calc() {
+      const o = +opp.value, s = +snel.value, r = +rondes.value;
+
+      document.getElementById('oppLabel').textContent    = o.toLocaleString('nl-BE') + ' m²';
+      document.getElementById('snelLabel').textContent   = s + ' dagen';
+      document.getElementById('rondesLabel').textContent = r + '×';
+
+      const robots   = Math.max(4, Math.ceil(o / (50 * 8 * s)));
+      const stations = Math.max(2, Math.ceil(robots / 2));
+
+      document.getElementById('outRobots').textContent   = robots;
+      document.getElementById('outStations').textContent = stations;
+      document.getElementById('outRondes').textContent   = r;
+
+      const capex = robots * 85000 + stations * 22000;
+      const opex  = robots * 1200 + stations * 300 + (o * r * 0.04) / 12;
+
+      document.getElementById('outCapex').textContent = fmt(capex);
+      document.getElementById('outOpex').textContent  = fmt(opex) + ' / maand';
+    }
+
+    [opp, snel, rondes].forEach(el => el.addEventListener('input', calc));
+    calc();
+  </script>
+
+</body>
+</html>
