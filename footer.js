@@ -31,17 +31,22 @@
     '.sc-fnav:hover text{fill:rgba(255,255,255,.88)}' +
     /* VALE bottom strip */
     '.sc-vale-bar{' +
-      'display:flex;align-items:center;justify-content:center;gap:8px;' +
-      'padding:.55rem 2rem .45rem;background:#0a1628' +
+      'display:flex;align-items:center;justify-content:center;gap:10px;' +
+      'padding:.6rem 2rem .5rem;background:#0a1628' +
+    '}' +
+    '.sc-horse-logo{' +
+      'height:26px;vertical-align:middle;' +
+      'filter:brightness(0) saturate(100%) invert(1) sepia(1) saturate(500%) hue-rotate(185deg) drop-shadow(0 0 10px rgba(88,182,255,.85))' +
     '}' +
     '.sc-pwr-by{' +
       'font-size:.6rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
-      'letter-spacing:.28em;text-transform:uppercase;color:rgba(88,182,255,.35)' +
+      'letter-spacing:.28em;text-transform:uppercase;color:rgba(88,182,255,.45)' +
     '}' +
-    '.sc-vale-logo{' +
-      'height:24px;opacity:.82;' +
-      'filter:drop-shadow(0 0 8px rgba(88,182,255,.6));' +
-      'vertical-align:middle' +
+    '.sc-vale-word{' +
+      'font-size:.82rem;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;' +
+      'font-weight:700;letter-spacing:.18em;text-transform:uppercase;' +
+      'color:#58b6ff;' +
+      'text-shadow:0 0 12px rgba(88,182,255,.9),0 0 28px rgba(88,182,255,.45)' +
     '}' +
     /* copyright */
     '.sc-foot-txt{' +
@@ -437,7 +442,7 @@
   /* ─── Bottom strips ──────────────────────────────────────── */
   var valeBar = document.createElement('div');
   valeBar.className = 'sc-vale-bar';
-  valeBar.innerHTML = '<span class="sc-pwr-by">POWERED BY</span><img src="vale-logo-white-letters-transparant-background.png" alt="VALE" class="sc-vale-logo">';
+  valeBar.innerHTML = '<img src="horseman_logo_transparent.png" alt="" class="sc-horse-logo"><span class="sc-pwr-by">POWERED BY</span><span class="sc-vale-word">Vale</span>';
   footer.appendChild(valeBar);
 
   var copy = document.createElement('div');
