@@ -94,16 +94,13 @@
     nav.light-mode ul a:hover { color: rgba(0,0,0,0.35); }
 
     /* ── PAGE HEADER BAND ── */
+    .silk-hero-wrap { position: relative; }
     .silk-hero {
       position: relative;
       height: 60vh;
       min-height: 420px;
       max-height: 700px;
       overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding: calc(64px + 3rem) 8vw 4rem;
       background: #ffffff; /* fallback before Three.js boots */
     }
 
@@ -115,11 +112,11 @@
       height: 140%;
     }
 
-    .silk-hero-content {
+    .silk-hero-header {
       position: relative;
-      z-index: 2;
-      text-align: left;
-      max-width: 600px;
+      z-index: 5;
+      margin-top: -110px;
+      padding: 0 8vw 4.5rem;
     }
 
     .section-label {
@@ -441,7 +438,8 @@
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .silk-hero-content, .calculator { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .silk-hero-header { margin-top: -80px; padding: 0 1.5rem 3rem; }
+      .calculator { padding-left: 1.5rem; padding-right: 1.5rem; }
       .calc-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
@@ -473,16 +471,18 @@
     </ul>
   </nav>
 
-  <section class="silk-hero">
-    <canvas id="silkCanvas"></canvas>
-    <div class="silk-hero-content">
+  <div class="silk-hero-wrap">
+    <section class="silk-hero">
+      <canvas id="silkCanvas"></canvas>
+    </section>
+    <div class="silk-hero-header">
       <div class="pricing-panel">
         <p class="section-label" data-nl="Prijsmodel" data-en="Pricing Model">Prijsmodel</p>
         <h1 class="page-title"><span data-nl="Doordachte prijzen," data-en="Thoughtful pricing,">Doordachte prijzen,</span><br><span data-nl="gesteund door Analyse." data-en="backed by Analysis.">gesteund door Analyse.</span></h1>
         <p class="page-sub" data-nl="Het prijsmodel schaalt mee met uw behoeften. Pas de parameters aan om de optimale vlootgrootte en koststructuur te berekenen. Minimale afname: 4 robots per project." data-en="The pricing model scales with your needs. Adjust the parameters to calculate the optimal fleet size and cost structure. Minimum order: 4 robots per project.">Het prijsmodel schaalt mee met uw behoeften. Pas de parameters aan om de optimale vlootgrootte en koststructuur te berekenen. Minimale afname: 4 robots per project.</p>
       </div>
     </div>
-  </section>
+  </div>
 
   <div class="content-area" id="calculator"><div class="calculator">
     <div class="calc-grid">
