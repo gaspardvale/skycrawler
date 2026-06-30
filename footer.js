@@ -51,9 +51,19 @@
       'color:#1d1d1f;transition:color .18s' +
     '}' +
     '.sc-links a:hover{color:#6e6e73}' +
+    '#sc-vale{' +
+      'display:flex;align-items:center;justify-content:center;gap:.65rem;' +
+      'padding:1.4rem 0;border-top:1px solid rgba(0,0,0,0.06);' +
+      'max-width:1180px;margin:0 auto' +
+    '}' +
+    '#sc-vale-horse{height:22px;width:auto;opacity:.45}' +
+    '#sc-vale>span{font-size:.68rem;font-weight:500;letter-spacing:.15em;' +
+      'text-transform:uppercase;color:rgba(0,0,0,.32)}' +
+    '#sc-vale strong{font-weight:700;color:rgba(0,0,0,.48)}' +
     '#sc-btm{' +
       'display:flex;align-items:center;justify-content:space-between;' +
-      'padding-top:1.8rem;max-width:1180px;margin:0 auto' +
+      'padding-top:1.4rem;max-width:1180px;margin:0 auto;' +
+      'border-top:1px solid rgba(0,0,0,0.06)' +
     '}' +
     '#sc-btm span{font-size:.72rem;color:rgba(0,0,0,.32)}' +
     '@media(max-width:900px){' +
@@ -225,6 +235,10 @@
       '</div>' +
     '</div>' +
 
+    '<div id="sc-vale">' +
+      '<img src="horseman_logo_transparent.png" id="sc-vale-horse" alt="VALE" />' +
+      '<span>' + (nl ? 'Mogelijk gemaakt door' : 'Powered by') + ' <strong>VALE</strong></span>' +
+    '</div>' +
     '<div id="sc-btm">' +
       '<span>' + (nl ? '© 2026 SkyCrawler — Alle rechten voorbehouden.' : '© 2026 SkyCrawler — All rights reserved.') + '</span>' +
       '<span>' + (nl ? 'Gebouwd in Gent, België.' : 'Built in Ghent, Belgium.') + '</span>' +
