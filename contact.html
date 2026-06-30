@@ -81,7 +81,9 @@
     .contact-hero {
       background: #07070f;
       position: relative; overflow: hidden;
-      padding: calc(64px + 6rem) 8vw 7rem;
+      min-height: 60vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: calc(64px + 4rem) 8vw 6rem;
     }
     .contact-hero::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
