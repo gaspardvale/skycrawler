@@ -24,35 +24,36 @@
 
     /* ── FIXED CHROME ── */
     .site-logo { position: fixed; top: 0; left: 0; z-index: 210; height: 64px; display: flex; align-items: center; padding: 0 3rem; }
-    .nav-logo { height: 26px; width: auto; display: block; filter: brightness(0) invert(1); transition: filter 0.35s; }
-    .logo-scrolled .nav-logo { filter: none; }
+    .nav-logo { height: 26px; width: auto; display: block; filter: none; transition: filter 0.35s; }
+    .logo-on-dark .nav-logo { filter: brightness(0) invert(1); }
     .site-lang { position: fixed; top: 0; right: 0; z-index: 210; height: 64px; display: flex; align-items: center; gap: 1rem; padding: 0 3rem; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: flex-start; padding-left: calc(3rem + 26px + 2rem); height: 64px; background: transparent; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), background 0.3s, border-color 0.3s; pointer-events: none; border-bottom: 1px solid transparent; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: flex-start; padding-left: calc(3rem + 26px + 2rem); height: 64px; background: transparent; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); pointer-events: none; }
     nav.nav-hidden { transform: translateY(-100%); }
-    nav.nav-scrolled { background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: rgba(0,0,0,0.08); }
     nav ul { list-style: none; display: flex; gap: 2rem; pointer-events: auto; }
-    nav ul a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: rgba(255,255,255,0.8); transition: color 0.3s; letter-spacing: -0.01em; }
-    nav ul a:hover { color: rgba(255,255,255,0.4); }
-    nav.nav-scrolled ul a { color: rgba(0,0,0,0.65); }
-    nav.nav-scrolled ul a:hover { color: rgba(0,0,0,0.35); }
+    nav ul a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: rgba(0,0,0,0.6); transition: color 0.3s; letter-spacing: -0.01em; }
+    nav ul a:hover { color: rgba(0,0,0,0.3); }
+    nav.nav-on-dark ul a { color: rgba(255,255,255,0.8); }
+    nav.nav-on-dark ul a:hover { color: rgba(255,255,255,0.4); }
     .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--off-black); font-size: 1.3rem; }
-    .lang-toggle { display: flex; align-items: center; gap: 0.38rem; border: 1px solid rgba(255,255,255,0.28); border-radius: 980px; padding: 0.28rem 0.82rem; transition: border-color 0.3s; }
-    .lang-btn { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; color: rgba(255,255,255,0.42); padding: 0; transition: color 0.3s; line-height: 1; }
-    .lang-btn.active { color: rgba(255,255,255,0.9); }
-    .lang-sep { font-size: 0.6rem; color: rgba(255,255,255,0.18); user-select: none; }
-    .lang-scrolled .lang-toggle { border-color: rgba(0,0,0,0.16); }
-    .lang-scrolled .lang-btn { color: rgba(0,0,0,0.28); }
-    .lang-scrolled .lang-btn.active { color: rgba(0,0,0,0.88); }
-    .lang-scrolled .lang-sep { color: rgba(0,0,0,0.16); }
+    .lang-toggle { display: flex; align-items: center; gap: 0.38rem; border: 1px solid rgba(0,0,0,0.16); border-radius: 980px; padding: 0.28rem 0.82rem; transition: border-color 0.3s; }
+    .lang-btn { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; color: rgba(0,0,0,0.28); padding: 0; transition: color 0.3s; line-height: 1; }
+    .lang-btn.active { color: rgba(0,0,0,0.88); }
+    .lang-sep { font-size: 0.6rem; color: rgba(0,0,0,0.16); user-select: none; }
+    .lang-on-dark .lang-toggle { border-color: rgba(255,255,255,0.28); }
+    .lang-on-dark .lang-btn { color: rgba(255,255,255,0.42); }
+    .lang-on-dark .lang-btn.active { color: rgba(255,255,255,0.9); }
+    .lang-on-dark .lang-sep { color: rgba(255,255,255,0.18); }
 
     /* ── HERO ── */
-    .t-hero { position: relative; height: 100vh; min-height: 620px; overflow: hidden; display: flex; align-items: flex-end; }
-    .t-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
-    .t-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.06) 100%); }
-    .t-hero-inner { position: relative; z-index: 2; padding: 0 8vw 5.5rem; }
-    .t-hero-eyebrow { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 1.2rem; }
-    .t-hero-title { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; color: white; margin-bottom: 1.5rem; }
-    .t-hero-sub { font-size: clamp(0.9rem, 1.4vw, 1rem); font-weight: 300; color: rgba(255,255,255,0.55); max-width: 460px; line-height: 1.74; }
+    .t-hero-wrap { position: relative; }
+    .t-hero { position: relative; height: 30vh; min-height: 200px; overflow: hidden; }
+    .t-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+    .t-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.55) 100%); }
+    .t-page-header { position: relative; z-index: 5; margin-top: -110px; padding: 0 8vw 4.5rem; }
+    .t-page-panel { display: inline-block; padding: 2.2rem 2.8rem; background: rgba(10,20,50,0.44); backdrop-filter: blur(30px) saturate(1.5); -webkit-backdrop-filter: blur(30px) saturate(1.5); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; box-shadow: 0 12px 48px rgba(0,0,0,0.24); max-width: 640px; }
+    .t-hero-eyebrow { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.48); margin-bottom: 1.1rem; }
+    .t-hero-title { font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; color: white; margin-bottom: 1.2rem; }
+    .t-hero-sub { font-size: clamp(0.88rem, 1.3vw, 0.98rem); font-weight: 300; color: rgba(255,255,255,0.62); line-height: 1.72; }
 
     /* ── STATEMENT ── */
     .t-statement { padding: 8rem 8vw; border-bottom: 1px solid rgba(0,0,0,0.06); }
@@ -131,7 +132,7 @@
       nav ul { display: none; position: fixed; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300; pointer-events: auto; }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: white; }
-      .t-hero-inner { padding: 0 1.5rem 4rem; }
+      .t-page-header { margin-top: -80px; padding: 0 1.5rem 3rem; }
       .t-statement { padding: 5rem 1.5rem; }
       .t-diagram { padding: 5rem 1.5rem; }
       .t-section { padding: 5rem 1.5rem; }
@@ -166,18 +167,22 @@
   </nav>
 
   <!-- ══ HERO ══ -->
-  <section class="t-hero">
-    <img class="t-hero-bg" src="SkyCrawler%20Fleet01.png" alt="SkyCrawler fleet op rooftop bij zonsondergang" />
-    <div class="t-hero-overlay"></div>
-    <div class="t-hero-inner">
-      <p class="t-hero-eyebrow" data-nl="Geavanceerde Robotica" data-en="Advanced Robotics">Geavanceerde Robotica</p>
-      <h1 class="t-hero-title">
-        <span data-nl="Ongeëvenaarde" data-en="Unparalleled">Ongeëvenaarde</span><br>
-        <span data-nl="Precisie." data-en="Precision.">Precisie.</span>
-      </h1>
-      <p class="t-hero-sub" data-nl="De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook." data-en="The technology behind SkyCrawler — built to work faster, cleaner and smarter than anything before it.">De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook.</p>
+  <div class="t-hero-wrap">
+    <section class="t-hero">
+      <img class="t-hero-bg" src="SkyCrawler%20Fleet01.png" alt="SkyCrawler fleet op rooftop bij zonsondergang" />
+      <div class="t-hero-overlay"></div>
+    </section>
+    <div class="t-page-header">
+      <div class="t-page-panel">
+        <p class="t-hero-eyebrow" data-nl="Geavanceerde Robotica" data-en="Advanced Robotics">Geavanceerde Robotica</p>
+        <h1 class="t-hero-title">
+          <span data-nl="Ongeëvenaarde" data-en="Unparalleled">Ongeëvenaarde</span><br>
+          <span data-nl="Precisie." data-en="Precision.">Precisie.</span>
+        </h1>
+        <p class="t-hero-sub" data-nl="De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook." data-en="The technology behind SkyCrawler — built to work faster, cleaner and smarter than anything before it.">De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook.</p>
+      </div>
     </div>
-  </section>
+  </div>
 
   <!-- ══ STATEMENT ══ -->
   <section class="t-statement">
@@ -412,35 +417,32 @@
     </div>
   </section>
 
-  <!-- ══ BUILDING SKYLINE ══ -->
-  <div class="t-full-img">
-    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=3840&q=90&fit=crop" alt="Glazen wolkenkrabber gevel" />
-  </div>
-
   <footer data-slim></footer>
   <script src="footer.js"></script>
 
   <script>
-    // Nav: scroll-direction hide + light/dark state
+    // Nav: scroll-direction hide + adaptive dark/light text
     (function () {
       var nav      = document.querySelector('nav');
       var siteLogo = document.querySelector('.site-logo');
       var siteLang = document.querySelector('.site-lang');
-      var hero     = document.querySelector('.t-hero');
       var lastY    = 0;
 
       function update() {
         var y = window.scrollY;
-        var heroH = hero ? hero.offsetHeight : 300;
 
         if (y > lastY && y > 80) nav.classList.add('nav-hidden');
         else nav.classList.remove('nav-hidden');
         lastY = y;
 
-        var pastHero = y > heroH - 80;
-        nav.classList.toggle('nav-scrolled', pastHero);
-        siteLogo.classList.toggle('logo-scrolled', pastHero);
-        siteLang.classList.toggle('lang-scrolled', pastHero);
+        var navMid = y + 32;
+        var onDark = Array.from(document.querySelectorAll('.t-hero, .t-diagram')).some(function(s) {
+          return navMid >= s.offsetTop && navMid < s.offsetTop + s.offsetHeight;
+        });
+
+        nav.classList.toggle('nav-on-dark', onDark);
+        siteLogo.classList.toggle('logo-on-dark', onDark);
+        siteLang.classList.toggle('lang-on-dark', onDark);
       }
 
       window.addEventListener('scroll', update, { passive: true });
