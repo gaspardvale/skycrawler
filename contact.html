@@ -78,18 +78,16 @@
     nav.light-mode ul a:hover { color: rgba(0,0,0,0.35); }
 
     /* ── DARK HERO ── */
+    .contact-hero-wrap { position: relative; }
     .contact-hero {
       background: #07070f;
       position: relative; overflow: hidden;
-      min-height: 60vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: calc(64px + 4rem) 8vw 6rem;
+      height: 60vh; min-height: 420px;
     }
     .contact-hero::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
       background: radial-gradient(ellipse 70% 70% at 12% 45%, rgba(88,182,255,0.10) 0%, transparent 65%);
     }
-    /* Faint decorative word in background */
     .contact-hero::after {
       content: 'Contact';
       position: absolute; bottom: -0.12em; right: -0.05em;
@@ -98,7 +96,15 @@
       color: rgba(255,255,255,0.025);
       pointer-events: none; user-select: none;
     }
-    .ch-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+
+    /* ── MAIN LAYOUT ── */
+    .contact-main {
+      position: relative; z-index: 5;
+      margin-top: -160px;
+      padding: 0 8vw 6rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
     .ch-eyebrow {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em;
       text-transform: uppercase; color: var(--blue); margin-bottom: 2rem;
@@ -108,29 +114,14 @@
       content: ''; display: block; width: 18px; height: 2px; background: currentColor; flex-shrink: 0;
     }
     .ch-title {
-      font-size: clamp(2.4rem, 5.5vw, 4.4rem); font-weight: 700;
-      letter-spacing: -0.045em; line-height: 1.06; color: #fff;
-      max-width: 740px; margin-bottom: 1.8rem;
+      font-size: clamp(2rem, 3.8vw, 3.4rem); font-weight: 700;
+      letter-spacing: -0.045em; line-height: 1.06; color: #fff; margin-bottom: 1.4rem;
     }
     .ch-sub {
       font-size: clamp(0.9rem, 1.4vw, 1rem); font-weight: 300;
-      color: rgba(255,255,255,0.38); max-width: 480px; line-height: 1.75;
+      color: rgba(255,255,255,0.52); line-height: 1.75;
     }
-
-    /* ── MAIN BODY ── */
-    .contact-body { background: #f5f5f7; }
-    .contact-wrap {
-      max-width: 1260px; margin: 0 auto;
-      display: grid; grid-template-columns: 360px 1fr;
-    }
-
-    /* ── SIDEBAR ── */
-    .c-sidebar {
-      background: transparent;
-      border-right: 1px solid rgba(0,0,0,0.07);
-      padding: 5rem 3rem 5rem 8vw;
-      display: flex; flex-direction: column; gap: 3rem;
-    }
+    .c-info-blocks { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2.4rem; }
     .info-head {
       font-size: 0.56rem; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: rgba(0,0,0,0.28); margin-bottom: 1rem;
@@ -138,57 +129,43 @@
     .contact-links { display: flex; flex-direction: column; }
     .contact-link {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.85rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-      text-decoration: none;
-      font-size: 0.88rem; font-weight: 500; color: var(--off-black);
+      padding: 0.85rem 0; border-bottom: 1px solid rgba(0,0,0,0.07);
+      text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--off-black);
       transition: color 0.18s;
     }
     .contact-link:first-child { border-top: 1px solid rgba(0,0,0,0.07); }
     .contact-link:hover { color: var(--blue-dk); }
     .contact-link-arrow {
       font-size: 0.78rem; opacity: 0.3;
-      transition: opacity 0.18s, transform 0.18s;
-      display: inline-block;
+      transition: opacity 0.18s, transform 0.18s; display: inline-block;
     }
     .contact-link:hover .contact-link-arrow { opacity: 1; transform: translateX(4px); }
-
-    .location-val {
-      font-size: 0.88rem; font-weight: 300; color: var(--mid); line-height: 1.72;
-    }
-
-    /* Steps */
+    .location-val { font-size: 0.88rem; font-weight: 300; color: var(--mid); line-height: 1.72; }
     .steps { display: flex; flex-direction: column; gap: 1.4rem; }
     .step { display: flex; align-items: flex-start; gap: 1rem; }
     .step-n {
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
       color: var(--blue); flex-shrink: 0; padding-top: 0.18rem; min-width: 22px;
     }
-    .step-txt {
-      font-size: 0.86rem; font-weight: 400; color: var(--off-black); line-height: 1.55;
-    }
-    .step-txt small {
-      display: block; font-size: 0.78rem; font-weight: 300;
-      color: var(--mid); margin-top: 0.18rem;
-    }
-
+    .step-txt { font-size: 0.86rem; font-weight: 400; color: var(--off-black); line-height: 1.55; }
+    .step-txt small { display: block; font-size: 0.78rem; font-weight: 300; color: var(--mid); margin-top: 0.18rem; }
     .partner-badge {
       display: inline-flex; flex-direction: column; gap: 0.28rem;
-      padding: 0.75rem 1.1rem;
-      background: rgba(0,0,0,0.05);
-      border-radius: 14px;
-      align-self: flex-start;
+      padding: 0.75rem 1.1rem; background: rgba(0,0,0,0.05);
+      border-radius: 14px; align-self: flex-start;
     }
-    .partner-name {
-      font-size: 0.84rem; font-weight: 600; color: var(--off-black);
-    }
-    .partner-sub {
-      font-size: 0.76rem; font-weight: 300; color: var(--mid);
-    }
+    .partner-name { font-size: 0.84rem; font-weight: 600; color: var(--off-black); }
+    .partner-sub { font-size: 0.76rem; font-weight: 300; color: var(--mid); }
 
-    /* ── FORM ZONE ── */
-    .c-form-zone {
-      padding: 5rem 8vw 5rem 4.5rem;
+    /* ── FROSTED FORM PANEL ── */
+    .contact-form-panel {
+      background: rgba(255,255,255,0.68);
+      backdrop-filter: blur(22px) saturate(1.1);
+      -webkit-backdrop-filter: blur(22px) saturate(1.1);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 18px;
+      box-shadow: 0 4px 28px rgba(0,0,0,0.07);
+      padding: 2.4rem 2.8rem;
     }
     .form-heading {
       font-size: clamp(1.3rem, 2.2vw, 1.85rem); font-weight: 700;
@@ -197,9 +174,7 @@
     .form-sub {
       font-size: 0.88rem; font-weight: 300; color: var(--mid); margin-bottom: 2.5rem;
     }
-    .form-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;
-    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
     .form-full { grid-column: span 2; }
     .field { display: flex; flex-direction: column; gap: 0.4rem; }
     .field label {
@@ -249,12 +224,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
-      .contact-wrap { grid-template-columns: 1fr; }
-      .c-sidebar {
-        padding: 4rem 2rem;
-        border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07);
-      }
-      .c-form-zone { padding: 4rem 2rem; }
+      .contact-main { grid-template-columns: 1fr; gap: 2.5rem; margin-top: -100px; }
     }
     @media (max-width: 768px) {
       .site-logo, .site-lang { padding: 0 1.2rem; }
@@ -266,7 +236,8 @@
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .contact-hero { padding: calc(64px + 4rem) 1.8rem 5rem; }
+      .contact-main { padding: 0 1.5rem 4rem; margin-top: -80px; }
+      .contact-form-panel { padding: 1.8rem 1.5rem; }
       .form-grid { grid-template-columns: 1fr; }
       .form-full { grid-column: span 1; }
     }
@@ -298,176 +269,95 @@
     </ul>
   </nav>
 
-  <!-- ── Dark hero ── -->
-  <section class="contact-hero">
-    <div class="ch-inner">
-      <p class="ch-eyebrow">
-        <span class="t" data-nl="Contact" data-en="Contact">Contact</span>
-      </p>
-      <h1 class="ch-title">
-        <span class="t"
-          data-nl="Interesse in een pilotproject of investering?"
-          data-en="Interested in a pilot project or investment?">
-          Interesse in een pilotproject of investering?
-        </span>
-      </h1>
-      <p class="ch-sub">
-        <span class="t"
-          data-nl="Ons team staat klaar. Vul het formulier in of stuur ons een e-mail — we reageren binnen 24 uur op werkdagen."
-          data-en="Our team is ready. Fill in the form or send us an email — we respond within 24 hours on business days.">
-          Ons team staat klaar. Vul het formulier in of stuur ons een e-mail — we reageren binnen 24 uur op werkdagen.
-        </span>
-      </p>
-    </div>
-  </section>
+  <!-- ── Hero backdrop + straddling layout ── -->
+  <div class="contact-hero-wrap">
+    <section class="contact-hero"></section>
 
-  <!-- ── Main: sidebar + form ── -->
-  <div class="contact-body">
-    <div class="contact-wrap">
+    <div class="contact-main">
 
-      <!-- Left: contact info -->
-      <aside class="c-sidebar">
-
-        <!-- Email links -->
-        <div>
-          <p class="info-head">
-            <span class="t" data-nl="Direct bereikbaar" data-en="Direct contact">Direct bereikbaar</span>
-          </p>
-          <div class="contact-links">
-            <a class="contact-link" href="mailto:contact@skycrawler.com">
-              contact@skycrawler.com
-              <span class="contact-link-arrow">→</span>
-            </a>
-            <a class="contact-link" href="mailto:invest@skycrawler.com">
-              invest@skycrawler.com
-              <span class="contact-link-arrow">→</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Location -->
-        <div>
-          <p class="info-head">
-            <span class="t" data-nl="Locatie" data-en="Location">Locatie</span>
-          </p>
-          <p class="location-val">
-            <span class="t"
-              data-nl="Technologiepark Zwijnaarde&#10;Gent, Oost-Vlaanderen&#10;België"
-              data-en="Technologiepark Zwijnaarde&#10;Ghent, East Flanders&#10;Belgium">
-              Technologiepark Zwijnaarde<br>Gent, Oost-Vlaanderen<br>België
-            </span>
-          </p>
-        </div>
-
-        <!-- What to expect -->
-        <div>
-          <p class="info-head">
-            <span class="t" data-nl="Wat u kunt verwachten" data-en="What to expect">Wat u kunt verwachten</span>
-          </p>
-          <div class="steps">
-            <div class="step">
-              <span class="step-n">01</span>
-              <p class="step-txt">
-                <span class="t" data-nl="Bevestiging binnen 24 uur" data-en="Confirmation within 24 hours">Bevestiging binnen 24 uur</span>
-                <small><span class="t" data-nl="op werkdagen" data-en="on business days">op werkdagen</span></small>
-              </p>
-            </div>
-            <div class="step">
-              <span class="step-n">02</span>
-              <p class="step-txt">
-                <span class="t" data-nl="Kennismakings&shy;gesprek of live demo" data-en="Introductory call or live demo">Kennismakingsgesprek of live demo</span>
-                <small><span class="t" data-nl="online of ter plaatse in Gent" data-en="online or on-site in Ghent">online of ter plaatse in Gent</span></small>
-              </p>
-            </div>
-            <div class="step">
-              <span class="step-n">03</span>
-              <p class="step-txt">
-                <span class="t" data-nl="Op maat pilot&shy;voorstel" data-en="Tailored pilot proposal">Op maat pilotvoorstel</span>
-                <small><span class="t" data-nl="gebaseerd op uw gebouw en noden" data-en="based on your building and needs">gebaseerd op uw gebouw en noden</span></small>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Academic partner -->
-        <div>
-          <p class="info-head">
-            <span class="t" data-nl="Academische partner" data-en="Academic partner">Academische partner</span>
-          </p>
-          <div class="partner-badge">
-            <p class="partner-name">
-              <span class="t" data-nl="Universiteit Gent" data-en="Ghent University">Universiteit Gent</span>
-            </p>
-            <p class="partner-sub">
-              <span class="t" data-nl="Faculteit Ingenieurswetenschappen" data-en="Faculty of Engineering and Architecture">Faculteit Ingenieurswetenschappen</span>
-            </p>
-          </div>
-        </div>
-
-      </aside>
-
-      <!-- Right: form -->
-      <div class="c-form-zone">
-        <h2 class="form-heading">
-          <span class="t" data-nl="Stuur ons een bericht" data-en="Send us a message">Stuur ons een bericht</span>
-        </h2>
-        <p class="form-sub">
+      <!-- LEFT: headline + info -->
+      <div class="contact-left">
+        <p class="ch-eyebrow">
+          <span class="t" data-nl="Contact" data-en="Contact">Contact</span>
+        </p>
+        <h1 class="ch-title">
           <span class="t"
-            data-nl="Of u nu een gebouweigenaar, investeerder of journalist bent — we horen graag van u."
-            data-en="Whether you're a building owner, investor or journalist — we'd love to hear from you.">
-            Of u nu een gebouweigenaar, investeerder of journalist bent — we horen graag van u.
+            data-nl="Interesse in een pilotproject of investering?"
+            data-en="Interested in a pilot project or investment?">
+            Interesse in een pilotproject of investering?
+          </span>
+        </h1>
+        <p class="ch-sub">
+          <span class="t"
+            data-nl="Ons team staat klaar. Vul het formulier in of stuur ons een e-mail — we reageren binnen 24 uur op werkdagen."
+            data-en="Our team is ready. Fill in the form or send us an email — we respond within 24 hours on business days.">
+            Ons team staat klaar. Vul het formulier in of stuur ons een e-mail — we reageren binnen 24 uur op werkdagen.
           </span>
         </p>
 
-        <form onsubmit="return false;">
-          <div class="form-grid">
-
-            <div class="field">
-              <label><span class="t" data-nl="Voornaam" data-en="First name">Voornaam</span></label>
-              <input type="text" />
+        <div class="c-info-blocks">
+          <div>
+            <p class="info-head"><span class="t" data-nl="Direct bereikbaar" data-en="Direct contact">Direct bereikbaar</span></p>
+            <div class="contact-links">
+              <a class="contact-link" href="mailto:contact@skycrawler.com">contact@skycrawler.com<span class="contact-link-arrow">→</span></a>
+              <a class="contact-link" href="mailto:invest@skycrawler.com">invest@skycrawler.com<span class="contact-link-arrow">→</span></a>
             </div>
-            <div class="field">
-              <label><span class="t" data-nl="Achternaam" data-en="Last name">Achternaam</span></label>
-              <input type="text" />
-            </div>
-
-            <div class="field">
-              <label><span class="t" data-nl="Bedrijf / Organisatie" data-en="Company / Organisation">Bedrijf / Organisatie</span></label>
-              <input type="text" />
-            </div>
-            <div class="field">
-              <label>E-mail</label>
-              <input type="email" />
-            </div>
-
-            <div class="field form-full">
-              <label><span class="t" data-nl="Type aanvraag" data-en="Type of enquiry">Type aanvraag</span></label>
-              <select id="subjectSelect">
-                <option value="" disabled selected>
-                  <!-- filled by JS -->
-                </option>
-                <option class="t" data-nl="Pilotproject" data-en="Pilot project">Pilotproject</option>
-                <option class="t" data-nl="Investering" data-en="Investment">Investering</option>
-                <option class="t" data-nl="Technische vraag" data-en="Technical question">Technische vraag</option>
-                <option class="t" data-nl="Media / Pers" data-en="Media / Press">Media / Pers</option>
-                <option class="t" data-nl="Andere" data-en="Other">Andere</option>
-              </select>
-            </div>
-
-            <div class="field form-full">
-              <label><span class="t" data-nl="Bericht" data-en="Message">Bericht</span></label>
-              <textarea id="msgArea" placeholder="Vertel ons meer over uw project of vraag..."></textarea>
-            </div>
-
           </div>
+          <div>
+            <p class="info-head"><span class="t" data-nl="Locatie" data-en="Location">Locatie</span></p>
+            <p class="location-val"><span class="t" data-nl="Technologiepark Zwijnaarde&#10;Gent, Oost-Vlaanderen&#10;België" data-en="Technologiepark Zwijnaarde&#10;Ghent, East Flanders&#10;Belgium">Technologiepark Zwijnaarde<br>Gent, Oost-Vlaanderen<br>België</span></p>
+          </div>
+          <div>
+            <p class="info-head"><span class="t" data-nl="Wat u kunt verwachten" data-en="What to expect">Wat u kunt verwachten</span></p>
+            <div class="steps">
+              <div class="step"><span class="step-n">01</span><p class="step-txt"><span class="t" data-nl="Bevestiging binnen 24 uur" data-en="Confirmation within 24 hours">Bevestiging binnen 24 uur</span><small><span class="t" data-nl="op werkdagen" data-en="on business days">op werkdagen</span></small></p></div>
+              <div class="step"><span class="step-n">02</span><p class="step-txt"><span class="t" data-nl="Kennismakings&shy;gesprek of live demo" data-en="Introductory call or live demo">Kennismakingsgesprek of live demo</span><small><span class="t" data-nl="online of ter plaatse in Gent" data-en="online or on-site in Ghent">online of ter plaatse in Gent</span></small></p></div>
+              <div class="step"><span class="step-n">03</span><p class="step-txt"><span class="t" data-nl="Op maat pilot&shy;voorstel" data-en="Tailored pilot proposal">Op maat pilotvoorstel</span><small><span class="t" data-nl="gebaseerd op uw gebouw en noden" data-en="based on your building and needs">gebaseerd op uw gebouw en noden</span></small></p></div>
+            </div>
+          </div>
+          <div>
+            <p class="info-head"><span class="t" data-nl="Academische partner" data-en="Academic partner">Academische partner</span></p>
+            <div class="partner-badge">
+              <p class="partner-name"><span class="t" data-nl="Universiteit Gent" data-en="Ghent University">Universiteit Gent</span></p>
+              <p class="partner-sub"><span class="t" data-nl="Faculteit Ingenieurswetenschappen" data-en="Faculty of Engineering and Architecture">Faculteit Ingenieurswetenschappen</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <button type="submit" class="btn-submit">
-            <span class="t" data-nl="Verstuur bericht" data-en="Send message">Verstuur bericht</span>
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-              <path d="M2 7.5h11M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
+      <!-- RIGHT: frosted glass form panel -->
+      <div class="contact-right">
+        <div class="contact-form-panel">
+          <h2 class="form-heading"><span class="t" data-nl="Stuur ons een bericht" data-en="Send us a message">Stuur ons een bericht</span></h2>
+          <p class="form-sub"><span class="t" data-nl="Of u nu een gebouweigenaar, investeerder of journalist bent — we horen graag van u." data-en="Whether you're a building owner, investor or journalist — we'd love to hear from you.">Of u nu een gebouweigenaar, investeerder of journalist bent — we horen graag van u.</span></p>
+          <form onsubmit="return false;">
+            <div class="form-grid">
+              <div class="field"><label><span class="t" data-nl="Voornaam" data-en="First name">Voornaam</span></label><input type="text" /></div>
+              <div class="field"><label><span class="t" data-nl="Achternaam" data-en="Last name">Achternaam</span></label><input type="text" /></div>
+              <div class="field"><label><span class="t" data-nl="Bedrijf / Organisatie" data-en="Company / Organisation">Bedrijf / Organisatie</span></label><input type="text" /></div>
+              <div class="field"><label>E-mail</label><input type="email" /></div>
+              <div class="field form-full">
+                <label><span class="t" data-nl="Type aanvraag" data-en="Type of enquiry">Type aanvraag</span></label>
+                <select id="subjectSelect">
+                  <option value="" disabled selected></option>
+                  <option class="t" data-nl="Pilotproject" data-en="Pilot project">Pilotproject</option>
+                  <option class="t" data-nl="Investering" data-en="Investment">Investering</option>
+                  <option class="t" data-nl="Technische vraag" data-en="Technical question">Technische vraag</option>
+                  <option class="t" data-nl="Media / Pers" data-en="Media / Press">Media / Pers</option>
+                  <option class="t" data-nl="Andere" data-en="Other">Andere</option>
+                </select>
+              </div>
+              <div class="field form-full">
+                <label><span class="t" data-nl="Bericht" data-en="Message">Bericht</span></label>
+                <textarea id="msgArea" placeholder="Vertel ons meer over uw project of vraag..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit">
+              <span class="t" data-nl="Verstuur bericht" data-en="Send message">Verstuur bericht</span>
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2 7.5h11M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+        </div>
       </div>
 
     </div>
