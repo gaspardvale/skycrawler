@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SkyCrawler</title>
+  <link rel="icon" type="image/png" href="black_robot_logo_transparent.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -93,6 +94,23 @@
       opacity: 0; transition: opacity 0.2s 0.18s;
     }
     .cta-wrapper.active .hero-cta-pill { opacity: 1; }
+
+    /* ── LIGHT-MODE (scrolled past hero into white sections) ── */
+    .nav-logo { transition: filter 0.35s ease; }
+    .lang-toggle { transition: border-color 0.35s ease; }
+    .lang-btn { transition: color 0.18s; }
+    .hero-cta-pill { transition: color 0.35s ease, border-color 0.35s ease, opacity 0.2s 0.18s; }
+    nav ul a { transition: color 0.18s, opacity 0.35s; }
+
+    .site-logo.light-mode .nav-logo { filter: none; }
+    .site-lang.light-mode .lang-toggle { border-color: rgba(0,0,0,0.16); }
+    .site-lang.light-mode .lang-btn { color: rgba(0,0,0,0.28); }
+    .site-lang.light-mode .lang-btn.active { color: rgba(0,0,0,0.88); }
+    .site-lang.light-mode .lang-sep { color: rgba(0,0,0,0.16); }
+    .site-lang.light-mode .hamburger { color: rgba(0,0,0,0.8); }
+    .site-lang.light-mode .hero-cta-pill { color: rgba(0,0,0,0.72); border-color: rgba(0,0,0,0.16); }
+    nav.light-mode ul a { color: rgba(0,0,0,0.65); }
+    nav.light-mode ul a:hover { color: rgba(0,0,0,0.35); }
 
     /* ── HERO ── */
     .hero {
@@ -254,7 +272,7 @@
     }
 
     .feat-index { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.22); }
-    .feat-title { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 600; letter-spacing: -0.03em; color: var(--off-black); margin-top: auto; }
+    .feat-title { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 600; letter-spacing: -0.03em; color: var(--off-black); margin-top: 2rem; }
     .feat-body  { font-size: 0.92rem; font-weight: 300; color: var(--mid); line-height: 1.72; }
 
     /* ── REVEAL ── */
@@ -409,7 +427,16 @@
       padding: 8rem 3rem;
       text-align: center;
       border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
     }
+    #beamsCanvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cta-section > * { position: relative; z-index: 1; }
 
     .cta-title {
       font-size: clamp(2rem, 4vw, 3.5rem);
@@ -502,7 +529,7 @@
     </div>
     <div class="cta-wrapper" id="ctaWrapper">
       <a href="contact.html" class="hero-cta-pill">
-        <span class="t" data-nl="Contact" data-en="Contact">Contact</span>
+        <span class="t" data-nl="Contact Us" data-en="Contact Us">Contact Us</span>
       </a>
     </div>
   </div>
@@ -697,6 +724,7 @@
 
   <!-- ══ CTA ══ -->
   <section class="cta-section reveal">
+    <div id="beamsCanvas"></div>
     <h2 class="cta-title">
       <span class="t" data-nl="Klaar om slimmer te reinigen?" data-en="Ready to clean smarter?">Klaar om slimmer te reinigen?</span>
     </h2>
@@ -764,15 +792,43 @@
     /* ── FLOATING CTA ── */
     (function() {
       var hero = document.querySelector('.hero');
+      var ctaSection = document.querySelector('.cta-section');
       var ctaWrapper = document.getElementById('ctaWrapper');
       if (!hero || !ctaWrapper) return;
       window.addEventListener('scroll', function() {
-        if (hero.getBoundingClientRect().bottom < 80) {
+        var heroBtm = hero.getBoundingClientRect().bottom;
+        var ctaTop  = ctaSection ? ctaSection.getBoundingClientRect().top : Infinity;
+        if (heroBtm < 80 && ctaTop > 64) {
           ctaWrapper.classList.add('active');
         } else {
           ctaWrapper.classList.remove('active');
         }
       }, { passive: true });
+    })();
+
+    /* ── LIGHT-MODE DETECTION ── */
+    (function() {
+      var hero       = document.querySelector('.hero');
+      var darkSects  = document.querySelectorAll('.solution-bg, .cta-section');
+      var siteLogo   = document.querySelector('.site-logo');
+      var siteLang   = document.querySelector('.site-lang');
+      var navEl      = document.querySelector('nav');
+      if (!hero) return;
+      function tick() {
+        var heroBtm = hero.getBoundingClientRect().bottom;
+        var inDark = heroBtm > 0; // still in hero
+        if (!inDark) {
+          darkSects.forEach(function(s) {
+            var r = s.getBoundingClientRect();
+            if (r.top < 64 && r.bottom > 0) inDark = true;
+          });
+        }
+        siteLogo.classList.toggle('light-mode', !inDark);
+        siteLang.classList.toggle('light-mode', !inDark);
+        navEl.classList.toggle('light-mode', !inDark);
+      }
+      window.addEventListener('scroll', tick, { passive: true });
+      tick();
     })();
 
     /* ── REVEAL ON SCROLL ── */
@@ -824,6 +880,145 @@
 
       document.querySelectorAll('.stat-item').forEach(function(el) { obs.observe(el); });
     })();
+  </script>
+
+  <!-- Three.js for Beams background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+  /* ── BEAMS BACKGROUND (CTA section) ── */
+  (function() {
+    var container = document.getElementById('beamsCanvas');
+    if (!container || typeof THREE === 'undefined') return;
+
+    var W = container.offsetWidth || window.innerWidth;
+    var H = container.offsetHeight || 400;
+
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x07070f);
+
+    var camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
+    camera.position.set(0, 0, 20);
+
+    var renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    var canvas = renderer.domElement;
+    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
+    container.appendChild(canvas);
+
+    /* Stacked vertical planes */
+    function makeGeom(n, pw, ph, sp, segs) {
+      var g = new THREE.BufferGeometry();
+      var nV = n * (segs + 1) * 2, nI = n * segs * 2;
+      var pos = new Float32Array(nV * 3), uv = new Float32Array(nV * 2), idx = new Uint32Array(nI * 3);
+      var vi = 0, ui = 0, ii = 0;
+      var x0 = -(n * pw + (n - 1) * sp) / 2;
+      for (var i = 0; i < n; i++) {
+        var xO = x0 + i * (pw + sp);
+        var uR = Math.random() * 300, vR = Math.random() * 300;
+        for (var j = 0; j <= segs; j++) {
+          var y = ph * (j / segs - 0.5);
+          pos.set([xO, y, 0, xO + pw, y, 0], vi * 3);
+          uv.set([uR, j / segs + vR, uR + 1, j / segs + vR], ui);
+          if (j < segs) { var a=vi,b=vi+1,c=vi+2,d=vi+3; idx.set([a,b,c,c,b,d],ii); ii+=6; }
+          vi += 2; ui += 4;
+        }
+      }
+      g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      g.setAttribute('uv',       new THREE.BufferAttribute(uv,  2));
+      g.setIndex(new THREE.BufferAttribute(idx, 1));
+      g.computeVertexNormals();
+      return g;
+    }
+
+    /* Classic 3D Perlin noise — all helpers use _ prefix to avoid collisions */
+    var N = [
+      'float _r(vec2 s){return fract(sin(dot(s,vec2(12.9898,78.233)))*43758.5453);}',
+      'float _n2(vec2 s){vec2 i=floor(s),f=fract(s);float a=_r(i),b=_r(i+vec2(1,0)),c=_r(i+vec2(0,1)),d=_r(i+vec2(1,1));vec2 u=f*f*(3.-2.*f);return mix(a,b,u.x)+(c-a)*u.y*(1.-u.x)+(d-b)*u.x*u.y;}',
+      'vec4 _p4(vec4 x){return mod(((x*34.)+1.)*x,289.);}',
+      'vec4 _ti(vec4 r){return 1.79284291400159-.85373472095314*r;}',
+      'vec3 _fd(vec3 t){return t*t*t*(t*(t*6.-15.)+10.);}',
+      'float _cn(vec3 P){',
+      '  vec3 P0=floor(P),P1=P0+1.;P0=mod(P0,289.);P1=mod(P1,289.);',
+      '  vec3 f0=fract(P),f1=f0-1.;',
+      '  vec4 ix=vec4(P0.x,P1.x,P0.x,P1.x),iy=vec4(P0.yy,P1.yy),iz0=P0.zzzz,iz1=P1.zzzz;',
+      '  vec4 ixy=_p4(_p4(ix)+iy),ixy0=_p4(ixy+iz0),ixy1=_p4(ixy+iz1);',
+      '  vec4 gx0=ixy0/7.,gy0=fract(floor(gx0)/7.)-.5;gx0=fract(gx0);',
+      '  vec4 gz0=vec4(.5)-abs(gx0)-abs(gy0);vec4 sz0=step(gz0,vec4(0.));',
+      '  gx0-=sz0*(step(0.,gx0)-.5);gy0-=sz0*(step(0.,gy0)-.5);',
+      '  vec4 gx1=ixy1/7.,gy1=fract(floor(gx1)/7.)-.5;gx1=fract(gx1);',
+      '  vec4 gz1=vec4(.5)-abs(gx1)-abs(gy1);vec4 sz1=step(gz1,vec4(0.));',
+      '  gx1-=sz1*(step(0.,gx1)-.5);gy1-=sz1*(step(0.,gy1)-.5);',
+      '  vec3 g000=vec3(gx0.x,gy0.x,gz0.x),g100=vec3(gx0.y,gy0.y,gz0.y);',
+      '  vec3 g010=vec3(gx0.z,gy0.z,gz0.z),g110=vec3(gx0.w,gy0.w,gz0.w);',
+      '  vec3 g001=vec3(gx1.x,gy1.x,gz1.x),g101=vec3(gx1.y,gy1.y,gz1.y);',
+      '  vec3 g011=vec3(gx1.z,gy1.z,gz1.z),g111=vec3(gx1.w,gy1.w,gz1.w);',
+      '  vec4 nm0=_ti(vec4(dot(g000,g000),dot(g010,g010),dot(g100,g100),dot(g110,g110)));',
+      '  g000*=nm0.x;g010*=nm0.y;g100*=nm0.z;g110*=nm0.w;',
+      '  vec4 nm1=_ti(vec4(dot(g001,g001),dot(g011,g011),dot(g101,g101),dot(g111,g111)));',
+      '  g001*=nm1.x;g011*=nm1.y;g101*=nm1.z;g111*=nm1.w;',
+      '  float n000=dot(g000,f0),n100=dot(g100,vec3(f1.x,f0.yz));',
+      '  float n010=dot(g010,vec3(f0.x,f1.y,f0.z)),n110=dot(g110,vec3(f1.xy,f0.z));',
+      '  float n001=dot(g001,vec3(f0.xy,f1.z)),n101=dot(g101,vec3(f1.x,f0.y,f1.z));',
+      '  float n011=dot(g011,vec3(f0.x,f1.yz)),n111=dot(g111,f1);',
+      '  vec3 fxyz=_fd(f0);',
+      '  vec4 nz=mix(vec4(n000,n100,n010,n110),vec4(n001,n101,n011,n111),fxyz.z);',
+      '  vec2 nyz=mix(nz.xy,nz.zw,fxyz.y);return 2.2*mix(nyz.x,nyz.y,fxyz.x);',
+      '}'
+    ].join('\n');
+
+    var U = { time:{value:0}, uSpeed:{value:2.}, uScale:{value:0.2}, uNoiseIntensity:{value:1.75} };
+
+    var mat = new THREE.MeshStandardMaterial({ color:0x000000, roughness:0.3, metalness:0.3, side:THREE.DoubleSide });
+    mat.onBeforeCompile = function(sh) {
+      Object.assign(sh.uniforms, U);
+
+      /* vertex — pass uvY as param to avoid forward-reference of uv attribute */
+      var vH = [N,
+        'uniform float time,uSpeed,uScale;',
+        'float _gz(vec3 p,float uvY){return _cn(vec3(p.x*.0,p.y-uvY,p.z+time*uSpeed*3.)*uScale);}',
+        'vec3 _cp(vec3 p,float y){vec3 q=p;q.z+=_gz(p,y);return q;}',
+        'vec3 _gn(vec3 p,float y){vec3 c=_cp(p,y);vec3 dx=_cp(p+vec3(.01,0,0),y)-c;vec3 dy=_cp(p+vec3(0,-.01,0),y)-c;return normalize(cross(normalize(dy),normalize(dx)));}'
+      ].join('\n');
+      sh.vertexShader = vH + '\n' + sh.vertexShader
+        .replace('#include <begin_vertex>',
+          'vec3 transformed=vec3(position);transformed.z+=_gz(transformed.xyz,uv.y);')
+        .replace('#include <beginnormal_vertex>',
+          'vec3 objectNormal=_gn(position.xyz,uv.y);\n#ifdef USE_TANGENT\nvec3 objectTangent=vec3(tangent.xyz);\n#endif');
+
+      /* fragment — noise dither */
+      sh.fragmentShader = N+'\nuniform float uNoiseIntensity;\n' + sh.fragmentShader
+        .replace('#include <dithering_fragment>',
+          '#include <dithering_fragment>\nfloat _dg=_n2(gl_FragCoord.xy);gl_FragColor.rgb-=_dg/15.*uNoiseIntensity;');
+    };
+
+    scene.add(new THREE.Mesh(makeGeom(12, 2, 15, 0, 100), mat));
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+    var dl = new THREE.DirectionalLight(0xffffff, 1); dl.position.set(0, 3, 10); scene.add(dl);
+
+    /* Render only when visible */
+    var active = false, lastT = 0;
+    function loop(t) {
+      if (!active) return;
+      requestAnimationFrame(loop);
+      U.time.value += 0.08 * Math.min((t - lastT) / 1000, 0.05);
+      lastT = t;
+      renderer.render(scene, camera);
+    }
+    new IntersectionObserver(function(es) {
+      es.forEach(function(e) {
+        if (e.isIntersecting && !active) {
+          active = true;
+          requestAnimationFrame(function(t) { lastT = t; loop(t); });
+        } else if (!e.isIntersecting) { active = false; }
+      });
+    }, { threshold: 0.01 }).observe(container.parentElement);
+
+    window.addEventListener('resize', function() {
+      W = container.offsetWidth; H = container.offsetHeight;
+      camera.aspect = W/H; camera.updateProjectionMatrix(); renderer.setSize(W, H);
+    });
+  })();
   </script>
   <script src="footer.js"></script>
 

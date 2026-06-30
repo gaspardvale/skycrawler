@@ -39,11 +39,11 @@
       'filter:brightness(0) saturate(100%) invert(1) sepia(1) saturate(500%) hue-rotate(185deg) drop-shadow(0 0 10px rgba(88,182,255,.85))' +
     '}' +
     '.sc-pwr-by{' +
-      'font-size:.6rem;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;' +
+      'font-size:.6rem;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;' +
       'letter-spacing:.28em;text-transform:uppercase;color:rgba(88,182,255,.45)' +
     '}' +
     '.sc-vale-word{' +
-      'font-size:.82rem;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;' +
+      'font-size:.82rem;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;' +
       'font-weight:700;letter-spacing:.18em;text-transform:uppercase;' +
       'color:#58b6ff;' +
       'text-shadow:0 0 12px rgba(88,182,255,.9),0 0 28px rgba(88,182,255,.45)' +
@@ -52,7 +52,7 @@
     '.sc-foot-txt{' +
       'text-align:center;padding:.4rem 2rem .5rem;' +
       'font-size:.7rem;color:rgba(255,255,255,.16);' +
-      'font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;' +
+      'font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;' +
       'letter-spacing:.1em;background:#0a1628' +
     '}';
   document.head.appendChild(css);
