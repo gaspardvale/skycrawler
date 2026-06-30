@@ -51,15 +51,27 @@
       'color:#1d1d1f;transition:color .18s' +
     '}' +
     '.sc-links a:hover{color:#6e6e73}' +
-    '#sc-vale{' +
+    'a#sc-vale{' +
       'display:flex;align-items:center;justify-content:center;gap:.65rem;' +
       'padding:1.4rem 0;border-top:1px solid rgba(0,0,0,0.06);' +
-      'max-width:1180px;margin:0 auto' +
+      'max-width:1180px;margin:0 auto;' +
+      'text-decoration:none;cursor:pointer;' +
+      'transition:opacity .2s' +
     '}' +
-    '#sc-vale-horse{height:22px;width:auto;opacity:.45}' +
+    'a#sc-vale:hover{opacity:.75}' +
+    '#sc-vale-horse{' +
+      'height:26px;width:auto;' +
+      'filter:brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(180deg)' +
+        ' drop-shadow(0 0 6px rgba(88,182,255,0.7)) brightness(1.2)' +
+    '}' +
+    'a#sc-vale:hover #sc-vale-horse{' +
+      'filter:brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(180deg)' +
+        ' drop-shadow(0 0 12px rgba(88,182,255,1)) brightness(1.4)' +
+    '}' +
     '#sc-vale>span{font-size:.68rem;font-weight:500;letter-spacing:.15em;' +
       'text-transform:uppercase;color:rgba(0,0,0,.32)}' +
-    '#sc-vale strong{font-weight:700;color:rgba(0,0,0,.48)}' +
+    '#sc-vale strong{font-weight:700;color:#58b6ff;' +
+      'text-shadow:0 0 8px rgba(88,182,255,0.45)}' +
     '#sc-btm{' +
       'display:flex;align-items:center;justify-content:space-between;' +
       'padding-top:1.4rem;max-width:1180px;margin:0 auto;' +
@@ -235,10 +247,10 @@
       '</div>' +
     '</div>' +
 
-    '<div id="sc-vale">' +
+    '<a id="sc-vale" href="https://vale.codes" target="_blank" rel="noopener">' +
       '<img src="horseman_logo_transparent.png" id="sc-vale-horse" alt="VALE" />' +
       '<span>' + (nl ? 'Mogelijk gemaakt door' : 'Powered by') + ' <strong>VALE</strong></span>' +
-    '</div>' +
+    '</a>' +
     '<div id="sc-btm">' +
       '<span>' + (nl ? '© 2026 SkyCrawler — Alle rechten voorbehouden.' : '© 2026 SkyCrawler — All rights reserved.') + '</span>' +
       '<span>' + (nl ? 'Gebouwd in Gent, België.' : 'Built in Ghent, Belgium.') + '</span>' +
