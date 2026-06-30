@@ -28,61 +28,53 @@
 
     .content-area { background: #fff; }
 
-    /* ── NAV ── */
+    /* ── SITE LOGO (always visible) ── */
+    .site-logo {
+      position: fixed; top: 0; left: 0; z-index: 210;
+      height: 64px; display: flex; align-items: center; padding: 0 3rem;
+    }
+    .nav-logo { height: 26px; width: auto; display: block; filter: brightness(0) invert(1); }
+
+    /* ── SITE LANG (always visible) ── */
+    .site-lang {
+      position: fixed; top: 0; right: 0; z-index: 210;
+      height: 64px; display: flex; align-items: center; gap: 1rem; padding: 0 3rem;
+    }
+
+    /* ── NAV (links only, slides up on scroll) ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 3rem;
-      height: 64px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      height: 64px; background: transparent;
       transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
     }
 
     nav.nav-hidden { transform: translateY(-100%); }
-
-    .nav-left { display: flex; align-items: center; gap: 2.6rem; }
-    .nav-logo { height: 26px; width: auto; display: block; }
-
-    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; pointer-events: auto; }
 
     nav ul a {
-      text-decoration: none;
-      font-size: 0.88rem; font-weight: 500;
-      color: rgba(0,0,0,0.58); transition: color 0.18s;
-      letter-spacing: -0.01em;
+      text-decoration: none; font-size: 0.88rem; font-weight: 500;
+      color: rgba(255,255,255,0.82); transition: color 0.18s; letter-spacing: -0.01em;
     }
 
-    nav ul a:hover { color: rgba(0,0,0,0.38); }
+    nav ul a:hover { color: rgba(255,255,255,0.45); }
 
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-
-    .hamburger {
-      display: none; background: none; border: none;
-      cursor: pointer; color: var(--off-black); font-size: 1.3rem;
-    }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.8); font-size: 1.3rem; }
 
     .lang-toggle {
       display: flex; align-items: center; gap: 0.38rem;
-      border: 1px solid rgba(0,0,0,0.16);
-      border-radius: 980px; padding: 0.28rem 0.82rem;
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 980px; padding: 0.28rem 0.82rem;
     }
 
     .lang-btn {
-      background: none; border: none; cursor: pointer;
-      font-family: inherit; font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.1em; color: rgba(0,0,0,0.28);
-      padding: 0; transition: color 0.18s; line-height: 1;
+      background: none; border: none; cursor: pointer; font-family: inherit;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35); padding: 0; transition: color 0.18s; line-height: 1;
     }
 
-    .lang-btn.active { color: rgba(0,0,0,0.88); }
-    .lang-sep { font-size: 0.6rem; color: rgba(0,0,0,0.16); user-select: none; }
+    .lang-btn.active { color: rgba(255,255,255,0.92); }
+    .lang-sep { font-size: 0.6rem; color: rgba(255,255,255,0.22); user-select: none; }
 
     /* ── SILK HERO ── */
     .silk-hero {
@@ -417,12 +409,13 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 1.5rem; }
+      .site-logo, .site-lang { padding: 0 1.2rem; }
       .hamburger { display: block; }
       nav ul {
         display: none; position: fixed; inset: 0;
         flex-direction: column; align-items: center; justify-content: center;
         gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
+        pointer-events: auto;
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
@@ -434,26 +427,28 @@
 </head>
 <body>
 
+  <div class="site-logo">
+    <a href="home.html">
+      <img src="black_robot_logo_transparent.png" alt="SkyCrawler" class="nav-logo" />
+    </a>
+  </div>
+
+  <div class="site-lang">
+    <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="nl">NL</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+
   <nav>
-    <div class="nav-left">
-      <a href="home.html">
-        <img src="black_robot_logo_transparent.png" alt="SkyCrawler" class="nav-logo" />
-      </a>
-      <ul>
-        <li><a href="techniek.html">Techniek</a></li>
-        <li><a href="tarieven.html">Tarieven</a></li>
-        <li><a href="businessplan.html">Over Ons</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="nav-right">
-      <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="nl">NL</button>
-        <span class="lang-sep">|</span>
-        <button class="lang-btn" data-lang="en">EN</button>
-      </div>
-    </div>
+    <ul>
+      <li><a href="techniek.html">Techniek</a></li>
+      <li><a href="tarieven.html">Tarieven</a></li>
+      <li><a href="businessplan.html">Over Ons</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </nav>
 
   <section class="silk-hero">
