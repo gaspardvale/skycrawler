@@ -345,6 +345,37 @@
       max-width: 220px;
     }
 
+    /* ── TECH VISUAL DIAGRAM ── */
+    .tech-visual { background: #f5f5f7; padding: 4.5rem 3rem; }
+    .tech-visual-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .diag-svg { width: 100%; display: block; max-width: 460px; }
+    .tech-visual-eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 1rem;
+    }
+    .tech-visual-title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1.1;
+      color: var(--off-black); margin-bottom: 2rem;
+    }
+    .tech-callouts { display: flex; flex-direction: column; gap: 1.6rem; }
+    .tech-callout { display: flex; gap: 1rem; align-items: flex-start; }
+    .tech-callout-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 5px;
+    }
+    .tech-callout h4 {
+      font-size: 0.9rem; font-weight: 600; color: var(--off-black);
+      margin-bottom: 0.3rem; letter-spacing: -0.01em;
+    }
+    .tech-callout p {
+      font-size: 0.83rem; font-weight: 300; color: var(--mid); line-height: 1.65;
+    }
+
     /* Full-width image */
     .full-img {
       width: 100%;
@@ -370,6 +401,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      .tech-visual-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .diag-svg { max-width: 380px; margin: 0 auto; }
       .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
       .feat-grid { grid-template-columns: 1fr 1fr; }
       .specs-row { grid-template-columns: 1fr 1fr; }
@@ -395,6 +428,7 @@
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
       .section { padding: 4rem 1.5rem; }
+      .tech-visual { padding: 3.5rem 1.5rem; }
       .feat-grid, .specs-row { grid-template-columns: 1fr; }
       .stats-band { padding: 4rem 1.5rem; }
       .img-wrap { padding: 0 1.5rem; }
@@ -434,8 +468,114 @@
     <p class="page-sub" data-nl="De revolutionaire technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken." data-en="The revolutionary technology behind SkyCrawler — built to work faster, cleaner and smarter.">De revolutionaire technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken.</p>
   </div>
 
-  <div class="page-photo">
-    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=3840&q=90&fit=crop" alt="Glazen wolkenkrabber gevel" />
+  <!-- MOVEMENT DIAGRAM -->
+  <div class="tech-visual">
+    <div class="tech-visual-inner">
+
+      <svg class="diag-svg" viewBox="0 0 440 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Facade background -->
+        <rect x="40" y="48" width="360" height="316" rx="10" fill="#dde8f5"/>
+
+        <!-- Base station -->
+        <rect x="170" y="16" width="100" height="26" rx="5" fill="#1a2f52"/>
+        <text x="220" y="32" text-anchor="middle" font-size="7.5" fill="white" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1.5">BASISSTATION</text>
+        <line x1="220" y1="42" x2="220" y2="58" stroke="#1a2f52" stroke-width="2" opacity="0.5"/>
+
+        <!-- ── WINDOWS 4 cols × 4 rows: col x=58,143,228,313  row y=68,138,208,278  w=70 h=55 ── -->
+
+        <!-- Row 3 bottom — cleaned -->
+        <rect x="58"  y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
+        <rect x="143" y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
+        <rect x="228" y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
+        <rect x="313" y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
+        <text x="93"  y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
+        <text x="178" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
+        <text x="263" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
+        <text x="348" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
+
+        <!-- Row 2 — cleaned -->
+        <rect x="58"  y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
+        <rect x="143" y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
+        <rect x="228" y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
+        <rect x="313" y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
+        <text x="93"  y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
+        <text x="178" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
+        <text x="263" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
+        <text x="348" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
+
+        <!-- Row 1 — in progress (robot at col 1) -->
+        <rect x="58"  y="138" width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <!-- Robot window highlight -->
+        <rect x="143" y="138" width="70" height="55" rx="3" fill="#b6d5ed" stroke="#5fa8d8" stroke-width="2"/>
+        <!-- Suction pad strips -->
+        <rect x="143" y="138" width="70" height="9"  rx="4" fill="#58b6ff"/>
+        <rect x="143" y="184" width="70" height="9"  rx="4" fill="#58b6ff"/>
+        <rect x="143" y="147" width="9"  height="37" rx="4" fill="#3b96dd"/>
+        <rect x="204" y="147" width="9"  height="37" rx="4" fill="#3b96dd"/>
+        <!-- Robot body interior -->
+        <rect x="152" y="147" width="52" height="37" rx="3" fill="white" opacity="0.92"/>
+        <text x="178" y="168" text-anchor="middle" font-size="7" fill="#1a2f52" font-family="Inter,sans-serif" font-weight="700">SC·01</text>
+        <rect x="228" y="138" width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <rect x="313" y="138" width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+
+        <!-- Row 0 top — not yet reached -->
+        <rect x="58"  y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <rect x="143" y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <rect x="228" y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <rect x="313" y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+
+        <!-- ── SNAKE PATH ── -->
+        <!-- Row 3 L→R completed -->
+        <path d="M 58,305 H 390" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.28" fill="none"/>
+        <polygon points="390,302 397,305 390,308" fill="#58b6ff" opacity="0.28"/>
+        <!-- Turn R, row3→row2 -->
+        <path d="M 395,305 V 235" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.28" fill="none"/>
+        <!-- Row 2 R→L completed -->
+        <path d="M 390,235 H 48" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.28" fill="none"/>
+        <polygon points="48,232 41,235 48,238" fill="#58b6ff" opacity="0.28"/>
+        <!-- Turn L, row2→row1 -->
+        <path d="M 43,235 V 165" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35" fill="none"/>
+        <!-- Row 1 in progress: solid to robot, dashed continuation -->
+        <path d="M 48,165 H 138" stroke="#1a2f52" stroke-width="2" opacity="0.45" fill="none"/>
+        <path d="M 218,165 H 390" stroke="#1a2f52" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.18" fill="none"/>
+        <polygon points="390,162 397,165 390,168" fill="#1a2f52" opacity="0.18"/>
+
+        <!-- Label at bottom -->
+        <text x="220" y="385" text-anchor="middle" font-size="9" fill="#1a2f52" font-family="Inter,sans-serif" letter-spacing="0.5" opacity="0.4">slangebeweging — rij per rij</text>
+      </svg>
+
+      <div class="tech-visual-text">
+        <p class="tech-visual-eyebrow" data-nl="Bewegingssysteem" data-en="Movement System">Bewegingssysteem</p>
+        <h2 class="tech-visual-title">
+          <span data-nl="Vier strips." data-en="Four strips.">Vier strips.</span><br>
+          <span data-nl="Elke gevel." data-en="Any façade.">Elke gevel.</span>
+        </h2>
+        <div class="tech-callouts">
+          <div class="tech-callout">
+            <div class="tech-callout-dot" style="background:#58b6ff"></div>
+            <div>
+              <h4 data-nl="Horizontale zuignap strips" data-en="Horizontal suction pad strips">Horizontale zuignap strips</h4>
+              <p data-nl="Twee lange strips boven en onder verankeren de robot terwijl het lichaam zijwaarts glijdt — rij per rij." data-en="Two long strips top and bottom anchor the robot while the body slides sideways — row by row.">Twee lange strips boven en onder verankeren de robot terwijl het lichaam zijwaarts glijdt — rij per rij.</p>
+            </div>
+          </div>
+          <div class="tech-callout">
+            <div class="tech-callout-dot" style="background:#3b96dd"></div>
+            <div>
+              <h4 data-nl="Verticale zuignap strips" data-en="Vertical suction pad strips">Verticale zuignap strips</h4>
+              <p data-nl="Twee kortere strips aan de zijkanten nemen het over op het einde van elke rij om verticaal te herpositioneren." data-en="Two shorter strips on the sides take over at each row end to reposition vertically.">Twee kortere strips aan de zijkanten nemen het over op het einde van elke rij om verticaal te herpositioneren.</p>
+            </div>
+          </div>
+          <div class="tech-callout">
+            <div class="tech-callout-dot" style="background:#1a2f52"></div>
+            <div>
+              <h4 data-nl="Robotarmen — raamtransfer" data-en="Robotic arms — window transfer">Robotarmen — raamtransfer</h4>
+              <p data-nl="Geïntegreerde armen met vacuümpads grijpen het volgende raam vast bij elke kozijnovergang." data-en="Integrated arms with vacuum pads grip the next window at every frame crossing.">Geïntegreerde armen met vacuümpads grijpen het volgende raam vast bij elke kozijnovergang.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- MECHANICS -->
