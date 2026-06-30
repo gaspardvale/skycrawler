@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SkyCrawler — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,7 +21,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--white);
       color: var(--off-black);
       overflow-x: hidden;
@@ -40,7 +43,8 @@
     /* ── NAV (links only, slides up on scroll) ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: flex-start;
+      padding-left: calc(3rem + 26px + 2rem);
       height: 64px; background: transparent;
       transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
       pointer-events: none;
@@ -310,7 +314,7 @@
 
   <div class="page-header">
     <p class="page-label">Contact</p>
-    <h1 class="page-title">Interesse in een<br>pilotproject of <em>investering?</em></h1>
+    <h1 class="page-title">Interesse in een<br>pilotproject of investering?</h1>
     <p class="page-sub">Ons team staat klaar om uw vragen te beantwoorden.</p>
   </div>
 

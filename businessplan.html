@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SkyCrawler — Over Ons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,7 +23,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--white);
       color: var(--off-black);
       overflow-x: hidden;
@@ -42,7 +45,8 @@
     /* ── NAV (links only, slides up on scroll) ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: flex-start;
+      padding-left: calc(3rem + 26px + 2rem);
       height: 64px; background: transparent;
       transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
       pointer-events: none;
@@ -331,7 +335,7 @@
 
   <div class="page-header">
     <p class="page-label">Over Ons</p>
-    <h1 class="page-title">Gebouwd door studenten.<br>Gemaakt voor de <em>wereld.</em></h1>
+    <h1 class="page-title">Gebouwd door studenten.<br>Gemaakt voor de wereld.</h1>
     <p class="page-sub">Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd.</p>
   </div>
 
@@ -364,7 +368,7 @@
       </div>
       <div class="text-col">
         <p class="section-label">Onze Missie</p>
-        <h2 class="section-title">Veiligheid en duurzaamheid, <em>zonder compromis.</em></h2>
+        <h2 class="section-title">Veiligheid en duurzaamheid, zonder compromis.</h2>
         <p class="prose">Traditionele gevelreiniging brengt arbeiders in gevaarlijke situaties op grote hoogte. SkyCrawler elimineert dit risico volledig. Onze autonome robots werken 24/7, gebruiken geen chemicaliën en verbruiken gefilterd regenwater.</p>
         <p class="prose">Ons doel is niet alleen efficiëntie — het is een fundamentele heruitvinding van hoe de wereld haar grootste gebouwen onderhoudt.</p>
       </div>

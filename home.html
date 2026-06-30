@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SkyCrawler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,7 +23,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--white);
       color: var(--off-black);
       overflow-x: hidden;
@@ -42,7 +45,8 @@
     /* ── NAV (links only, slides up on scroll) ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: flex-start;
+      padding-left: calc(3rem + 26px + 2rem);
       height: 64px; background: transparent;
       transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
       pointer-events: none;
@@ -73,6 +77,22 @@
 
     .lang-btn.active { color: rgba(255,255,255,0.92); }
     .lang-sep { font-size: 0.6rem; color: rgba(255,255,255,0.22); user-select: none; }
+
+    /* ── FLOATING CTA (slides in when hero scrolls away) ── */
+    .cta-wrapper {
+      max-width: 0; overflow: hidden;
+      transition: max-width 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .cta-wrapper.active { max-width: 140px; }
+    .hero-cta-pill {
+      display: flex; align-items: center;
+      padding: 0.3rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 980px;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.88); text-decoration: none; white-space: nowrap;
+      opacity: 0; transition: opacity 0.2s 0.18s;
+    }
+    .cta-wrapper.active .hero-cta-pill { opacity: 1; }
 
     /* ── HERO ── */
     .hero {
@@ -480,6 +500,11 @@
       <span class="lang-sep">|</span>
       <button class="lang-btn" data-lang="en">EN</button>
     </div>
+    <div class="cta-wrapper" id="ctaWrapper">
+      <a href="contact.html" class="hero-cta-pill">
+        <span class="t" data-nl="Contact" data-en="Contact">Contact</span>
+      </a>
+    </div>
   </div>
 
   <nav>
@@ -498,12 +523,12 @@
 
     <div class="hero-content">
       <div class="hero-intro">
-        <img src="TRANSPARENT%20LOGO.png" alt="" class="hero-logo-sm" />
+        <img src="black_robot_logo_transparent.png" alt="" class="hero-logo-sm" />
         <span class="hero-eyebrow">Introducing SkyCrawler</span>
       </div>
       <h1>
         <span class="t" data-nl="Wij klimmen niet." data-en="We don't climb.">Wij klimmen niet.</span><br>
-        <em><span class="t" data-nl="Wij sturen." data-en="We steer.">Wij sturen.</span></em>
+        <span class="t" data-nl="Wij sturen." data-en="We steer.">Wij sturen.</span>
       </h1>
       <p class="hero-sub">
         <span class="t"
@@ -512,11 +537,8 @@
           Autonome robots die wolkenkrabbers reinigen — sneller, veiliger en zonder mensen op hoogte.
         </span>
       </p>
-      <a class="btn-ghost" href="#features">
-        <span class="t" data-nl="Meer weten" data-en="Learn More">Meer weten</span>
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-          <path d="M5.5 1.5v8M1.5 6.5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <a class="btn-ghost" href="contact.html">
+        <span class="t" data-nl="Neem contact" data-en="Contact us">Neem contact</span>
       </a>
     </div>
 
@@ -737,6 +759,20 @@
       document.querySelectorAll('.lang-btn').forEach(function(btn) {
         btn.addEventListener('click', function() { setLang(btn.dataset.lang); });
       });
+    })();
+
+    /* ── FLOATING CTA ── */
+    (function() {
+      var hero = document.querySelector('.hero');
+      var ctaWrapper = document.getElementById('ctaWrapper');
+      if (!hero || !ctaWrapper) return;
+      window.addEventListener('scroll', function() {
+        if (hero.getBoundingClientRect().bottom < 80) {
+          ctaWrapper.classList.add('active');
+        } else {
+          ctaWrapper.classList.remove('active');
+        }
+      }, { passive: true });
     })();
 
     /* ── REVEAL ON SCROLL ── */
