@@ -39,7 +39,7 @@
       padding: 0 3rem;
     }
 
-    .nav-logo { height: 26px; width: auto; display: block; }
+    .nav-logo { height: 26px; width: auto; display: block; transition: filter 0.3s; }
 
     /* ── SITE LANG (always visible) ── */
     .site-lang {
@@ -76,7 +76,7 @@
       text-decoration: none;
       font-size: 0.88rem; font-weight: 500;
       color: rgba(0,0,0,0.65);
-      transition: color 0.18s;
+      transition: color 0.3s;
       letter-spacing: -0.01em;
     }
 
@@ -84,20 +84,20 @@
 
     .hamburger {
       display: none; background: none; border: none;
-      cursor: pointer; color: var(--off-black); font-size: 1.3rem;
+      cursor: pointer; color: var(--off-black); font-size: 1.3rem; transition: color 0.3s;
     }
 
     .lang-toggle {
       display: flex; align-items: center; gap: 0.38rem;
       border: 1px solid rgba(0,0,0,0.16);
-      border-radius: 980px; padding: 0.28rem 0.82rem;
+      border-radius: 980px; padding: 0.28rem 0.82rem; transition: border-color 0.3s;
     }
 
     .lang-btn {
       background: none; border: none; cursor: pointer;
       font-family: inherit; font-size: 0.68rem; font-weight: 600;
       letter-spacing: 0.1em; color: rgba(0,0,0,0.28);
-      padding: 0; transition: color 0.18s; line-height: 1;
+      padding: 0; transition: color 0.3s; line-height: 1;
     }
 
     .lang-btn.active { color: rgba(0,0,0,0.88); }
