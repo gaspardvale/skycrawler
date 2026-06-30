@@ -10,429 +10,132 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black: #000;
       --off-black: #1d1d1f;
       --mid: #6e6e73;
       --light: #f5f5f7;
       --white: #fff;
+      --dark: #07070f;
+      --navy: #1a2f52;
+      --blue: #58b6ff;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--off-black); overflow-x: hidden; }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--white);
-      color: var(--off-black);
-      overflow-x: hidden;
-    }
-
-    /* ── SITE LOGO (always visible) ── */
-    .site-logo {
-      position: fixed;
-      top: 0; left: 0;
-      z-index: 210;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      padding: 0 3rem;
-    }
-
-    .nav-logo { height: 26px; width: auto; display: block; transition: filter 0.3s; }
-
-    /* ── SITE LANG (always visible) ── */
-    .site-lang {
-      position: fixed;
-      top: 0; right: 0;
-      z-index: 210;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0 3rem;
-    }
-
-    /* ── NAV (links only, slides up on scroll) ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding-left: calc(3rem + 26px + 2rem);
-      height: 64px;
-      background: transparent;
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-      pointer-events: none;
-    }
-
+    /* ── FIXED CHROME ── */
+    .site-logo { position: fixed; top: 0; left: 0; z-index: 210; height: 64px; display: flex; align-items: center; padding: 0 3rem; }
+    .nav-logo { height: 26px; width: auto; display: block; filter: brightness(0) invert(1); transition: filter 0.35s; }
+    .logo-scrolled .nav-logo { filter: none; }
+    .site-lang { position: fixed; top: 0; right: 0; z-index: 210; height: 64px; display: flex; align-items: center; gap: 1rem; padding: 0 3rem; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: flex-start; padding-left: calc(3rem + 26px + 2rem); height: 64px; background: transparent; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), background 0.3s, border-color 0.3s; pointer-events: none; border-bottom: 1px solid transparent; }
     nav.nav-hidden { transform: translateY(-100%); }
-
+    nav.nav-scrolled { background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: rgba(0,0,0,0.08); }
     nav ul { list-style: none; display: flex; gap: 2rem; pointer-events: auto; }
+    nav ul a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: rgba(255,255,255,0.8); transition: color 0.3s; letter-spacing: -0.01em; }
+    nav ul a:hover { color: rgba(255,255,255,0.4); }
+    nav.nav-scrolled ul a { color: rgba(0,0,0,0.65); }
+    nav.nav-scrolled ul a:hover { color: rgba(0,0,0,0.35); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--off-black); font-size: 1.3rem; }
+    .lang-toggle { display: flex; align-items: center; gap: 0.38rem; border: 1px solid rgba(255,255,255,0.28); border-radius: 980px; padding: 0.28rem 0.82rem; transition: border-color 0.3s; }
+    .lang-btn { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; color: rgba(255,255,255,0.42); padding: 0; transition: color 0.3s; line-height: 1; }
+    .lang-btn.active { color: rgba(255,255,255,0.9); }
+    .lang-sep { font-size: 0.6rem; color: rgba(255,255,255,0.18); user-select: none; }
+    .lang-scrolled .lang-toggle { border-color: rgba(0,0,0,0.16); }
+    .lang-scrolled .lang-btn { color: rgba(0,0,0,0.28); }
+    .lang-scrolled .lang-btn.active { color: rgba(0,0,0,0.88); }
+    .lang-scrolled .lang-sep { color: rgba(0,0,0,0.16); }
 
-    nav ul a {
-      text-decoration: none;
-      font-size: 0.88rem; font-weight: 500;
-      color: rgba(0,0,0,0.65);
-      transition: color 0.3s;
-      letter-spacing: -0.01em;
-    }
+    /* ── HERO ── */
+    .t-hero { position: relative; height: 100vh; min-height: 620px; overflow: hidden; display: flex; align-items: flex-end; }
+    .t-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+    .t-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.06) 100%); }
+    .t-hero-inner { position: relative; z-index: 2; padding: 0 8vw 5.5rem; }
+    .t-hero-eyebrow { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 1.2rem; }
+    .t-hero-title { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; color: white; margin-bottom: 1.5rem; }
+    .t-hero-sub { font-size: clamp(0.9rem, 1.4vw, 1rem); font-weight: 300; color: rgba(255,255,255,0.55); max-width: 460px; line-height: 1.74; }
 
-    nav ul a:hover { color: rgba(0,0,0,0.35); }
+    /* ── STATEMENT ── */
+    .t-statement { padding: 8rem 8vw; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .t-statement p { font-size: clamp(1.5rem, 2.5vw, 2.1rem); line-height: 1.42; max-width: 840px; }
+    .stmt-bold { font-weight: 700; color: var(--off-black); }
+    .stmt-light { font-weight: 300; color: var(--mid); }
 
-    .hamburger {
-      display: none; background: none; border: none;
-      cursor: pointer; color: var(--off-black); font-size: 1.3rem; transition: color 0.3s;
-    }
+    /* ── DIAGRAM SECTION (dark) ── */
+    .t-diagram { background: var(--dark); padding: 7rem 3rem; }
+    .t-diagram-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .t-d-eyebrow { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1rem; }
+    .t-d-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: white; margin-bottom: 2.4rem; }
+    .t-d-callouts { display: flex; flex-direction: column; gap: 1.9rem; }
+    .t-d-callout { display: flex; gap: 1.1rem; align-items: flex-start; }
+    .t-d-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .t-d-callout h4 { font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.82); margin-bottom: 0.32rem; }
+    .t-d-callout p { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.34); line-height: 1.66; }
+    .t-diag-svg { width: 100%; display: block; max-width: 460px; }
 
-    .lang-toggle {
-      display: flex; align-items: center; gap: 0.38rem;
-      border: 1px solid rgba(0,0,0,0.16);
-      border-radius: 980px; padding: 0.28rem 0.82rem; transition: border-color 0.3s;
-    }
-
-    .lang-btn {
-      background: none; border: none; cursor: pointer;
-      font-family: inherit; font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.1em; color: rgba(0,0,0,0.28);
-      padding: 0; transition: color 0.3s; line-height: 1;
-    }
-
-    .lang-btn.active { color: rgba(0,0,0,0.88); }
-    .lang-sep { font-size: 0.6rem; color: rgba(0,0,0,0.16); user-select: none; }
-
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: calc(64px + 3rem) 3rem 4rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .page-label {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--mid); margin-bottom: 1.2rem;
-    }
-
-    .page-title {
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 700; line-height: 1.05;
-      letter-spacing: -0.035em; color: var(--off-black);
-      margin-bottom: 1.4rem;
-    }
-
-    .page-title em { font-style: italic; }
-
-    .page-sub {
-      font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-      font-weight: 300; color: var(--mid);
-      max-width: 540px; line-height: 1.7;
-    }
-
-    .page-photo { width: 100%; overflow: hidden; }
-
-    .page-photo img {
-      width: 100%; height: 58vh;
-      min-height: 340px; max-height: 560px;
-      object-fit: cover; display: block;
-    }
+    /* ── FULL-BLEED IMAGE ── */
+    .t-full-img { width: 100%; overflow: hidden; line-height: 0; }
+    .t-full-img img { width: 100%; height: 62vh; min-height: 360px; object-fit: cover; display: block; }
+    .t-full-img.tall img { height: 75vh; min-height: 480px; object-position: center 40%; }
 
     /* ── CONTENT SECTIONS ── */
-    .section {
-      padding: 7rem 3rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .t-section { padding: 8rem 3rem; }
+    .t-section.t-light { background: var(--light); }
+    .t-inner { max-width: 1100px; margin: 0 auto; }
+    .t-eyebrow { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-bottom: 1rem; }
+    .t-h2 { font-size: clamp(1.8rem, 3.2vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; color: var(--off-black); margin-bottom: 1.5rem; }
+    .t-prose { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.78; }
 
-    .section + .section {
-      border-top: 1px solid rgba(0,0,0,0.08);
-    }
+    /* Mechanics two-col */
+    .t-mechan { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
+    .t-mechan-left .t-h2 { font-size: clamp(1.6rem, 2.6vw, 2.3rem); max-width: 340px; }
+    .t-mechan-left .t-prose { max-width: 400px; }
+    .t-sub { margin-top: 3rem; padding-top: 2.8rem; border-top: 1px solid rgba(0,0,0,0.07); }
+    .t-sub-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.24); margin-bottom: 0.55rem; }
+    .t-sub-h { font-size: clamp(1.05rem, 1.5vw, 1.25rem); font-weight: 600; letter-spacing: -0.02em; color: var(--off-black); margin-bottom: 0.75rem; }
 
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 1rem;
-    }
+    /* AI features — minimal borderless grid */
+    .t-feat-header { max-width: 640px; margin-bottom: 4.5rem; }
+    .t-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .t-feat-col { padding-right: 3rem; border-right: 1px solid rgba(0,0,0,0.07); }
+    .t-feat-col:last-child { border-right: none; padding-right: 0; padding-left: 3rem; }
+    .t-feat-col:nth-child(2) { padding-left: 3rem; }
+    .t-feat-item { padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .t-feat-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
+    .t-feat-n { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; color: rgba(0,0,0,0.18); margin-bottom: 0.8rem; }
+    .t-feat-item h4 { font-size: 0.93rem; font-weight: 600; letter-spacing: -0.015em; color: var(--off-black); margin-bottom: 0.5rem; }
+    .t-feat-item p { font-size: 0.83rem; font-weight: 300; color: var(--mid); line-height: 1.7; }
 
-    .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      color: var(--off-black);
-      max-width: 640px;
-      margin-bottom: 2.4rem;
-    }
-
-    .section-title em { font-style: italic; }
-
-    .prose {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--mid);
-      line-height: 1.75;
-      max-width: 680px;
-    }
-
-    /* Two-col layout */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .two-col img {
-      width: 100%;
-      border-radius: 20px;
-      object-fit: cover;
-      aspect-ratio: 4/3;
-    }
-
-    /* Sub-sections */
-    .sub-section {
-      margin-top: 3rem;
-      padding-top: 3rem;
-      border-top: 1px solid rgba(0,0,0,0.08);
-    }
-
-    .sub-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.3);
-      margin-bottom: 0.7rem;
-    }
-
-    .sub-title {
-      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      color: var(--off-black);
-      margin-bottom: 1.2rem;
-    }
-
-    /* Feature grid (AI section) */
-    .feat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-      margin-top: 3.5rem;
-    }
-
-    .feat-card {
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      padding: 2.4rem 2rem 2.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
-                  box-shadow 0.32s cubic-bezier(0.25,0.46,0.45,0.94),
-                  border-color 0.32s;
-    }
-
-    .feat-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 56px rgba(0,0,0,0.08);
-      border-color: rgba(0,0,0,0.18);
-    }
-
-    .feat-card h4 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--off-black);
-    }
-
-    .feat-card p {
-      font-size: 0.88rem;
-      font-weight: 300;
-      color: var(--mid);
-      line-height: 1.65;
-    }
-
-    /* Specs — clean bordered table */
-    .specs-table {
-      margin-top: 3rem;
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .specs-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .specs-row + .specs-row {
-      border-top: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .spec-item {
-      padding: 2.2rem 2.4rem;
-      border-right: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .spec-item:last-child { border-right: none; }
-
-    .spec-value {
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--off-black);
-      margin-bottom: 0.3rem;
-    }
-
-    .spec-label {
-      font-size: 0.82rem;
-      font-weight: 400;
-      color: var(--mid);
-    }
-
-    /* Specs table improvements */
-    .specs-table { background: #f5f5f7; border-color: rgba(0,0,0,0.06); }
-    .spec-value { color: #1a2f52; }
-
-    /* Stats band — full-bleed dark impact */
-    .stats-band {
-      background: #07070f;
-      padding: 5.5rem 3rem;
-    }
-    .stats-band-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .sband-item {
-      padding: 0 4rem;
-      border-right: 1px solid rgba(255,255,255,0.07);
-    }
-    .sband-item:first-child { padding-left: 0; }
-    .sband-item:last-child { border-right: none; padding-right: 0; }
-    .sband-eyebrow {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
-      margin-bottom: 1rem;
-      display: block;
-    }
-    .sband-val {
-      font-size: clamp(3.2rem, 5.5vw, 5rem);
-      font-weight: 700;
-      letter-spacing: -0.055em;
-      line-height: 1;
-      display: block;
-      margin-bottom: 0.85rem;
-    }
-    .sband-val.accent-blue { color: #58b6ff; text-shadow: 0 0 48px rgba(88,182,255,0.25); }
-    .sband-val.accent-green { color: #4ade80; text-shadow: 0 0 48px rgba(74,222,128,0.2); }
-    .sband-val.accent-white { color: rgba(255,255,255,0.9); }
-    .sband-desc {
-      font-size: 0.82rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.38);
-      line-height: 1.65;
-      max-width: 220px;
-    }
-
-    /* ── TECH VISUAL DIAGRAM ── */
-    .tech-visual { background: #f5f5f7; padding: 4.5rem 3rem; }
-    .tech-visual-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center;
-    }
-    .diag-svg { width: 100%; display: block; max-width: 460px; }
-    .tech-visual-eyebrow {
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--mid); margin-bottom: 1rem;
-    }
-    .tech-visual-title {
-      font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
-      letter-spacing: -0.035em; line-height: 1.1;
-      color: var(--off-black); margin-bottom: 2rem;
-    }
-    .tech-callouts { display: flex; flex-direction: column; gap: 1.6rem; }
-    .tech-callout { display: flex; gap: 1rem; align-items: flex-start; }
-    .tech-callout-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      flex-shrink: 0; margin-top: 5px;
-    }
-    .tech-callout h4 {
-      font-size: 0.9rem; font-weight: 600; color: var(--off-black);
-      margin-bottom: 0.3rem; letter-spacing: -0.01em;
-    }
-    .tech-callout p {
-      font-size: 0.83rem; font-weight: 300; color: var(--mid); line-height: 1.65;
-    }
-
-    /* Full-width image */
-    .full-img {
-      width: 100%;
-      max-height: 500px;
-      object-fit: cover;
-      display: block;
-      border-radius: 20px;
-    }
-
-    .img-wrap {
-      padding: 0 3rem;
-      max-width: 1100px;
-      margin: 0 auto 7rem;
-    }
-
-    .foot-links a {
-      font-size: 0.78rem;
-      color: var(--mid);
-      text-decoration: none;
-      transition: color 0.18s;
-    }
-    .foot-links a:hover { color: var(--off-black); }
+    /* Specs table */
+    .t-specs-table { margin-top: 3.5rem; background: var(--light); border-radius: 20px; overflow: hidden; }
+    .t-specs-row { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .t-specs-row + .t-specs-row { border-top: 1px solid rgba(0,0,0,0.07); }
+    .t-spec-item { padding: 2.6rem 2.8rem; border-right: 1px solid rgba(0,0,0,0.07); }
+    .t-spec-item:last-child { border-right: none; }
+    .t-spec-val { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -0.04em; color: var(--navy); margin-bottom: 0.3rem; }
+    .t-spec-lbl { font-size: 0.82rem; font-weight: 400; color: var(--mid); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .tech-visual-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .diag-svg { max-width: 380px; margin: 0 auto; }
-      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
-      .feat-grid { grid-template-columns: 1fr 1fr; }
-      .specs-row { grid-template-columns: 1fr 1fr; }
-      .stats-band-inner { grid-template-columns: 1fr; gap: 0; }
-      .sband-item, .sband-item:first-child, .sband-item:last-child {
-        padding: 2.5rem 0;
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.07);
-      }
-      .sband-item:last-child { border-bottom: none; }
-      .sband-desc { max-width: none; }
+      .t-mechan { grid-template-columns: 1fr; gap: 3rem; }
+      .t-diagram-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+      .t-diag-svg { max-width: 380px; margin: 0 auto; }
+      .t-feat-grid { grid-template-columns: 1fr; }
+      .t-feat-col { padding: 0 0 3rem; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); }
+      .t-feat-col:last-child { border-bottom: none; padding-bottom: 0; padding-left: 0; }
+      .t-feat-col:nth-child(2) { padding-left: 0; }
+      .t-specs-row { grid-template-columns: 1fr 1fr; }
     }
-
     @media (max-width: 640px) {
       .site-logo, .site-lang { padding: 0 1.2rem; }
       .hamburger { display: block; }
-      nav ul {
-        display: none; position: fixed; inset: 0;
-        flex-direction: column; align-items: center; justify-content: center;
-        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
-        pointer-events: auto;
-      }
+      nav ul { display: none; position: fixed; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300; pointer-events: auto; }
       nav ul.open { display: flex; }
-      nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .section { padding: 4rem 1.5rem; }
-      .tech-visual { padding: 3.5rem 1.5rem; }
-      .feat-grid, .specs-row { grid-template-columns: 1fr; }
-      .stats-band { padding: 4rem 1.5rem; }
-      .img-wrap { padding: 0 1.5rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+      nav ul.open a { font-size: 1.5rem; color: white; }
+      .t-hero-inner { padding: 0 1.5rem 4rem; }
+      .t-statement { padding: 5rem 1.5rem; }
+      .t-diagram { padding: 5rem 1.5rem; }
+      .t-section { padding: 5rem 1.5rem; }
+      .t-specs-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -455,118 +158,126 @@
 
   <nav>
     <ul>
-      <li><a href="techniek.html"><span class="t" data-nl="Techniek" data-en="Technology">Techniek</span></a></li>
-      <li><a href="tarieven.html"><span class="t" data-nl="Tarieven" data-en="Pricing">Tarieven</span></a></li>
-      <li><a href="businessplan.html"><span class="t" data-nl="Over Ons" data-en="About Us">Over Ons</span></a></li>
+      <li><a href="techniek.html"><span data-nl="Techniek" data-en="Technology">Techniek</span></a></li>
+      <li><a href="tarieven.html"><span data-nl="Tarieven" data-en="Pricing">Tarieven</span></a></li>
+      <li><a href="businessplan.html"><span data-nl="Over Ons" data-en="About Us">Over Ons</span></a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <div class="page-header">
-    <p class="page-label" data-nl="Geavanceerde Robotica" data-en="Advanced Robotics">Geavanceerde Robotica</p>
-    <h1 class="page-title"><span data-nl="Ongeëvenaarde" data-en="Unparalleled">Ongeëvenaarde</span><br><span data-nl="Precisie." data-en="Precision.">Precisie.</span></h1>
-    <p class="page-sub" data-nl="De revolutionaire technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken." data-en="The revolutionary technology behind SkyCrawler — built to work faster, cleaner and smarter.">De revolutionaire technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken.</p>
-  </div>
+  <!-- ══ HERO ══ -->
+  <section class="t-hero">
+    <img class="t-hero-bg" src="SkyCrawler%20Fleet01.png" alt="SkyCrawler fleet op rooftop bij zonsondergang" />
+    <div class="t-hero-overlay"></div>
+    <div class="t-hero-inner">
+      <p class="t-hero-eyebrow" data-nl="Geavanceerde Robotica" data-en="Advanced Robotics">Geavanceerde Robotica</p>
+      <h1 class="t-hero-title">
+        <span data-nl="Ongeëvenaarde" data-en="Unparalleled">Ongeëvenaarde</span><br>
+        <span data-nl="Precisie." data-en="Precision.">Precisie.</span>
+      </h1>
+      <p class="t-hero-sub" data-nl="De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook." data-en="The technology behind SkyCrawler — built to work faster, cleaner and smarter than anything before it.">De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook.</p>
+    </div>
+  </section>
 
-  <!-- MOVEMENT DIAGRAM -->
-  <div class="tech-visual">
-    <div class="tech-visual-inner">
+  <!-- ══ STATEMENT ══ -->
+  <section class="t-statement">
+    <p>
+      <span class="stmt-bold" data-nl="Geen steiger. Geen medewerkers op hoogte." data-en="No scaffold. No workers at height.">Geen steiger. Geen medewerkers op hoogte.</span>
+      <span class="stmt-light" data-nl=" Alleen SkyCrawler — geankerd door zuigkracht, aangedreven door AI." data-en=" Just SkyCrawler — anchored by suction, powered by AI."> Alleen SkyCrawler — geankerd door zuigkracht, aangedreven door AI.</span>
+    </p>
+  </section>
 
-      <svg class="diag-svg" viewBox="0 0 440 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- ══ MOVEMENT DIAGRAM ══ -->
+  <section class="t-diagram">
+    <div class="t-diagram-inner">
+
+      <svg class="t-diag-svg" viewBox="0 0 440 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <!-- Facade background -->
-        <rect x="40" y="48" width="360" height="316" rx="10" fill="#dde8f5"/>
+        <rect x="40" y="48" width="360" height="316" rx="10" fill="#0d1f38"/>
 
         <!-- Base station -->
-        <rect x="170" y="16" width="100" height="26" rx="5" fill="#1a2f52"/>
-        <text x="220" y="32" text-anchor="middle" font-size="7.5" fill="white" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1.5">BASISSTATION</text>
-        <line x1="220" y1="42" x2="220" y2="58" stroke="#1a2f52" stroke-width="2" opacity="0.5"/>
-
-        <!-- ── WINDOWS 4 cols × 4 rows: col x=58,143,228,313  row y=68,138,208,278  w=70 h=55 ── -->
+        <rect x="170" y="16" width="100" height="26" rx="5" fill="#1a4080"/>
+        <text x="220" y="32" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.65)" font-family="Inter,sans-serif" font-weight="600" letter-spacing="1.5">BASISSTATION</text>
+        <line x1="220" y1="42" x2="220" y2="58" stroke="#58b6ff" stroke-width="1.5" opacity="0.4"/>
 
         <!-- Row 3 bottom — cleaned -->
-        <rect x="58"  y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
-        <rect x="143" y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
-        <rect x="228" y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
-        <rect x="313" y="278" width="70" height="55" rx="3" fill="#b8d5ec" stroke="#94bedd" stroke-width="1" opacity="0.65"/>
-        <text x="93"  y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
-        <text x="178" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
-        <text x="263" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
-        <text x="348" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.5">✓</text>
+        <rect x="58"  y="278" width="70" height="55" rx="3" fill="rgba(88,182,255,0.2)"  stroke="rgba(88,182,255,0.4)"  stroke-width="1"/>
+        <rect x="143" y="278" width="70" height="55" rx="3" fill="rgba(88,182,255,0.2)"  stroke="rgba(88,182,255,0.4)"  stroke-width="1"/>
+        <rect x="228" y="278" width="70" height="55" rx="3" fill="rgba(88,182,255,0.2)"  stroke="rgba(88,182,255,0.4)"  stroke-width="1"/>
+        <rect x="313" y="278" width="70" height="55" rx="3" fill="rgba(88,182,255,0.2)"  stroke="rgba(88,182,255,0.4)"  stroke-width="1"/>
+        <text x="93"  y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.55">✓</text>
+        <text x="178" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.55">✓</text>
+        <text x="263" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.55">✓</text>
+        <text x="348" y="311" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.55">✓</text>
 
         <!-- Row 2 — cleaned -->
-        <rect x="58"  y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
-        <rect x="143" y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
-        <rect x="228" y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
-        <rect x="313" y="208" width="70" height="55" rx="3" fill="#c4dcf0" stroke="#9dc3e4" stroke-width="1" opacity="0.8"/>
-        <text x="93"  y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
-        <text x="178" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
-        <text x="263" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
-        <text x="348" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.65">✓</text>
+        <rect x="58"  y="208" width="70" height="55" rx="3" fill="rgba(88,182,255,0.15)" stroke="rgba(88,182,255,0.3)"  stroke-width="1"/>
+        <rect x="143" y="208" width="70" height="55" rx="3" fill="rgba(88,182,255,0.15)" stroke="rgba(88,182,255,0.3)"  stroke-width="1"/>
+        <rect x="228" y="208" width="70" height="55" rx="3" fill="rgba(88,182,255,0.15)" stroke="rgba(88,182,255,0.3)"  stroke-width="1"/>
+        <rect x="313" y="208" width="70" height="55" rx="3" fill="rgba(88,182,255,0.15)" stroke="rgba(88,182,255,0.3)"  stroke-width="1"/>
+        <text x="93"  y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.45">✓</text>
+        <text x="178" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.45">✓</text>
+        <text x="263" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.45">✓</text>
+        <text x="348" y="241" text-anchor="middle" font-size="13" fill="#58b6ff" opacity="0.45">✓</text>
 
-        <!-- Row 1 — in progress (robot at col 1) -->
-        <rect x="58"  y="138" width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <!-- Row 1 — in progress -->
+        <rect x="58"  y="138" width="70" height="55" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
         <!-- Robot window highlight -->
-        <rect x="143" y="138" width="70" height="55" rx="3" fill="#b6d5ed" stroke="#5fa8d8" stroke-width="2"/>
+        <rect x="143" y="138" width="70" height="55" rx="3" fill="rgba(88,182,255,0.28)" stroke="#58b6ff" stroke-width="1.5"/>
         <!-- Suction pad strips -->
         <rect x="143" y="138" width="70" height="9"  rx="4" fill="#58b6ff"/>
         <rect x="143" y="184" width="70" height="9"  rx="4" fill="#58b6ff"/>
         <rect x="143" y="147" width="9"  height="37" rx="4" fill="#3b96dd"/>
         <rect x="204" y="147" width="9"  height="37" rx="4" fill="#3b96dd"/>
-        <!-- Robot body interior -->
-        <rect x="152" y="147" width="52" height="37" rx="3" fill="white" opacity="0.92"/>
+        <!-- Robot body -->
+        <rect x="152" y="147" width="52" height="37" rx="3" fill="rgba(255,255,255,0.92)"/>
         <text x="178" y="168" text-anchor="middle" font-size="7" fill="#1a2f52" font-family="Inter,sans-serif" font-weight="700">SC·01</text>
-        <rect x="228" y="138" width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
-        <rect x="313" y="138" width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <rect x="228" y="138" width="70" height="55" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <rect x="313" y="138" width="70" height="55" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-        <!-- Row 0 top — not yet reached -->
-        <rect x="58"  y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
-        <rect x="143" y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
-        <rect x="228" y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
-        <rect x="313" y="68"  width="70" height="55" rx="3" fill="#cce2f5" stroke="#a8cceb" stroke-width="1"/>
+        <!-- Row 0 — not yet reached -->
+        <rect x="58"  y="68"  width="70" height="55" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <rect x="143" y="68"  width="70" height="55" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <rect x="228" y="68"  width="70" height="55" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <rect x="313" y="68"  width="70" height="55" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
 
         <!-- ── SNAKE PATH ── -->
-        <!-- Row 3 L→R completed -->
-        <path d="M 58,305 H 390" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.28" fill="none"/>
-        <polygon points="390,302 397,305 390,308" fill="#58b6ff" opacity="0.28"/>
-        <!-- Turn R, row3→row2 -->
-        <path d="M 395,305 V 235" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.28" fill="none"/>
-        <!-- Row 2 R→L completed -->
-        <path d="M 390,235 H 48" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.28" fill="none"/>
-        <polygon points="48,232 41,235 48,238" fill="#58b6ff" opacity="0.28"/>
-        <!-- Turn L, row2→row1 -->
-        <path d="M 43,235 V 165" stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35" fill="none"/>
-        <!-- Row 1 in progress: solid to robot, dashed continuation -->
-        <path d="M 48,165 H 138" stroke="#1a2f52" stroke-width="2" opacity="0.45" fill="none"/>
-        <path d="M 218,165 H 390" stroke="#1a2f52" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.18" fill="none"/>
-        <polygon points="390,162 397,165 390,168" fill="#1a2f52" opacity="0.18"/>
+        <path d="M 58,305 H 390"   stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35" fill="none"/>
+        <polygon points="390,302 397,305 390,308" fill="#58b6ff" opacity="0.35"/>
+        <path d="M 395,305 V 235"  stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35" fill="none"/>
+        <path d="M 390,235 H 48"   stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35" fill="none"/>
+        <polygon points="48,232 41,235 48,238" fill="#58b6ff" opacity="0.35"/>
+        <path d="M 43,235 V 165"   stroke="#58b6ff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.42" fill="none"/>
+        <path d="M 48,165 H 138"   stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+        <path d="M 218,165 H 390"  stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="5,4" fill="none"/>
+        <polygon points="390,162 397,165 390,168" fill="rgba(255,255,255,0.15)"/>
 
-        <!-- Label at bottom -->
-        <text x="220" y="385" text-anchor="middle" font-size="9" fill="#1a2f52" font-family="Inter,sans-serif" letter-spacing="0.5" opacity="0.4">slangebeweging — rij per rij</text>
+        <text x="220" y="386" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.2)" font-family="Inter,sans-serif" letter-spacing="0.5">slangebeweging — rij per rij</text>
       </svg>
 
-      <div class="tech-visual-text">
-        <p class="tech-visual-eyebrow" data-nl="Bewegingssysteem" data-en="Movement System">Bewegingssysteem</p>
-        <h2 class="tech-visual-title">
+      <div>
+        <p class="t-d-eyebrow" data-nl="Bewegingssysteem" data-en="Movement System">Bewegingssysteem</p>
+        <h2 class="t-d-title">
           <span data-nl="Vier strips." data-en="Four strips.">Vier strips.</span><br>
           <span data-nl="Elke gevel." data-en="Any façade.">Elke gevel.</span>
         </h2>
-        <div class="tech-callouts">
-          <div class="tech-callout">
-            <div class="tech-callout-dot" style="background:#58b6ff"></div>
+        <div class="t-d-callouts">
+          <div class="t-d-callout">
+            <div class="t-d-dot" style="background:#58b6ff"></div>
             <div>
               <h4 data-nl="Horizontale zuignap strips" data-en="Horizontal suction pad strips">Horizontale zuignap strips</h4>
               <p data-nl="Twee lange strips boven en onder verankeren de robot terwijl het lichaam zijwaarts glijdt — rij per rij." data-en="Two long strips top and bottom anchor the robot while the body slides sideways — row by row.">Twee lange strips boven en onder verankeren de robot terwijl het lichaam zijwaarts glijdt — rij per rij.</p>
             </div>
           </div>
-          <div class="tech-callout">
-            <div class="tech-callout-dot" style="background:#3b96dd"></div>
+          <div class="t-d-callout">
+            <div class="t-d-dot" style="background:#3b96dd"></div>
             <div>
               <h4 data-nl="Verticale zuignap strips" data-en="Vertical suction pad strips">Verticale zuignap strips</h4>
               <p data-nl="Twee kortere strips aan de zijkanten nemen het over op het einde van elke rij om verticaal te herpositioneren." data-en="Two shorter strips on the sides take over at each row end to reposition vertically.">Twee kortere strips aan de zijkanten nemen het over op het einde van elke rij om verticaal te herpositioneren.</p>
             </div>
           </div>
-          <div class="tech-callout">
-            <div class="tech-callout-dot" style="background:#1a2f52"></div>
+          <div class="t-d-callout">
+            <div class="t-d-dot" style="background:#1a4080"></div>
             <div>
               <h4 data-nl="Robotarmen — raamtransfer" data-en="Robotic arms — window transfer">Robotarmen — raamtransfer</h4>
               <p data-nl="Geïntegreerde armen met vacuümpads grijpen het volgende raam vast bij elke kozijnovergang." data-en="Integrated arms with vacuum pads grip the next window at every frame crossing.">Geïntegreerde armen met vacuümpads grijpen het volgende raam vast bij elke kozijnovergang.</p>
@@ -576,141 +287,181 @@
       </div>
 
     </div>
+  </section>
+
+  <!-- ══ FLEET IMAGE ══ -->
+  <div class="t-full-img tall">
+    <img src="SkyCrawler%20Fleet02.png" alt="SkyCrawler fleet op het dak van een wolkenkrabber" />
   </div>
 
-  <!-- MECHANICS -->
-  <div class="section">
-    <p class="section-label" data-nl="Geavanceerde Mechanica" data-en="Advanced Mechanics">Geavanceerde Mechanica</p>
-    <div class="two-col">
-      <div>
-        <h2 class="section-title" data-nl="Dynamische Voortbeweging & Verankering" data-en="Dynamic Locomotion & Anchoring">Dynamische Voortbeweging & Verankering</h2>
-        <p class="prose" data-nl="Tijdens het reinigen blijft de robot veilig verankerd door twee lange horizontale zuignappen (boven en onder) en twee verticale zuignappen (zijkanten). Terwijl de boven- en onderkant vastzitten, glijdt het hoofdlichaam onafhankelijk zijwaarts over de gevel in een efficiënte slangbeweging." data-en="While cleaning, the robot stays securely anchored via two long horizontal suction pads (top and bottom) and two vertical suction pads (sides). While top and bottom are locked, the main body independently glides sideways across the façade in an efficient serpentine motion.">Tijdens het reinigen blijft de robot veilig verankerd door twee lange horizontale zuignappen (boven en onder) en twee verticale zuignappen (zijkanten). Terwijl de boven- en onderkant vastzitten, glijdt het hoofdlichaam onafhankelijk zijwaarts over de gevel in een efficiënte slangbeweging.</p>
-
-        <div class="sub-section">
-          <p class="sub-label" data-nl="Actieradius" data-en="Range of Motion">Actieradius</p>
-          <h3 class="sub-title" data-nl="Maximalisatie van de Range of Motion" data-en="Maximising the Range of Motion">Maximalisatie van de Range of Motion</h3>
-          <p class="prose" data-nl="De robot heeft van bovenaf gezien een vierkante vorm met aan alle vier de randen een langwerpige zuignap. Tijdens het zijwaarts wassen zijn de horizontale strips verankerd, terwijl het lichaam soepel tussendoor glijdt. Zodra de ROM bereikt is, nemen de verticale zij-nappen het over — een naadloze stafettewissel." data-en="When viewed from above, the robot is square-shaped with an elongated suction pad along all four edges. During lateral washing, the horizontal strips are anchored while the body smoothly glides between them. Once ROM is reached, the vertical side pads take over — a seamless relay.">De robot heeft van bovenaf gezien een vierkante vorm met aan alle vier de randen een langwerpige zuignap. Tijdens het zijwaarts wassen zijn de horizontale strips verankerd, terwijl het lichaam soepel tussendoor glijdt. Zodra de ROM bereikt is, nemen de verticale zij-nappen het over — een naadloze stafettewissel.</p>
+  <!-- ══ MECHANICS ══ -->
+  <section class="t-section">
+    <div class="t-inner">
+      <div class="t-mechan">
+        <div class="t-mechan-left">
+          <p class="t-eyebrow" data-nl="Geavanceerde Mechanica" data-en="Advanced Mechanics">Geavanceerde Mechanica</p>
+          <h2 class="t-h2" data-nl="Dynamisch. Veilig. Autonoom." data-en="Dynamic. Safe. Autonomous.">Dynamisch. Veilig. Autonoom.</h2>
+          <p class="t-prose" data-nl="Tijdens het reinigen blijft de robot veilig verankerd door twee lange horizontale zuignappen en twee verticale zuignappen. Terwijl de boven- en onderkant vastzitten, glijdt het hoofdlichaam onafhankelijk zijwaarts in een efficiënte slangbeweging." data-en="While cleaning, the robot stays securely anchored via two long horizontal suction pads and two vertical suction pads. While top and bottom are locked, the body independently glides sideways in an efficient serpentine motion.">Tijdens het reinigen blijft de robot veilig verankerd door twee lange horizontale zuignappen en twee verticale zuignappen. Terwijl de boven- en onderkant vastzitten, glijdt het hoofdlichaam onafhankelijk zijwaarts in een efficiënte slangbeweging.</p>
         </div>
-
-        <div class="sub-section">
-          <p class="sub-label" data-nl="Raam-tot-Raam Transfer" data-en="Window-to-Window Transfer">Raam-tot-Raam Transfer</p>
-          <h3 class="sub-title" data-nl="Over randen en kozijnen" data-en="Across edges and frames">Over randen en kozijnen</h3>
-          <p class="prose" data-nl="Twee robuuste robotarmen met zware vacuümpads grijpen het volgende raam stevig vast. Pas daarna ontkoppelt het hoofdlichaam, waarna de robot zichzelf veilig naar de nieuwe positie trekt." data-en="Two robust robotic arms with heavy vacuum pads firmly grip the next window. Only then does the main body detach, after which the robot safely pulls itself to the new position.">Twee robuuste robotarmen met zware vacuümpads grijpen het volgende raam stevig vast. Pas daarna ontkoppelt het hoofdlichaam, waarna de robot zichzelf veilig naar de nieuwe positie trekt.</p>
-        </div>
-      </div>
-      <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?w=1600&q=85&fit=crop" alt="Robot mechanica" />
-    </div>
-  </div>
-
-  <!-- AI / SOFTWARE -->
-  <div class="section">
-    <p class="section-label" data-nl="Intelligente Software" data-en="Intelligent Software">Intelligente Software</p>
-    <h2 class="section-title" data-nl="Slimme AI ontmoet ecologisch design." data-en="Smart AI meets ecological design.">Slimme AI ontmoet ecologisch design.</h2>
-    <p class="prose" data-nl="SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid." data-en="SkyCrawler relies on a network of sensors and AI-driven algorithms to proactively make decisions, with a strong focus on environmental friendliness.">SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid.</p>
-
-    <div class="feat-grid">
-      <div class="feat-card">
-        <h4 data-nl="Weersvoorspelling" data-en="Weather Prediction">Weersvoorspelling</h4>
-        <p data-nl="De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is." data-en="The robot is continuously linked to local weather data and never begins a cleaning cycle when rain is forecast.">De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is.</p>
-      </div>
-      <div class="feat-card">
-        <h4 data-nl="Slimme Routeplanning" data-en="Smart Route Planning">Slimme Routeplanning</h4>
-        <p data-nl="Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau." data-en="Using LiDAR mapping, the AI pre-calculates the most efficient route and continuously monitors battery and fluid levels.">Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau.</p>
-      </div>
-      <div class="feat-card">
-        <h4 data-nl="Ecologisch Wassen" data-en="Eco-Friendly Washing">Ecologisch Wassen</h4>
-        <p data-nl="Gefilterd regenwater en sterk gereduceerde ecologische zepen, in combinatie met microvezelborstels — streeploos zonder chemische vervuiling." data-en="Filtered rainwater and significantly reduced ecological soaps, combined with microfibre brushes — streak-free results without chemical pollution.">Gefilterd regenwater en sterk gereduceerde ecologische zepen, in combinatie met microvezelborstels — streeploos zonder chemische vervuiling.</p>
-      </div>
-      <div class="feat-card">
-        <h4>Auto-Dock & Recharge</h4>
-        <p data-nl="Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen." data-en="When supplies run low, the robot autonomously navigates back to the base station on the roof to recharge and refill.">Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen.</p>
-      </div>
-      <div class="feat-card">
-        <h4 data-nl="Toekomst: Inspecties" data-en="Future: Inspections">Toekomst: Inspecties</h4>
-        <p data-nl="Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord." data-en="Using LiDAR and AI, we are developing inspection modes that automatically detect structural damage.">Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord.</p>
-      </div>
-      <div class="feat-card">
-        <h4 data-nl="Drievoudige Veiligheid" data-en="Triple Safety">Drievoudige Veiligheid</h4>
-        <p data-nl="Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden." data-en="Constant actuators, a dynamic tether cable and an emergency anchor system guarantee safety under all conditions.">Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- FULL IMAGE -->
-  <div class="img-wrap">
-    <img class="full-img" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=3840&q=85&fit=crop" alt="Technologie" />
-  </div>
-
-  <!-- SPECS -->
-  <div class="section">
-    <p class="section-label" data-nl="Technische Specificaties" data-en="Technical Specifications">Technische Specificaties</p>
-    <h2 class="section-title" data-nl="Gemaakt voor extreme omgevingen." data-en="Built for extreme environments.">Gemaakt voor extreme omgevingen.</h2>
-    <p class="prose" data-nl="Ontworpen voor prestaties in ijzige kou tot intense hitte." data-en="Engineered for performance from freezing cold to intense heat.">Ontworpen voor prestaties in ijzige kou tot intense hitte.</p>
-
-    <div class="specs-table">
-      <div class="specs-row">
-        <div class="spec-item">
-          <div class="spec-value">18.4 kg</div>
-          <div class="spec-label" data-nl="Chassis & Drooggewicht" data-en="Chassis & Dry Weight">Chassis & Drooggewicht</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-value">680 N</div>
-          <div class="spec-label" data-nl="Zuigkracht per vacuümpad" data-en="Suction force per vacuum pad">Zuigkracht per vacuümpad</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-value">50 / u</div>
-          <div class="spec-label" data-nl="Ramen gereinigd per uur" data-en="Windows cleaned per hour">Ramen gereinigd per uur</div>
-        </div>
-      </div>
-      <div class="specs-row">
-        <div class="spec-item">
-          <div class="spec-value">125 km/u</div>
-          <div class="spec-label" data-nl="Windbestendigheid" data-en="Wind resistance">Windbestendigheid</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-value">6.5 u</div>
-          <div class="spec-label" data-nl="Batterijduur continu" data-en="Continuous battery life">Batterijduur continu</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-value">5G</div>
-          <div class="spec-label">Telemetrie & LiDAR Mesh</div>
+        <div class="t-mechan-right">
+          <div>
+            <p class="t-sub-label" data-nl="Actieradius" data-en="Range of Motion">Actieradius</p>
+            <h3 class="t-sub-h" data-nl="Maximale Range of Motion" data-en="Maximum Range of Motion">Maximale Range of Motion</h3>
+            <p class="t-prose" data-nl="De robot heeft van bovenaf gezien een vierkante vorm met aan alle vier de randen een langwerpige zuignap. Tijdens het zijwaarts wassen zijn de horizontale strips verankerd, terwijl het lichaam soepel tussendoor glijdt. Zodra de ROM bereikt is, nemen de verticale zij-nappen het over — een naadloze stafettewissel." data-en="Viewed from above, the robot is square with an elongated suction pad along all four edges. During lateral washing, the horizontal strips are anchored while the body smoothly glides between them. Once ROM is reached, the vertical side pads take over — a seamless relay.">De robot heeft van bovenaf gezien een vierkante vorm met aan alle vier de randen een langwerpige zuignap. Tijdens het zijwaarts wassen zijn de horizontale strips verankerd, terwijl het lichaam soepel tussendoor glijdt. Zodra de ROM bereikt is, nemen de verticale zij-nappen het over — een naadloze stafettewissel.</p>
+          </div>
+          <div class="t-sub">
+            <p class="t-sub-label" data-nl="Raam-tot-Raam Transfer" data-en="Window-to-Window Transfer">Raam-tot-Raam Transfer</p>
+            <h3 class="t-sub-h" data-nl="Over randen en kozijnen" data-en="Across edges and frames">Over randen en kozijnen</h3>
+            <p class="t-prose" data-nl="Twee robuuste robotarmen met zware vacuümpads grijpen het volgende raam stevig vast. Pas daarna ontkoppelt het hoofdlichaam, waarna de robot zichzelf veilig naar de nieuwe positie trekt." data-en="Two robust robotic arms with heavy vacuum pads firmly grip the next window. Only then does the main body detach, after which the robot safely pulls itself to the new position.">Twee robuuste robotarmen met zware vacuümpads grijpen het volgende raam stevig vast. Pas daarna ontkoppelt het hoofdlichaam, waarna de robot zichzelf veilig naar de nieuwe positie trekt.</p>
+          </div>
+          <div class="t-sub">
+            <p class="t-sub-label" data-nl="Actieve Retractie" data-en="Active Retraction">Actieve Retractie</p>
+            <h3 class="t-sub-h" data-nl="Wrijvingsloos op glas" data-en="Friction-free on glass">Wrijvingsloos op glas</h3>
+            <p class="t-prose" data-nl="Bij het loslaten trekken de zuignappen zich actief enkele millimeters terug van het glas, zodat het lichaam zonder wrijving kan schuiven en de gevel niet beschadigt." data-en="When releasing, the suction pads actively retract a few millimetres from the glass, so the body slides without friction and the façade stays undamaged.">Bij het loslaten trekken de zuignappen zich actief enkele millimeters terug van het glas, zodat het lichaam zonder wrijving kan schuiven en de gevel niet beschadigt.</p>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
+  <!-- ══ AI / SOFTWARE ══ -->
+  <section class="t-section t-light">
+    <div class="t-inner">
+      <div class="t-feat-header">
+        <p class="t-eyebrow" data-nl="Intelligente Software" data-en="Intelligent Software">Intelligente Software</p>
+        <h2 class="t-h2" data-nl="Slimme AI ontmoet ecologisch design." data-en="Smart AI meets ecological design.">Slimme AI ontmoet ecologisch design.</h2>
+        <p class="t-prose" data-nl="SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid." data-en="SkyCrawler relies on a network of sensors and AI-driven algorithms to proactively make decisions, with a strong focus on environmental responsibility.">SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid.</p>
+      </div>
+      <div class="t-feat-grid">
+        <div class="t-feat-col">
+          <div class="t-feat-item">
+            <p class="t-feat-n">01</p>
+            <h4 data-nl="Weersvoorspelling" data-en="Weather Prediction">Weersvoorspelling</h4>
+            <p data-nl="De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is." data-en="The robot is continuously linked to local weather data and never begins a cleaning cycle when rain is forecast.">De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is.</p>
+          </div>
+          <div class="t-feat-item">
+            <p class="t-feat-n">04</p>
+            <h4>Auto-Dock &amp; Recharge</h4>
+            <p data-nl="Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen." data-en="When supplies run low, the robot autonomously navigates back to its rooftop base station to recharge and refill.">Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen.</p>
+          </div>
+        </div>
+        <div class="t-feat-col">
+          <div class="t-feat-item">
+            <p class="t-feat-n">02</p>
+            <h4 data-nl="Slimme Routeplanning" data-en="Smart Route Planning">Slimme Routeplanning</h4>
+            <p data-nl="Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau." data-en="Using LiDAR mapping, the AI pre-calculates the most efficient route and continuously monitors battery and fluid levels.">Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau.</p>
+          </div>
+          <div class="t-feat-item">
+            <p class="t-feat-n">05</p>
+            <h4 data-nl="Toekomst: Inspecties" data-en="Future: Inspections">Toekomst: Inspecties</h4>
+            <p data-nl="Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord en gerapporteerd." data-en="Using LiDAR and AI, we're building inspection modes that automatically detect and report structural damage.">Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord en gerapporteerd.</p>
+          </div>
+        </div>
+        <div class="t-feat-col">
+          <div class="t-feat-item">
+            <p class="t-feat-n">03</p>
+            <h4 data-nl="Ecologisch Wassen" data-en="Eco-Friendly Washing">Ecologisch Wassen</h4>
+            <p data-nl="Gefilterd regenwater en ecologische zepen, gecombineerd met microvezelborstels — streeploos zonder chemische vervuiling." data-en="Filtered rainwater and ecological soaps, combined with microfibre brushes — streak-free results without chemical pollution.">Gefilterd regenwater en ecologische zepen, gecombineerd met microvezelborstels — streeploos zonder chemische vervuiling.</p>
+          </div>
+          <div class="t-feat-item">
+            <p class="t-feat-n">06</p>
+            <h4 data-nl="Drievoudige Veiligheid" data-en="Triple Safety">Drievoudige Veiligheid</h4>
+            <p data-nl="Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden." data-en="Constant actuators, a dynamic tether cable and an emergency anchor system guarantee safety under all conditions.">Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SPECS ══ -->
+  <section class="t-section">
+    <div class="t-inner">
+      <p class="t-eyebrow" data-nl="Technische Specificaties" data-en="Technical Specifications">Technische Specificaties</p>
+      <h2 class="t-h2" data-nl="Gemaakt voor extreme omgevingen." data-en="Built for extreme environments.">Gemaakt voor extreme omgevingen.</h2>
+      <p class="t-prose" data-nl="Ontworpen voor prestaties van ijzige kou tot intense hitte — zonder enige concessie." data-en="Engineered for performance from freezing cold to intense heat — without compromise.">Ontworpen voor prestaties van ijzige kou tot intense hitte — zonder enige concessie.</p>
+      <div class="t-specs-table">
+        <div class="t-specs-row">
+          <div class="t-spec-item">
+            <div class="t-spec-val">18.4 kg</div>
+            <div class="t-spec-lbl" data-nl="Chassis & Drooggewicht" data-en="Chassis & Dry Weight">Chassis & Drooggewicht</div>
+          </div>
+          <div class="t-spec-item">
+            <div class="t-spec-val">680 N</div>
+            <div class="t-spec-lbl" data-nl="Zuigkracht per vacuümpad" data-en="Suction force per pad">Zuigkracht per vacuümpad</div>
+          </div>
+          <div class="t-spec-item">
+            <div class="t-spec-val">50 / u</div>
+            <div class="t-spec-lbl" data-nl="Ramen gereinigd per uur" data-en="Windows cleaned per hour">Ramen gereinigd per uur</div>
+          </div>
+        </div>
+        <div class="t-specs-row">
+          <div class="t-spec-item">
+            <div class="t-spec-val">125 km/u</div>
+            <div class="t-spec-lbl" data-nl="Windbestendigheid" data-en="Wind resistance">Windbestendigheid</div>
+          </div>
+          <div class="t-spec-item">
+            <div class="t-spec-val">6.5 u</div>
+            <div class="t-spec-lbl" data-nl="Batterijduur continu" data-en="Continuous battery life">Batterijduur continu</div>
+          </div>
+          <div class="t-spec-item">
+            <div class="t-spec-val">5G</div>
+            <div class="t-spec-lbl">Telemetrie &amp; LiDAR Mesh</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BUILDING SKYLINE ══ -->
+  <div class="t-full-img">
+    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=3840&q=90&fit=crop" alt="Glazen wolkenkrabber gevel" />
   </div>
 
   <footer data-slim></footer>
   <script src="footer.js"></script>
 
   <script>
-    // Nav hide/show on scroll direction
-    (function() {
-      var nav = document.querySelector('nav');
-      var lastY = 0;
-      window.addEventListener('scroll', function() {
+    // Nav: scroll-direction hide + light/dark state
+    (function () {
+      var nav      = document.querySelector('nav');
+      var siteLogo = document.querySelector('.site-logo');
+      var siteLang = document.querySelector('.site-lang');
+      var hero     = document.querySelector('.t-hero');
+      var lastY    = 0;
+
+      function update() {
         var y = window.scrollY;
-        if (y > lastY && y > 80) { nav.classList.add('nav-hidden'); }
-        else { nav.classList.remove('nav-hidden'); }
+        var heroH = hero ? hero.offsetHeight : 300;
+
+        if (y > lastY && y > 80) nav.classList.add('nav-hidden');
+        else nav.classList.remove('nav-hidden');
         lastY = y;
-      }, { passive: true });
+
+        var pastHero = y > heroH - 80;
+        nav.classList.toggle('nav-scrolled', pastHero);
+        siteLogo.classList.toggle('logo-scrolled', pastHero);
+        siteLang.classList.toggle('lang-scrolled', pastHero);
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
     })();
 
-    // Language toggle with localStorage persistence
-    (function() {
+    // Language toggle
+    (function () {
       function setLang(lang) {
         localStorage.setItem('sc-lang', lang);
-        document.querySelectorAll('.lang-btn').forEach(function(b) {
+        document.querySelectorAll('.lang-btn').forEach(function (b) {
           b.classList.toggle('active', b.dataset.lang === lang);
         });
-        document.querySelectorAll('[data-nl]').forEach(function(el) {
+        document.querySelectorAll('[data-nl]').forEach(function (el) {
           el.textContent = lang === 'nl' ? el.dataset.nl : (el.dataset.en || el.dataset.nl);
         });
       }
       var saved = localStorage.getItem('sc-lang') || 'nl';
       setLang(saved);
-      document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() { setLang(btn.dataset.lang); });
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.dataset.lang); });
       });
     })();
   </script>
