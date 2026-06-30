@@ -602,7 +602,7 @@
         'float _cn(vec3 P){vec3 P0=floor(P),P1=P0+1.;P0=mod(P0,289.);P1=mod(P1,289.);vec3 f0=fract(P),f1=f0-1.;vec4 ix=vec4(P0.x,P1.x,P0.x,P1.x),iy=vec4(P0.yy,P1.yy),iz0=P0.zzzz,iz1=P1.zzzz;vec4 ixy=_p4(_p4(ix)+iy),ixy0=_p4(ixy+iz0),ixy1=_p4(ixy+iz1);vec4 gx0=ixy0/7.,gy0=fract(floor(gx0)/7.)-.5;gx0=fract(gx0);vec4 gz0=vec4(.5)-abs(gx0)-abs(gy0);vec4 sz0=step(gz0,vec4(0.));gx0-=sz0*(step(0.,gx0)-.5);gy0-=sz0*(step(0.,gy0)-.5);vec4 gx1=ixy1/7.,gy1=fract(floor(gx1)/7.)-.5;gx1=fract(gx1);vec4 gz1=vec4(.5)-abs(gx1)-abs(gy1);vec4 sz1=step(gz1,vec4(0.));gx1-=sz1*(step(0.,gx1)-.5);gy1-=sz1*(step(0.,gy1)-.5);vec3 g000=vec3(gx0.x,gy0.x,gz0.x),g100=vec3(gx0.y,gy0.y,gz0.y),g010=vec3(gx0.z,gy0.z,gz0.z),g110=vec3(gx0.w,gy0.w,gz0.w),g001=vec3(gx1.x,gy1.x,gz1.x),g101=vec3(gx1.y,gy1.y,gz1.y),g011=vec3(gx1.z,gy1.z,gz1.z),g111=vec3(gx1.w,gy1.w,gz1.w);vec4 nm0=_ti(vec4(dot(g000,g000),dot(g010,g010),dot(g100,g100),dot(g110,g110)));g000*=nm0.x;g010*=nm0.y;g100*=nm0.z;g110*=nm0.w;vec4 nm1=_ti(vec4(dot(g001,g001),dot(g011,g011),dot(g101,g101),dot(g111,g111)));g001*=nm1.x;g011*=nm1.y;g101*=nm1.z;g111*=nm1.w;float n000=dot(g000,f0),n100=dot(g100,vec3(f1.x,f0.yz)),n010=dot(g010,vec3(f0.x,f1.y,f0.z)),n110=dot(g110,vec3(f1.xy,f0.z)),n001=dot(g001,vec3(f0.xy,f1.z)),n101=dot(g101,vec3(f1.x,f0.y,f1.z)),n011=dot(g011,vec3(f0.x,f1.yz)),n111=dot(g111,f1);vec3 fxyz=_fd(f0);vec4 nz=mix(vec4(n000,n100,n010,n110),vec4(n001,n101,n011,n111),fxyz.z);vec2 nyz=mix(nz.xy,nz.zw,fxyz.y);return 2.2*mix(nyz.x,nyz.y,fxyz.x);}'].join('\n');
 
       var U={time:{value:0},uSpeed:{value:2.},uScale:{value:0.2},uNoiseIntensity:{value:1.75}};
-      var mat=new THREE.MeshStandardMaterial({color:0x000000,roughness:0.3,metalness:0.3,side:THREE.DoubleSide});
+      var mat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:0.12,metalness:0.55,side:THREE.DoubleSide});
       mat.onBeforeCompile=function(sh){
         Object.assign(sh.uniforms,U);
         var vH=[N,'uniform float time,uSpeed,uScale;',
@@ -617,8 +617,9 @@
           .replace('#include <dithering_fragment>','#include <dithering_fragment>\nfloat _dg=_n2(gl_FragCoord.xy);gl_FragColor.rgb-=_dg/15.*uNoiseIntensity;');
       };
       scene.add(new THREE.Mesh(makeGeom(12,2,15,0,100),mat));
-      scene.add(new THREE.AmbientLight(0xffffff,1));
-      var dl=new THREE.DirectionalLight(0xffffff,1);dl.position.set(0,3,10);scene.add(dl);
+      scene.add(new THREE.AmbientLight(0xc8e4ff,0.7));
+      var dl=new THREE.DirectionalLight(0x88c8ff,2.2);dl.position.set(0,3,10);scene.add(dl);
+      var dl2=new THREE.DirectionalLight(0xffffff,1.0);dl2.position.set(2,-2,-6);scene.add(dl2);
 
       var lastT=0;
       function loop(t){requestAnimationFrame(loop);U.time.value+=0.08*Math.min((t-lastT)/1000,.05);lastT=t;renderer.render(scene,camera);}
