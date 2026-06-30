@@ -46,20 +46,21 @@
 
     /* ── HERO ── */
     .t-hero-wrap { position: relative; }
-    .t-hero { position: relative; height: 60vh; min-height: 360px; overflow: hidden; }
+    .t-hero { position: relative; height: 52vh; min-height: 320px; overflow: hidden; }
     .t-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
     .t-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.55) 100%); }
     .t-page-header { position: relative; z-index: 5; margin-top: -110px; padding: 0 8vw 4.5rem; }
-    .t-page-panel { display: inline-block; padding: 2.2rem 2.8rem; background: rgba(14,14,18,0.72); backdrop-filter: blur(24px) saturate(1.2); -webkit-backdrop-filter: blur(24px) saturate(1.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.35); max-width: 640px; }
+    .t-header-row { display: flex; gap: 4rem; align-items: flex-end; }
+    .t-page-panel { flex-shrink: 0; max-width: 560px; padding: 2.2rem 2.8rem; background: rgba(14,14,18,0.72); backdrop-filter: blur(24px) saturate(1.2); -webkit-backdrop-filter: blur(24px) saturate(1.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.35); }
+    .t-header-aside { flex: 1; padding-bottom: 0.4rem; }
+    .t-header-aside p { font-size: clamp(1.2rem, 2vw, 1.75rem); line-height: 1.4; }
+    .stmt-bold { font-weight: 700; color: var(--off-black); }
+    .stmt-light { font-weight: 300; color: var(--mid); }
     .t-hero-eyebrow { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.48); margin-bottom: 1.1rem; }
     .t-hero-title { font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; color: white; margin-bottom: 1.2rem; }
     .t-hero-sub { font-size: clamp(0.88rem, 1.3vw, 0.98rem); font-weight: 300; color: rgba(255,255,255,0.62); line-height: 1.72; }
 
-    /* ── STATEMENT ── */
-    .t-statement { padding: 8rem 8vw; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    .t-statement p { font-size: clamp(1.5rem, 2.5vw, 2.1rem); line-height: 1.42; max-width: 840px; }
-    .stmt-bold { font-weight: 700; color: var(--off-black); }
-    .stmt-light { font-weight: 300; color: var(--mid); }
+    /* ── STATEMENT (legacy, kept for reference) ── */
 
     /* ── DIAGRAM SECTION ── */
     .t-diagram { background: var(--white); padding: 7rem 3rem; }
@@ -135,7 +136,8 @@
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: white; }
       .t-page-header { margin-top: -80px; padding: 0 1.5rem 3rem; }
-      .t-statement { padding: 5rem 1.5rem; }
+      .t-header-row { flex-direction: column; gap: 2rem; }
+      .t-header-aside p { font-size: clamp(1.1rem, 4vw, 1.4rem); }
       .t-diagram { padding: 5rem 1.5rem; }
       .t-section { padding: 5rem 1.5rem; }
       .t-sw-section { padding: 5rem 1.5rem; }
@@ -179,24 +181,24 @@
       <div class="t-hero-overlay"></div>
     </section>
     <div class="t-page-header">
-      <div class="t-page-panel">
-        <p class="t-hero-eyebrow" data-nl="Geavanceerde Robotica" data-en="Advanced Robotics">Geavanceerde Robotica</p>
-        <h1 class="t-hero-title">
-          <span data-nl="Ongeëvenaarde" data-en="Unparalleled">Ongeëvenaarde</span><br>
-          <span data-nl="Precisie." data-en="Precision.">Precisie.</span>
-        </h1>
-        <p class="t-hero-sub" data-nl="De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook." data-en="The technology behind SkyCrawler — built to work faster, cleaner and smarter than anything before it.">De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook.</p>
+      <div class="t-header-row">
+        <div class="t-page-panel">
+          <p class="t-hero-eyebrow" data-nl="Geavanceerde Robotica" data-en="Advanced Robotics">Geavanceerde Robotica</p>
+          <h1 class="t-hero-title">
+            <span data-nl="Ongeëvenaarde" data-en="Unparalleled">Ongeëvenaarde</span><br>
+            <span data-nl="Precisie." data-en="Precision.">Precisie.</span>
+          </h1>
+          <p class="t-hero-sub" data-nl="De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook." data-en="The technology behind SkyCrawler — built to work faster, cleaner and smarter than anything before it.">De technologie achter SkyCrawler — gebouwd om sneller, schoner en slimmer te werken dan wat ook.</p>
+        </div>
+        <div class="t-header-aside">
+          <p>
+            <span class="stmt-bold" data-nl="Geen steiger. Geen medewerkers op hoogte." data-en="No scaffold. No workers at height.">Geen steiger. Geen medewerkers op hoogte.</span>
+            <span class="stmt-light" data-nl=" Alleen SkyCrawler — geankerd door zuigkracht, aangedreven door AI." data-en=" Just SkyCrawler — anchored by suction, powered by AI."> Alleen SkyCrawler — geankerd door zuigkracht, aangedreven door AI.</span>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- ══ STATEMENT ══ -->
-  <section class="t-statement">
-    <p>
-      <span class="stmt-bold" data-nl="Geen steiger. Geen medewerkers op hoogte." data-en="No scaffold. No workers at height.">Geen steiger. Geen medewerkers op hoogte.</span>
-      <span class="stmt-light" data-nl=" Alleen SkyCrawler — geankerd door zuigkracht, aangedreven door AI." data-en=" Just SkyCrawler — anchored by suction, powered by AI."> Alleen SkyCrawler — geankerd door zuigkracht, aangedreven door AI.</span>
-    </p>
-  </section>
 
   <!-- ══ MOVEMENT DIAGRAM ══ -->
   <section class="t-diagram">
