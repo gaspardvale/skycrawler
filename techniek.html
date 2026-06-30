@@ -26,8 +26,8 @@
 
     /* ── NAV ── */
     nav {
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 200;
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(20px);
@@ -38,7 +38,10 @@
       justify-content: space-between;
       padding: 0 3rem;
       height: 64px;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
     }
+
+    nav.nav-hidden { transform: translateY(-100%); }
 
     .nav-left { display: flex; align-items: center; gap: 2.6rem; }
 
@@ -55,8 +58,7 @@
       letter-spacing: -0.01em;
     }
 
-    nav ul a:hover { color: #000; }
-    nav ul a.active-page { color: #000; font-weight: 600; }
+    nav ul a:hover { color: rgba(0,0,0,0.38); }
 
     .nav-right { display: flex; align-items: center; gap: 1rem; }
 
@@ -85,7 +87,7 @@
 
     /* ── PAGE HEADER ── */
     .page-header {
-      padding: 5rem 3rem 4rem;
+      padding: calc(64px + 3rem) 3rem 4rem;
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -377,10 +379,10 @@
   <nav>
     <div class="nav-left">
       <a href="home.html">
-        <img src="TRANSPARENT%20LOGO.png" alt="SkyCrawler" class="nav-logo" />
+        <img src="black_robot_logo_transparent.png" alt="SkyCrawler" class="nav-logo" />
       </a>
       <ul>
-        <li><a href="techniek.html" class="active-page">Techniek</a></li>
+        <li><a href="techniek.html">Techniek</a></li>
         <li><a href="tarieven.html">Tarieven</a></li>
         <li><a href="businessplan.html">Over Ons</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -403,7 +405,7 @@
   </div>
 
   <div class="page-photo">
-    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=3840&q=90&fit=crop" alt="Technologie" />
+    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=3840&q=90&fit=crop" alt="Glazen wolkenkrabber gevel" />
   </div>
 
   <!-- MECHANICS -->
@@ -532,13 +534,35 @@
   </footer>
 
   <script>
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang;
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-        document.querySelectorAll('.t[data-' + lang + ']').forEach(el => { el.textContent = el.dataset[lang]; });
+    // Nav hide/show on scroll direction
+    (function() {
+      var nav = document.querySelector('nav');
+      var lastY = 0;
+      window.addEventListener('scroll', function() {
+        var y = window.scrollY;
+        if (y > lastY && y > 80) { nav.classList.add('nav-hidden'); }
+        else { nav.classList.remove('nav-hidden'); }
+        lastY = y;
+      }, { passive: true });
+    })();
+
+    // Language toggle with localStorage persistence
+    (function() {
+      function setLang(lang) {
+        localStorage.setItem('sc-lang', lang);
+        document.querySelectorAll('.lang-btn').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.lang === lang);
+        });
+        document.querySelectorAll('[data-nl]').forEach(function(el) {
+          el.textContent = lang === 'nl' ? el.dataset.nl : (el.dataset.en || el.dataset.nl);
+        });
+      }
+      var saved = localStorage.getItem('sc-lang') || 'nl';
+      setLang(saved);
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() { setLang(btn.dataset.lang); });
       });
-    });
+    })();
   </script>
   <script src="footer.js"></script>
 
