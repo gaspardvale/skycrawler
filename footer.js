@@ -261,7 +261,7 @@
       '<span>' + (nl ? 'Gebouwd in Gent, België.' : 'Built in Ghent, Belgium.') + '</span>' +
     '</div>';
 
-  if (isSlim) { panel.style.marginTop = '2rem'; }
+  if (isSlim) { panel.style.marginTop = '2rem'; footer.style.background = 'transparent'; }
   footer.appendChild(panel);
 
 })();
