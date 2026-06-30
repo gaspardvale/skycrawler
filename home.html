@@ -134,28 +134,29 @@
     /* ════════════════════════════════
        PROBLEM — HORIZONTAL STICKY SCROLL
     ════════════════════════════════ */
-    .prob-section { background: var(--white); }
+    .prob-section { background: #06060d; }
 
-    /* Intro header above the scroll (light-blue band) */
+    /* Intro header — dark, full-bleed */
     .prob-intro {
-      background: #dde8f5;
-      padding: 5.5rem 3rem 4.5rem;
+      padding: 8rem 8vw 6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .prob-intro-inner { max-width: 1100px; margin: 0 auto; }
+    .prob-intro .section-eyebrow { color: rgba(255,255,255,0.28); }
 
     .section-eyebrow {
       font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--mid); margin-bottom: 1.2rem;
     }
     .prob-headline {
-      font-size: clamp(1.9rem,3.8vw,3.1rem); font-weight: 700;
-      letter-spacing: -0.035em; line-height: 1.1; color: var(--off-black); max-width: 700px;
-      margin-bottom: 2.5rem;
+      font-size: clamp(2rem,4vw,3.4rem); font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1.08; color: #fff; max-width: 680px;
+      margin-bottom: 2.8rem;
     }
     .prob-scroll-hint {
       display: flex; align-items: center; gap: 0.7rem;
       font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(0,0,0,0.32);
+      text-transform: uppercase; color: rgba(255,255,255,0.2);
     }
     .hint-arrow { display: inline-block; animation: nudge 2s ease-in-out infinite; }
     @keyframes nudge {
@@ -163,79 +164,146 @@
       50%       { transform: translateY(5px); }
     }
 
-    /* Sticky scroll container — tall enough for 3 slides */
+    /* Sticky scroll container */
     .prob-sticky-wrap { position: relative; height: 300vh; }
     .prob-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 
     /* Horizontal track */
     .prob-track { display: flex; width: 300vw; height: 100%; will-change: transform; }
 
-    /* Individual slide */
+    /* Individual slide — full dark, no panel split */
     .prob-slide {
       width: 100vw; height: 100vh; flex-shrink: 0;
-      display: grid; grid-template-columns: 42% 58%;
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 46% 54%;
     }
-    /* Dark stat panel — left */
-    .prob-stat-panel {
+    /* Per-slide base colour */
+    .prob-slide:nth-child(1) { background: #05080f; }
+    .prob-slide:nth-child(2) { background: #0b0507; }
+    .prob-slide:nth-child(3) { background: #050611; }
+
+    /* Atmospheric glow + texture per slide */
+    .prob-slide::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .prob-slide:nth-child(1)::before {
+      background: radial-gradient(ellipse 70% 70% at 28% 35%, rgba(88,182,255,0.10) 0%, transparent 68%);
+    }
+    .prob-slide:nth-child(2)::before {
+      background: radial-gradient(ellipse 60% 60% at 28% 38%, rgba(255,50,50,0.08) 0%, transparent 65%),
+                  repeating-linear-gradient(-45deg, rgba(255,0,0,0.016) 0px, rgba(255,0,0,0.016) 1px, transparent 1px, transparent 22px);
+    }
+    .prob-slide:nth-child(3)::before {
+      background: radial-gradient(ellipse 70% 60% at 28% 40%, rgba(245,166,35,0.08) 0%, transparent 65%),
+                  repeating-linear-gradient(90deg, rgba(245,166,35,0.014) 0px, rgba(245,166,35,0.014) 1px, transparent 1px, transparent 42px);
+    }
+
+    /* Accent stripe on left edge */
+    .prob-slide::after {
+      content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; z-index: 5;
+    }
+    .prob-slide:nth-child(1)::after {
+      background: linear-gradient(to bottom, transparent 8%, #58b6ff 38%, #58b6ff 62%, transparent 92%);
+    }
+    .prob-slide:nth-child(2)::after {
+      background: linear-gradient(to bottom, transparent 8%, #ff3636 38%, #ff3636 62%, transparent 92%);
+    }
+    .prob-slide:nth-child(3)::after {
+      background: linear-gradient(to bottom, transparent 8%, #f5a623 38%, #f5a623 62%, transparent 92%);
+    }
+
+    /* Giant decorative watermark number behind content */
+    .prob-deco-num {
+      position: absolute; bottom: -0.14em; left: -0.04em;
+      font-size: clamp(15rem, 30vw, 27rem);
+      font-weight: 800; letter-spacing: -0.07em; line-height: 1;
+      color: rgba(255,255,255,0.027);
+      pointer-events: none; user-select: none; white-space: nowrap; z-index: 1;
+    }
+
+    /* Left column: number zone */
+    .prob-num-col {
       display: flex; flex-direction: column; justify-content: center;
-      padding: 5rem 4.5rem; background: #07070f;
+      padding: 5rem 3.5rem 5rem 7vw;
+      position: relative; z-index: 2;
     }
-    .prob-slide:nth-child(2) .prob-stat-panel { background: #0f0808; }
-    .prob-slide:nth-child(3) .prob-stat-panel { background: #060c18; }
-    .prob-stat-panel .prob-big { color: #fff; font-size: clamp(5rem,10vw,9rem); }
-    .prob-stat-panel .prob-unit { color: rgba(255,255,255,0.28); }
-    /* Category accent label */
+
+    /* Category label */
     .prob-cat {
       display: flex; align-items: center; gap: 0.55rem;
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: #58b6ff; margin-bottom: 2.2rem;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.24em;
+      text-transform: uppercase; margin-bottom: 2.4rem;
     }
-    .prob-cat-line { display: block; width: 20px; height: 2px; background: currentColor; flex-shrink: 0; }
-    .prob-slide:nth-child(2) .prob-cat { color: #ff6b6b; }
-    /* Text panel — right */
-    .prob-slide-text {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 5rem 5rem; background: var(--white);
-    }
-    .prob-slide:nth-child(2) .prob-slide-text { background: #fafafa; }
+    .prob-cat-line { display: block; width: 18px; height: 2px; background: currentColor; flex-shrink: 0; }
+    .prob-slide:nth-child(1) .prob-cat { color: #58b6ff; }
+    .prob-slide:nth-child(2) .prob-cat { color: #ff4040; }
+    .prob-slide:nth-child(3) .prob-cat { color: #f5a623; }
 
-    /* Stat content */
+    /* Stat number */
     .prob-big {
-      font-size: clamp(4rem,8.5vw,7.5rem); font-weight: 700;
-      letter-spacing: -0.055em; color: var(--off-black); line-height: 0.88; margin-bottom: 0.35rem;
+      font-size: clamp(5.5rem, 10vw, 9.5rem); font-weight: 800;
+      letter-spacing: -0.065em; color: #fff; line-height: 0.88; margin-bottom: 1.1rem;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    .prob-slide-active .prob-big { opacity: 1; transform: translateY(0); }
+
+    /* Unit label */
     .prob-unit {
-      font-size: 0.67rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--mid); margin-bottom: 1.7rem;
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.18);
+      opacity: 0; transition: opacity 0.6s ease 0.15s;
     }
+    .prob-slide-active .prob-unit { opacity: 1; }
+
+    /* Right column: text zone */
+    .prob-text-col {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 7vw 5rem 4.5rem;
+      border-left: 1px solid rgba(255,255,255,0.055);
+      position: relative; z-index: 2;
+    }
+
+    /* Slide text content */
     .prob-title {
-      font-size: clamp(1.35rem,2.4vw,1.95rem); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.15; color: var(--off-black); margin-bottom: 0.9rem;
+      font-size: clamp(1.3rem,2.3vw,1.9rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.12; color: #fff; margin-bottom: 1.1rem;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.6s ease 0.08s, transform 0.6s ease 0.08s;
     }
+    .prob-slide-active .prob-title { opacity: 1; transform: translateY(0); }
+
     .prob-body {
-      font-size: 0.92rem; font-weight: 300; color: var(--mid);
-      line-height: 1.78; max-width: 400px; margin-bottom: 1.6rem;
+      font-size: 0.88rem; font-weight: 300; color: rgba(255,255,255,0.38);
+      line-height: 1.88; max-width: 420px; margin-bottom: 2rem;
+      opacity: 0; transition: opacity 0.6s ease 0.18s;
     }
+    .prob-slide-active .prob-body { opacity: 1; }
+
     .prob-callout {
-      padding: 1rem 1.4rem; background: #f3f6fb;
-      border-left: 3px solid var(--blue-dk); border-radius: 0 8px 8px 0;
-      font-size: 0.83rem; color: var(--off-black); line-height: 1.62; max-width: 400px;
+      padding: 1rem 1.4rem;
+      background: rgba(255,255,255,0.034);
+      border-left: 2px solid rgba(255,255,255,0.11);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.8rem; color: rgba(255,255,255,0.28); line-height: 1.68; max-width: 400px;
+      opacity: 0; transition: opacity 0.6s ease 0.28s;
     }
-    .prob-callout strong { font-weight: 600; }
+    .prob-slide-active .prob-callout { opacity: 1; }
+    .prob-callout strong { font-weight: 600; color: rgba(255,255,255,0.52); }
 
     /* Story-style segment progress (top-center) */
     .prob-progress-segs {
-      position: absolute; top: 1.8rem; left: 50%;
+      position: absolute; top: 2rem; left: 50%;
       transform: translateX(-50%);
       display: flex; gap: 7px; z-index: 20;
     }
     .prob-seg {
-      width: 60px; height: 3px;
-      background: rgba(0,0,0,0.1); border-radius: 3px; overflow: hidden;
+      width: 60px; height: 2px;
+      background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden;
     }
     .prob-seg-fill {
       height: 100%; width: 0%;
-      background: var(--blue-dk); border-radius: 3px;
+      background: rgba(255,255,255,0.65); border-radius: 2px;
     }
 
     /* Navigation dots (bottom-center) */
@@ -245,10 +313,10 @@
       align-items: center; z-index: 20;
     }
     .prob-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(0,0,0,0.12); transition: background 0.3s, transform 0.28s;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.14); transition: background 0.3s, transform 0.28s;
     }
-    .prob-dot.active { background: var(--off-black); transform: scale(1.5); }
+    .prob-dot.active { background: rgba(255,255,255,0.75); transform: scale(1.5); }
 
     /* ════════════════════════════════
        SOLUTION — VERTICAL BAR CHARTS
@@ -408,9 +476,14 @@
       .prob-sticky-wrap { height: auto; }
       .prob-sticky { position: static; height: auto; overflow: visible; }
       .prob-track { flex-direction: column; width: 100%; transform: none !important; }
-      .prob-slide { width: 100%; height: auto; grid-template-columns: 1fr; }
-      .prob-stat-panel { padding: 3rem 2rem; min-height: 210px; }
-      .prob-slide-text { padding: 3.5rem 2rem; }
+      .prob-slide { width: 100%; height: auto; grid-template-columns: 1fr; min-height: 100svh; }
+      .prob-intro { padding: 5rem 1.8rem 4rem; }
+      .prob-num-col { padding: 5rem 2rem 2.5rem; }
+      .prob-text-col { padding: 2rem 2rem 5rem; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); }
+      .prob-deco-num { font-size: 42vw; }
+      .prob-big, .prob-unit, .prob-title, .prob-body, .prob-callout {
+        opacity: 1 !important; transform: none !important;
+      }
       .prob-dots, .prob-progress-segs { display: none; }
       /* Vertical charts: single column */
       .vchart-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -530,15 +603,16 @@
         <div class="prob-track" id="probTrack">
 
           <!-- ── Slide 1: Cost ── -->
-          <div class="prob-slide">
-            <div class="prob-stat-panel">
+          <div class="prob-slide prob-slide-active">
+            <div class="prob-deco-num" aria-hidden="true">$4M+</div>
+            <div class="prob-num-col">
               <div class="prob-cat"><span class="prob-cat-line"></span><span class="t" data-nl="Kost" data-en="Cost">Kost</span></div>
               <div class="prob-big">$4M+</div>
               <div class="prob-unit">
                 <span class="t" data-nl="jaarlijkse reinigingskost" data-en="annual cleaning cost">jaarlijkse reinigingskost</span>
               </div>
             </div>
-            <div class="prob-slide-text">
+            <div class="prob-text-col">
               <h3 class="prob-title">
                 <span class="t" data-nl="Astronomische kosten" data-en="Astronomical Costs">Astronomische kosten</span>
               </h3>
@@ -562,14 +636,15 @@
 
           <!-- ── Slide 2: Danger ── -->
           <div class="prob-slide">
-            <div class="prob-stat-panel">
+            <div class="prob-deco-num" aria-hidden="true">36%</div>
+            <div class="prob-num-col">
               <div class="prob-cat"><span class="prob-cat-line"></span><span class="t" data-nl="Gevaar" data-en="Danger">Gevaar</span></div>
               <div class="prob-big">36%</div>
               <div class="prob-unit">
                 <span class="t" data-nl="van alle dodelijke bouwongevallen" data-en="of all fatal construction accidents">van alle dodelijke bouwongevallen</span>
               </div>
             </div>
-            <div class="prob-slide-text">
+            <div class="prob-text-col">
               <h3 class="prob-title">
                 <span class="t" data-nl="Een levensgevaarlijk beroep" data-en="A Life-Threatening Profession">Een levensgevaarlijk beroep</span>
               </h3>
@@ -593,7 +668,8 @@
 
           <!-- ── Slide 3: Speed ── -->
           <div class="prob-slide">
-            <div class="prob-stat-panel">
+            <div class="prob-deco-num" aria-hidden="true">36</div>
+            <div class="prob-num-col">
               <div class="prob-cat"><span class="prob-cat-line"></span><span class="t" data-nl="Snelheid" data-en="Speed">Snelheid</span></div>
               <div class="prob-big">
                 <span class="t" data-nl="36 dgn" data-en="36 days">36 dgn</span>
@@ -602,7 +678,7 @@
                 <span class="t" data-nl="per cyclus · 36 arbeiders" data-en="per cycle · 36 workers">per cyclus · 36 arbeiders</span>
               </div>
             </div>
-            <div class="prob-slide-text">
+            <div class="prob-text-col">
               <h3 class="prob-title">
                 <span class="t" data-nl="Ondraaglijk traag" data-en="Unbearably Slow">Ondraaglijk traag</span>
               </h3>
@@ -920,10 +996,11 @@
 
     /* ── HORIZONTAL PROBLEM SCROLL ── */
     (function() {
-      var wrap  = document.getElementById('probStickyWrap');
-      var track = document.getElementById('probTrack');
-      var dots  = document.querySelectorAll('.prob-dot');
-      var segs  = [
+      var wrap   = document.getElementById('probStickyWrap');
+      var track  = document.getElementById('probTrack');
+      var dots   = document.querySelectorAll('.prob-dot');
+      var slides = document.querySelectorAll('.prob-slide');
+      var segs   = [
         document.getElementById('probSeg0'),
         document.getElementById('probSeg1'),
         document.getElementById('probSeg2')
@@ -945,6 +1022,9 @@
         /* Active slide index */
         var idx = Math.min(Math.floor(progress * N), N - 1);
         dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+
+        /* Active slide entrance animation */
+        slides.forEach(function(sl, i) { sl.classList.toggle('prob-slide-active', i === idx); });
 
         /* Story-style segment fills */
         segs.forEach(function(seg, i) {
