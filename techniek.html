@@ -94,17 +94,20 @@
     .t-sub-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.24); margin-bottom: 0.55rem; }
     .t-sub-h { font-size: clamp(1.05rem, 1.5vw, 1.25rem); font-weight: 600; letter-spacing: -0.02em; color: var(--off-black); margin-bottom: 0.75rem; }
 
-    /* AI features — minimal borderless grid */
-    .t-feat-header { max-width: 640px; margin-bottom: 4.5rem; }
-    .t-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .t-feat-col { padding-right: 3rem; border-right: 1px solid rgba(0,0,0,0.07); }
-    .t-feat-col:last-child { border-right: none; padding-right: 0; padding-left: 3rem; }
-    .t-feat-col:nth-child(2) { padding-left: 3rem; }
-    .t-feat-item { padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid rgba(0,0,0,0.07); }
-    .t-feat-item:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
-    .t-feat-n { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; color: rgba(0,0,0,0.18); margin-bottom: 0.8rem; }
-    .t-feat-item h4 { font-size: 0.93rem; font-weight: 600; letter-spacing: -0.015em; color: var(--off-black); margin-bottom: 0.5rem; }
-    .t-feat-item p { font-size: 0.83rem; font-weight: 300; color: var(--mid); line-height: 1.7; }
+    /* AI Software section */
+    .t-sw-section { background: var(--dark); padding: 7rem 3rem; }
+    .t-sw-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4.5rem; }
+    .t-sw-header .t-eyebrow { color: rgba(255,255,255,0.28); }
+    .t-sw-header .t-h2 { color: white; margin-bottom: 0; }
+    .t-sw-intro { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.36); line-height: 1.78; }
+    .t-sw-list { border-top: 1px solid rgba(255,255,255,0.09); }
+    .t-sw-item { display: grid; grid-template-columns: 52px 260px 1fr; gap: 3rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); transition: padding 0.2s, background 0.2s, margin 0.2s; }
+    .t-sw-item:hover { background: rgba(255,255,255,0.03); padding-left: 1.4rem; padding-right: 1.4rem; margin: 0 -1.4rem; }
+    .t-sw-n { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; color: rgba(255,255,255,0.18); transition: color 0.2s; }
+    .t-sw-item:hover .t-sw-n { color: rgba(255,255,255,0.42); }
+    .t-sw-tag { display: inline-block; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.18em; padding: 0.18rem 0.65rem; border-radius: 100px; margin-bottom: 0.45rem; }
+    .t-sw-name { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.84); letter-spacing: -0.02em; }
+    .t-sw-desc { font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.36); line-height: 1.74; }
 
     /* Specs table */
     .t-specs-table { margin-top: 3.5rem; background: var(--light); border-radius: 20px; overflow: hidden; }
@@ -120,10 +123,9 @@
       .t-mechan { grid-template-columns: 1fr; gap: 3rem; }
       .t-diagram-inner { grid-template-columns: 1fr; gap: 3.5rem; }
       .t-diag-svg { max-width: 380px; margin: 0 auto; }
-      .t-feat-grid { grid-template-columns: 1fr; }
-      .t-feat-col { padding: 0 0 3rem; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); }
-      .t-feat-col:last-child { border-bottom: none; padding-bottom: 0; padding-left: 0; }
-      .t-feat-col:nth-child(2) { padding-left: 0; }
+      .t-sw-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .t-sw-item { grid-template-columns: 44px 1fr; gap: 1.5rem; }
+      .t-sw-desc { grid-column: 2; }
       .t-specs-row { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
@@ -136,6 +138,10 @@
       .t-statement { padding: 5rem 1.5rem; }
       .t-diagram { padding: 5rem 1.5rem; }
       .t-section { padding: 5rem 1.5rem; }
+      .t-sw-section { padding: 5rem 1.5rem; }
+      .t-sw-item { grid-template-columns: 1fr; gap: 0.7rem; }
+      .t-sw-item:hover { margin: 0; padding-left: 0; padding-right: 0; background: none; }
+      .t-sw-desc { grid-column: auto; }
       .t-specs-row { grid-template-columns: 1fr; }
     }
   </style>
@@ -330,50 +336,71 @@
   </section>
 
   <!-- ══ AI / SOFTWARE ══ -->
-  <section class="t-section t-light">
+  <section class="t-sw-section">
     <div class="t-inner">
-      <div class="t-feat-header">
-        <p class="t-eyebrow" data-nl="Intelligente Software" data-en="Intelligent Software">Intelligente Software</p>
-        <h2 class="t-h2" data-nl="Slimme AI ontmoet ecologisch design." data-en="Smart AI meets ecological design.">Slimme AI ontmoet ecologisch design.</h2>
-        <p class="t-prose" data-nl="SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid." data-en="SkyCrawler relies on a network of sensors and AI-driven algorithms to proactively make decisions, with a strong focus on environmental responsibility.">SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid.</p>
+      <div class="t-sw-header">
+        <div>
+          <p class="t-eyebrow" data-nl="Intelligente Software" data-en="Intelligent Software">Intelligente Software</p>
+          <h2 class="t-h2" data-nl="Slimme AI ontmoet ecologisch design." data-en="Smart AI meets ecological design.">Slimme AI ontmoet ecologisch design.</h2>
+        </div>
+        <p class="t-sw-intro" data-nl="SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid." data-en="SkyCrawler relies on a network of sensors and AI-driven algorithms to proactively make decisions, with a strong focus on environmental responsibility.">SkyCrawler vertrouwt op een netwerk van sensoren en AI-gedreven algoritmes om proactief beslissingen te nemen, met een sterke focus op milieuvriendelijkheid.</p>
       </div>
-      <div class="t-feat-grid">
-        <div class="t-feat-col">
-          <div class="t-feat-item">
-            <p class="t-feat-n">01</p>
-            <h4 data-nl="Weersvoorspelling" data-en="Weather Prediction">Weersvoorspelling</h4>
-            <p data-nl="De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is." data-en="The robot is continuously linked to local weather data and never begins a cleaning cycle when rain is forecast.">De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is.</p>
+      <div class="t-sw-list">
+
+        <div class="t-sw-item">
+          <span class="t-sw-n">01</span>
+          <div>
+            <span class="t-sw-tag" style="background:rgba(88,182,255,0.14);color:#58b6ff">AI</span>
+            <h4 class="t-sw-name" data-nl="Weersvoorspelling" data-en="Weather Prediction">Weersvoorspelling</h4>
           </div>
-          <div class="t-feat-item">
-            <p class="t-feat-n">04</p>
-            <h4>Auto-Dock &amp; Recharge</h4>
-            <p data-nl="Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen." data-en="When supplies run low, the robot autonomously navigates back to its rooftop base station to recharge and refill.">Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen.</p>
-          </div>
+          <p class="t-sw-desc" data-nl="De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is." data-en="The robot is continuously linked to local weather data and never begins a cleaning cycle when rain is forecast.">De robot is continu gekoppeld aan lokale weerdata en begint nooit aan een kuiscyclus als er regen op komst is.</p>
         </div>
-        <div class="t-feat-col">
-          <div class="t-feat-item">
-            <p class="t-feat-n">02</p>
-            <h4 data-nl="Slimme Routeplanning" data-en="Smart Route Planning">Slimme Routeplanning</h4>
-            <p data-nl="Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau." data-en="Using LiDAR mapping, the AI pre-calculates the most efficient route and continuously monitors battery and fluid levels.">Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau.</p>
+
+        <div class="t-sw-item">
+          <span class="t-sw-n">02</span>
+          <div>
+            <span class="t-sw-tag" style="background:rgba(88,182,255,0.14);color:#58b6ff">AI</span>
+            <h4 class="t-sw-name" data-nl="Slimme Routeplanning" data-en="Smart Route Planning">Slimme Routeplanning</h4>
           </div>
-          <div class="t-feat-item">
-            <p class="t-feat-n">05</p>
-            <h4 data-nl="Toekomst: Inspecties" data-en="Future: Inspections">Toekomst: Inspecties</h4>
-            <p data-nl="Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord en gerapporteerd." data-en="Using LiDAR and AI, we're building inspection modes that automatically detect and report structural damage.">Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord en gerapporteerd.</p>
-          </div>
+          <p class="t-sw-desc" data-nl="Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau." data-en="Using LiDAR mapping, the AI pre-calculates the most efficient route and continuously monitors battery and fluid levels.">Dankzij LiDAR-mapping berekent de AI vooraf de meest efficiënte route en bewaakt continu batterij- en vloeistofniveau.</p>
         </div>
-        <div class="t-feat-col">
-          <div class="t-feat-item">
-            <p class="t-feat-n">03</p>
-            <h4 data-nl="Ecologisch Wassen" data-en="Eco-Friendly Washing">Ecologisch Wassen</h4>
-            <p data-nl="Gefilterd regenwater en ecologische zepen, gecombineerd met microvezelborstels — streeploos zonder chemische vervuiling." data-en="Filtered rainwater and ecological soaps, combined with microfibre brushes — streak-free results without chemical pollution.">Gefilterd regenwater en ecologische zepen, gecombineerd met microvezelborstels — streeploos zonder chemische vervuiling.</p>
+
+        <div class="t-sw-item">
+          <span class="t-sw-n">03</span>
+          <div>
+            <span class="t-sw-tag" style="background:rgba(76,175,130,0.15);color:#4caf82">ECO</span>
+            <h4 class="t-sw-name" data-nl="Ecologisch Wassen" data-en="Eco-Friendly Washing">Ecologisch Wassen</h4>
           </div>
-          <div class="t-feat-item">
-            <p class="t-feat-n">06</p>
-            <h4 data-nl="Drievoudige Veiligheid" data-en="Triple Safety">Drievoudige Veiligheid</h4>
-            <p data-nl="Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden." data-en="Constant actuators, a dynamic tether cable and an emergency anchor system guarantee safety under all conditions.">Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden.</p>
-          </div>
+          <p class="t-sw-desc" data-nl="Gefilterd regenwater en ecologische zepen, gecombineerd met microvezelborstels — streeploos zonder chemische vervuiling." data-en="Filtered rainwater and ecological soaps, combined with microfibre brushes — streak-free results without chemical pollution.">Gefilterd regenwater en ecologische zepen, gecombineerd met microvezelborstels — streeploos zonder chemische vervuiling.</p>
         </div>
+
+        <div class="t-sw-item">
+          <span class="t-sw-n">04</span>
+          <div>
+            <span class="t-sw-tag" style="background:rgba(160,160,190,0.12);color:rgba(200,205,220,0.65)">SYSTEEM</span>
+            <h4 class="t-sw-name">Auto-Dock &amp; Recharge</h4>
+          </div>
+          <p class="t-sw-desc" data-nl="Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen." data-en="When supplies run low, the robot autonomously navigates back to its rooftop base station to recharge and refill.">Wanneer supplies bijna op zijn, navigeert de robot autonoom terug naar het basisstation op het dak om op te laden en bij te vullen.</p>
+        </div>
+
+        <div class="t-sw-item">
+          <span class="t-sw-n">05</span>
+          <div>
+            <span class="t-sw-tag" style="background:rgba(155,106,255,0.15);color:#9b6aff">TOEKOMST</span>
+            <h4 class="t-sw-name" data-nl="Toekomst: Inspecties" data-en="Future: Inspections">Toekomst: Inspecties</h4>
+          </div>
+          <p class="t-sw-desc" data-nl="Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord en gerapporteerd." data-en="Using LiDAR and AI, we're building inspection modes that automatically detect and report structural damage.">Via LiDAR en AI werken we aan inspectiemodi waarbij structurele schade automatisch wordt opgespoord en gerapporteerd.</p>
+        </div>
+
+        <div class="t-sw-item">
+          <span class="t-sw-n">06</span>
+          <div>
+            <span class="t-sw-tag" style="background:rgba(255,123,76,0.14);color:#ff8c5a">VEILIGHEID</span>
+            <h4 class="t-sw-name" data-nl="Drievoudige Veiligheid" data-en="Triple Safety">Drievoudige Veiligheid</h4>
+          </div>
+          <p class="t-sw-desc" data-nl="Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden." data-en="Constant actuators, a dynamic tether cable and an emergency anchor system guarantee safety under all conditions.">Constante actuatoren, een dynamische tether-kabel en een noodankersysteem garanderen veiligheid onder alle omstandigheden.</p>
+        </div>
+
       </div>
     </div>
   </section>
