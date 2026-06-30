@@ -296,33 +296,53 @@
       color: var(--mid);
     }
 
-    /* Stats row */
-    .stats-row {
+    /* Specs table improvements */
+    .specs-table { background: #f5f5f7; border-color: rgba(0,0,0,0.06); }
+    .spec-value { color: #1a2f52; }
+
+    /* Stats band — full-bleed dark impact */
+    .stats-band {
+      background: #07070f;
+      padding: 5.5rem 3rem;
+    }
+    .stats-band-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-      margin-top: 3.5rem;
     }
-
-    .stat-card {
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      padding: 2.4rem 2rem;
-      text-align: center;
+    .sband-item {
+      padding: 0 4rem;
+      border-right: 1px solid rgba(255,255,255,0.07);
     }
-
-    .stat-val {
-      font-size: 2.4rem;
+    .sband-item:first-child { padding-left: 0; }
+    .sband-item:last-child { border-right: none; padding-right: 0; }
+    .sband-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .sband-val {
+      font-size: clamp(3.2rem, 5.5vw, 5rem);
       font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--off-black);
+      letter-spacing: -0.055em;
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.85rem;
     }
-
-    .stat-desc {
+    .sband-val.accent-blue { color: #58b6ff; text-shadow: 0 0 48px rgba(88,182,255,0.25); }
+    .sband-val.accent-green { color: #4ade80; text-shadow: 0 0 48px rgba(74,222,128,0.2); }
+    .sband-val.accent-white { color: rgba(255,255,255,0.9); }
+    .sband-desc {
       font-size: 0.82rem;
       font-weight: 300;
-      color: var(--mid);
-      margin-top: 0.4rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.65;
+      max-width: 220px;
     }
 
     /* Full-width image */
@@ -353,7 +373,14 @@
       .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
       .feat-grid { grid-template-columns: 1fr 1fr; }
       .specs-row { grid-template-columns: 1fr 1fr; }
-      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stats-band-inner { grid-template-columns: 1fr; gap: 0; }
+      .sband-item, .sband-item:first-child, .sband-item:last-child {
+        padding: 2.5rem 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .sband-item:last-child { border-bottom: none; }
+      .sband-desc { max-width: none; }
     }
 
     @media (max-width: 640px) {
@@ -368,7 +395,8 @@
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
       .section { padding: 4rem 1.5rem; }
-      .feat-grid, .specs-row, .stats-row { grid-template-columns: 1fr; }
+      .feat-grid, .specs-row { grid-template-columns: 1fr; }
+      .stats-band { padding: 4rem 1.5rem; }
       .img-wrap { padding: 0 1.5rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
@@ -510,18 +538,25 @@
       </div>
     </div>
 
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-val">100%</div>
-        <div class="stat-desc" data-nl="Ecologische zepen & regenwater" data-en="Ecological soaps & rainwater">Ecologische zepen & regenwater</div>
+  </div>
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="stats-band-inner">
+      <div class="sband-item">
+        <span class="sband-eyebrow" data-nl="Duurzaamheid" data-en="Sustainability">Duurzaamheid</span>
+        <span class="sband-val accent-blue">100%</span>
+        <p class="sband-desc" data-nl="Ecologische zepen en gefilterd regenwater — nul chemische lozingen op de gevel." data-en="Ecological soaps and filtered rainwater — zero chemical discharge on the façade.">Ecologische zepen en gefilterd regenwater — nul chemische lozingen op de gevel.</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-val">0</div>
-        <div class="stat-desc" data-nl="Risico's voor mensen op hoogte" data-en="Risks for people at height">Risico's voor mensen op hoogte</div>
+      <div class="sband-item">
+        <span class="sband-eyebrow" data-nl="Veiligheid" data-en="Safety">Veiligheid</span>
+        <span class="sband-val accent-green">0</span>
+        <p class="sband-desc" data-nl="Medewerkers op hoogte. Operators sturen SkyCrawler volledig op afstand, vanop de grond." data-en="Workers at height. Operators control SkyCrawler entirely remotely, from the ground.">Medewerkers op hoogte. Operators sturen SkyCrawler volledig op afstand, vanop de grond.</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-val">24/7</div>
-        <div class="stat-desc" data-nl="Weer-gebaseerde inzetbaarheid" data-en="Weather-based deployability">Weer-gebaseerde inzetbaarheid</div>
+      <div class="sband-item">
+        <span class="sband-eyebrow" data-nl="Beschikbaarheid" data-en="Availability">Beschikbaarheid</span>
+        <span class="sband-val accent-white">24/7</span>
+        <p class="sband-desc" data-nl="Inzetbaar ongeacht het seizoen — automatisch gepauzeerd bij gevaarlijk windweer." data-en="Deployable regardless of season — automatically paused in hazardous wind conditions.">Inzetbaar ongeacht het seizoen — automatisch gepauzeerd bij gevaarlijk windweer.</p>
       </div>
     </div>
   </div>
