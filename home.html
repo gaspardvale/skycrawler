@@ -423,33 +423,24 @@
 
     /* ── CTA ── */
     .cta-section {
-      background: #07070f;
+      background: #dde8f5;
       padding: 8rem 3rem;
       text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      position: relative;
-      overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,0.06);
     }
-    #beamsCanvas {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .cta-section > * { position: relative; z-index: 1; }
 
     .cta-title {
       font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 700;
       letter-spacing: -0.035em;
-      color: #fff;
+      color: var(--off-black);
       margin-bottom: 1.2rem;
     }
 
     .cta-sub {
       font-size: 1rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.52);
+      color: var(--mid);
       max-width: 440px;
       margin: 0 auto 3rem;
       line-height: 1.7;
@@ -458,8 +449,8 @@
     .btn-solid {
       display: inline-block;
       padding: 0.9rem 2.8rem;
-      background: #fff;
-      color: var(--off-black);
+      background: var(--off-black);
+      color: #fff;
       text-decoration: none;
       border-radius: 980px;
       font-size: 0.92rem;
@@ -469,7 +460,7 @@
     }
 
     .btn-solid:hover {
-      background: rgba(255,255,255,0.88);
+      background: #000;
       transform: translateY(-2px);
     }
 
@@ -724,7 +715,6 @@
 
   <!-- ══ CTA ══ -->
   <section class="cta-section reveal">
-    <div id="beamsCanvas"></div>
     <h2 class="cta-title">
       <span class="t" data-nl="Klaar om slimmer te reinigen?" data-en="Ready to clean smarter?">Klaar om slimmer te reinigen?</span>
     </h2>
@@ -809,7 +799,7 @@
     /* ── LIGHT-MODE DETECTION ── */
     (function() {
       var hero       = document.querySelector('.hero');
-      var darkSects  = document.querySelectorAll('.solution-bg, .cta-section');
+      var darkSects  = document.querySelectorAll('.solution-bg');
       var siteLogo   = document.querySelector('.site-logo');
       var siteLang   = document.querySelector('.site-lang');
       var navEl      = document.querySelector('nav');
@@ -882,10 +872,8 @@
     })();
   </script>
 
-  <!-- Three.js for Beams background -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-  /* ── BEAMS BACKGROUND (CTA section) ── */
+  /* ── BEAMS BACKGROUND ── */
   (function() {
     var container = document.getElementById('beamsCanvas');
     if (!container || typeof THREE === 'undefined') return;
