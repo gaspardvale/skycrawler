@@ -13,6 +13,8 @@
       --mid: #6e6e73;
       --light: #f5f5f7;
       --white: #fff;
+      --blue: #58b6ff;
+      --blue-dk: #1a5fa8;
     }
 
     html { scroll-behavior: smooth; }
@@ -24,7 +26,7 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV — absolute, lives inside the hero, always transparent ── */
+    /* ── NAV ── */
     nav {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -33,48 +35,86 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 3rem;
-      height: 64px;
-      background: transparent;
+      height: 72px;
     }
 
-    .logo-text {
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      text-decoration: none;
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2.6rem;
+    }
+
+    .nav-logo {
+      height: 28px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 2.2rem;
+      gap: 2rem;
     }
 
     nav ul a {
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: rgba(255,255,255,0.78);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.88);
       transition: color 0.18s;
+      letter-spacing: -0.01em;
     }
 
-    nav ul a:hover { color: var(--white); }
+    nav ul a:hover { color: #fff; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
     .hamburger {
       display: none;
-      background: none;
-      border: none;
+      background: none; border: none;
+      cursor: pointer; color: #fff; font-size: 1.3rem;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.38rem;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 980px;
+      padding: 0.28rem 0.82rem;
+    }
+
+    .lang-btn {
+      background: none; border: none;
       cursor: pointer;
-      color: var(--white);
-      font-size: 1.3rem;
+      font-family: inherit;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.28);
+      padding: 0;
+      transition: color 0.18s;
+      line-height: 1;
+    }
+
+    .lang-btn.active { color: rgba(255,255,255,0.95); }
+
+    .lang-sep {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.18);
+      user-select: none;
     }
 
     /* ── HERO ── */
     .hero {
       position: relative;
       height: 100vh;
-      min-height: 600px;
+      min-height: 640px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -87,7 +127,7 @@
       position: absolute;
       inset: -20%;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.5) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.6) 100%),
         url('ChatGPT%20Image%20Jun%2027%2C%202026%2C%2011_46_20%20PM.png') center/cover no-repeat;
       will-change: transform;
     }
@@ -101,62 +141,108 @@
       align-items: center;
     }
 
+    .hero-intro {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-logo-sm {
+      height: 20px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.6;
+    }
+
     .hero-eyebrow {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 500;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 1.4rem;
+      color: rgba(255,255,255,0.48);
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      font-size: clamp(3rem, 7vw, 5.8rem);
       font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.035em;
-      color: var(--white);
-      margin-bottom: 1.5rem;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 1.6rem;
     }
 
+    .hero h1 em { font-style: italic; }
+
     .hero-sub {
-      font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
       font-weight: 300;
-      color: rgba(255,255,255,0.65);
-      max-width: 440px;
-      line-height: 1.65;
+      color: rgba(255,255,255,0.62);
+      max-width: 460px;
+      line-height: 1.7;
       margin-bottom: 3rem;
     }
 
-    /* Ghost button */
     .btn-ghost {
-      display: inline-block;
-      padding: 0.8rem 2.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.85rem 2.4rem;
       background: transparent;
-      color: var(--white);
+      color: #fff;
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 400;
+      font-size: 0.88rem;
+      font-weight: 500;
       letter-spacing: 0.01em;
       border-radius: 980px;
-      border: 1px solid rgba(255,255,255,0.45);
-      transition: border-color 0.25s, box-shadow 0.25s;
+      border: 1px solid rgba(255,255,255,0.4);
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
     }
 
     .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.9);
-      box-shadow:
-        0 0 12px rgba(255,255,255,0.3),
-        0 0 32px rgba(255,255,255,0.12),
-        0 0 64px rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 22px rgba(255,255,255,0.14);
     }
 
-    /* ── FEATURES ── */
+    .scroll-ind {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+      animation: lineDown 2.2s ease-in-out infinite;
+    }
+
+    @keyframes lineDown {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      30%  { opacity: 1; }
+      100% { transform: scaleY(1); transform-origin: top; opacity: 0.3; }
+    }
+
+    /* ── WHY US ── */
     .features {
       padding: 8rem 3rem;
       max-width: 1160px;
       margin: 0 auto;
     }
+
+    .section-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 3rem;
+    }
+
+    .section-eyebrow.lt { color: rgba(255,255,255,0.4); }
 
     .feat-grid {
       display: grid;
@@ -171,10 +257,10 @@
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
-      transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  box-shadow 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                  border-color 0.32s;
       cursor: default;
+      transition: transform 0.32s cubic-bezier(.25,.46,.45,.94),
+                  box-shadow 0.32s,
+                  border-color 0.32s;
     }
 
     .feat-card:hover {
@@ -183,27 +269,197 @@
       border-color: rgba(0,0,0,0.18);
     }
 
-    .feat-index {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.25);
+    .feat-index { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.22); }
+    .feat-title { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 600; letter-spacing: -0.03em; color: var(--off-black); margin-top: auto; }
+    .feat-body  { font-size: 0.92rem; font-weight: 300; color: var(--mid); line-height: 1.72; }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.72s ease, transform 0.72s ease;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+    .feat-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
+    .feat-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
+
+    /* ── STATS SECTIONS ── */
+    .stats-section { padding: 7rem 3rem; }
+    .problem-bg  { background: #dde8f5; }
+    .solution-bg { background: #07070f; }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .feat-title {
-      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-      font-weight: 600;
+    .stats-title {
+      font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+      font-weight: 700;
       letter-spacing: -0.03em;
+      line-height: 1.1;
       color: var(--off-black);
-      margin-top: auto;
+      max-width: 700px;
+      margin-bottom: 4rem;
     }
 
-    .feat-body {
-      font-size: 0.92rem;
-      font-weight: 300;
+    .solution-bg .stats-title { color: #fff; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Stat item */
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.62s ease, transform 0.62s ease;
+    }
+    .stat-item.vis { opacity: 1; transform: translateY(0); }
+    .stat-item:nth-child(2) { transition-delay: 0.12s; }
+    .stat-item:nth-child(3) { transition-delay: 0.24s; }
+    .stat-item:nth-child(4) { transition-delay: 0.36s; }
+
+    /* Ring */
+    .stat-ring {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      margin-bottom: 1.1rem;
+    }
+
+    .stat-ring svg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .stat-ring .track {
+      fill: none;
+      stroke: rgba(0,0,0,0.1);
+      stroke-width: 4.5;
+    }
+
+    .solution-bg .stat-ring .track { stroke: rgba(255,255,255,0.1); }
+
+    .stat-ring .fill {
+      fill: none;
+      stroke: var(--blue-dk);
+      stroke-width: 4.5;
+      stroke-linecap: round;
+      stroke-dasharray: 251.33;
+      stroke-dashoffset: 251.33;
+      transition: stroke-dashoffset 1.8s cubic-bezier(.25,.46,.45,.94);
+    }
+
+    .solution-bg .stat-ring .fill { stroke: var(--blue); }
+
+    .stat-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-val {
+      display: flex;
+      align-items: baseline;
+      gap: 0.05em;
+    }
+
+    .stat-pfx {
+      font-size: 0.95rem;
+      font-weight: 600;
       color: var(--mid);
-      line-height: 1.72;
+      line-height: 1;
+    }
+
+    .stat-num {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--off-black);
+      line-height: 1;
+    }
+
+    .stat-sfx {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--mid);
+      line-height: 1;
+    }
+
+    .solution-bg .stat-num { color: #fff; }
+    .solution-bg .stat-pfx,
+    .solution-bg .stat-sfx { color: rgba(255,255,255,0.45); }
+
+    .stat-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--off-black);
+      line-height: 1.3;
+      margin-bottom: 0.28rem;
+    }
+
+    .solution-bg .stat-label { color: #fff; }
+
+    .stat-sub {
+      font-size: 0.74rem;
+      color: var(--mid);
+      line-height: 1.4;
+    }
+
+    .solution-bg .stat-sub { color: rgba(255,255,255,0.38); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: #07070f;
+      padding: 8rem 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      color: #fff;
+      margin-bottom: 1.2rem;
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.52);
+      max-width: 440px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    .btn-solid {
+      display: inline-block;
+      padding: 0.9rem 2.8rem;
+      background: #fff;
+      color: var(--off-black);
+      text-decoration: none;
+      border-radius: 980px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-solid:hover {
+      background: rgba(255,255,255,0.88);
+      transform: translateY(-2px);
     }
 
     /* ── FOOTER ── */
@@ -215,105 +471,259 @@
       justify-content: space-between;
     }
 
-    footer .footer-brand {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--off-black);
-      text-decoration: none;
-    }
-
-    footer p {
-      font-size: 0.78rem;
-      color: var(--mid);
-    }
-
-    .foot-links {
-      display: flex;
-      gap: 1.8rem;
-    }
-
-    .foot-links a {
-      font-size: 0.78rem;
-      color: var(--mid);
-      text-decoration: none;
-      transition: color 0.18s;
-    }
-
+    .footer-brand { font-size: 0.85rem; font-weight: 600; color: var(--off-black); text-decoration: none; }
+    footer p { font-size: 0.78rem; color: var(--mid); }
+    .foot-links { display: flex; gap: 1.8rem; }
+    .foot-links a { font-size: 0.78rem; color: var(--mid); text-decoration: none; transition: color 0.18s; }
     .foot-links a:hover { color: var(--off-black); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .hamburger { display: block; }
       nav ul {
-        display: none;
-        position: fixed;
-        inset: 0;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2.5rem;
-        background: rgba(0,0,0,0.96);
-        z-index: 300;
+        display: none; position: fixed; inset: 0;
+        flex-direction: column; align-items: center; justify-content: center;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
       }
       nav ul.open { display: flex; }
-      nav ul.open a { font-size: 1.5rem; color: var(--white); }
-
-      .features { padding: 4rem 1.5rem; }
+      nav ul.open a { font-size: 1.5rem; color: #fff; }
       .feat-grid { grid-template-columns: 1fr; }
-
+      .features { padding: 4rem 1.5rem; }
+      .stats-section { padding: 4rem 1.5rem; }
+      .cta-section { padding: 5rem 1.5rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO (nav lives inside so it's always transparent) -->
-  <section class="hero">
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="top">
+
     <nav>
-      <a class="logo-text" href="home.html">SkyCrawler</a>
-      <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
-      <ul>
-        <li><a href="home.html">Home</a></li>
-        <li><a href="techniek.html">Techniek</a></li>
-        <li><a href="tarieven.html">Tarieven</a></li>
-        <li><a href="businessplan.html">Over Ons</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+      <div class="nav-left">
+        <a href="home.html">
+          <img src="TRANSPARENT%20LOGO.png" alt="SkyCrawler" class="nav-logo" />
+        </a>
+        <ul>
+          <li><a href="techniek.html"><span class="t" data-nl="Techniek" data-en="Technology">Techniek</span></a></li>
+          <li><a href="tarieven.html"><span class="t" data-nl="Tarieven" data-en="Pricing">Tarieven</span></a></li>
+          <li><a href="businessplan.html"><span class="t" data-nl="Over Ons" data-en="About Us">Over Ons</span></a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="nl">NL</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
     </nav>
 
     <div class="hero-bg" id="heroBg"></div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow">Autonomous facade cleaning</p>
-      <h1>Spotless.<br>Without limits.</h1>
-      <p class="hero-sub">Robotica die wolkenkrabbers reinigt — sneller, veiliger en volledig autonoom.</p>
-      <a class="btn-ghost" href="tarieven.html">Bekijk onze tarieven</a>
+      <div class="hero-intro">
+        <img src="TRANSPARENT%20LOGO.png" alt="" class="hero-logo-sm" />
+        <span class="hero-eyebrow">Introducing SkyCrawler</span>
+      </div>
+      <h1>
+        <span class="t" data-nl="Wij klimmen niet." data-en="We don't climb.">Wij klimmen niet.</span><br>
+        <em><span class="t" data-nl="Wij sturen." data-en="We steer.">Wij sturen.</span></em>
+      </h1>
+      <p class="hero-sub">
+        <span class="t"
+          data-nl="Autonome robots die wolkenkrabbers reinigen — sneller, veiliger en zonder mensen op hoogte."
+          data-en="Autonomous robots cleaning skyscrapers — faster, safer, and without humans at height.">
+          Autonome robots die wolkenkrabbers reinigen — sneller, veiliger en zonder mensen op hoogte.
+        </span>
+      </p>
+      <a class="btn-ghost" href="#features">
+        <span class="t" data-nl="Meer weten" data-en="Learn More">Meer weten</span>
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+          <path d="M5.5 1.5v8M1.5 6.5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
+
+    <div class="scroll-ind"><div class="scroll-line"></div></div>
   </section>
 
-  <!-- FEATURES -->
-  <section class="features">
+
+  <!-- ══ WHY US ══ -->
+  <section class="features" id="features">
+    <p class="section-eyebrow">
+      <span class="t" data-nl="Waarom SkyCrawler" data-en="Why SkyCrawler">Waarom SkyCrawler</span>
+    </p>
     <div class="feat-grid">
-      <div class="feat-card">
+      <div class="feat-card reveal">
         <span class="feat-index">01</span>
-        <h3 class="feat-title">Efficiënter</h3>
-        <p class="feat-body">Tot drie keer sneller dan traditionele methoden — zonder menselijke arbeiders op hoogte.</p>
+        <h3 class="feat-title"><span class="t" data-nl="Efficiënter" data-en="More Efficient">Efficiënter</span></h3>
+        <p class="feat-body"><span class="t"
+          data-nl="Tot drie keer sneller dan traditionele methoden — zonder menselijke arbeiders op hoogte."
+          data-en="Up to three times faster than traditional methods — without human workers at height.">
+          Tot drie keer sneller dan traditionele methoden — zonder menselijke arbeiders op hoogte.
+        </span></p>
       </div>
-      <div class="feat-card">
+      <div class="feat-card reveal">
         <span class="feat-index">02</span>
-        <h3 class="feat-title">Veiliger</h3>
-        <p class="feat-body">Operators werken vanaf de grond of het dak. Geen risico meer op grote hoogte.</p>
+        <h3 class="feat-title"><span class="t" data-nl="Veiliger" data-en="Safer">Veiliger</span></h3>
+        <p class="feat-body"><span class="t"
+          data-nl="Operators werken vanaf de grond of het dak. Geen risico meer op grote hoogte."
+          data-en="Operators work from the ground or roof. No more risk at great height.">
+          Operators werken vanaf de grond of het dak. Geen risico meer op grote hoogte.
+        </span></p>
       </div>
-      <div class="feat-card">
+      <div class="feat-card reveal">
         <span class="feat-index">03</span>
-        <h3 class="feat-title">Innovatief</h3>
-        <p class="feat-body">Volledig autonome reiniging dankzij onze geavanceerde robottechnologie.</p>
+        <h3 class="feat-title"><span class="t" data-nl="Innovatief" data-en="Innovative">Innovatief</span></h3>
+        <p class="feat-body"><span class="t"
+          data-nl="Volledig autonome reiniging dankzij onze geavanceerde robottechnologie."
+          data-en="Fully autonomous cleaning powered by our advanced robotics technology.">
+          Volledig autonome reiniging dankzij onze geavanceerde robottechnologie.
+        </span></p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+
+  <!-- ══ PROBLEM STATS ══ -->
+  <section class="stats-section problem-bg" id="problem">
+    <div class="stats-inner">
+      <p class="section-eyebrow">
+        <span class="t" data-nl="Het probleem" data-en="The Problem">Het probleem</span>
+      </p>
+      <h2 class="stats-title">
+        <span class="t"
+          data-nl="Manuele gevelreiniging is gevaarlijk, traag en duur."
+          data-en="Manual facade cleaning is dangerous, slow and expensive.">
+          Manuele gevelreiniging is gevaarlijk, traag en duur.
+        </span>
+      </h2>
+      <div class="stats-grid">
+
+        <div class="stat-item" data-pct="94" data-target="94">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">%</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="vermijdbare valaccidenten" data-en="preventable fall accidents">vermijdbare valaccidenten</span></p>
+          <p class="stat-sub"><span class="t" data-nl="bij gevelwerkzaamheden" data-en="during facade work">bij gevelwerkzaamheden</span></p>
+        </div>
+
+        <div class="stat-item" data-pct="75" data-target="3">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">×</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="trager dan robots" data-en="slower than robots">trager dan robots</span></p>
+          <p class="stat-sub"><span class="t" data-nl="manuele reiniging" data-en="manual cleaning">manuele reiniging</span></p>
+        </div>
+
+        <div class="stat-item" data-pct="65" data-target="12">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-pfx">€</span><span class="stat-num">0</span><span class="stat-sfx">/m²</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="gem. reinigingskost" data-en="avg. cleaning cost">gem. reinigingskost</span></p>
+          <p class="stat-sub"><span class="t" data-nl="traditionele methoden" data-en="traditional methods">traditionele methoden</span></p>
+        </div>
+
+        <div class="stat-item" data-pct="80" data-target="400">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">+</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="bouwongevallen / jaar" data-en="construction accidents / yr">bouwongevallen / jaar</span></p>
+          <p class="stat-sub"><span class="t" data-nl="hoogtewerkzaamheden BE" data-en="height work Belgium">hoogtewerkzaamheden BE</span></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ SOLUTION STATS ══ -->
+  <section class="stats-section solution-bg" id="solution">
+    <div class="stats-inner">
+      <p class="section-eyebrow lt">
+        <span class="t" data-nl="Onze oplossing" data-en="Our Solution">Onze oplossing</span>
+      </p>
+      <h2 class="stats-title">
+        <span class="t"
+          data-nl="SkyCrawler doet het anders."
+          data-en="SkyCrawler does it differently.">
+          SkyCrawler doet het anders.
+        </span>
+      </h2>
+      <div class="stats-grid">
+
+        <div class="stat-item" data-pct="100" data-target="3">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">×</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="sneller dan manueel" data-en="faster than manual">sneller dan manueel</span></p>
+          <p class="stat-sub"><span class="t" data-nl="bewezen efficiëntie" data-en="proven efficiency">bewezen efficiëntie</span></p>
+        </div>
+
+        <div class="stat-item" data-pct="60" data-target="60">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">%</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="kostenreductie" data-en="cost reduction">kostenreductie</span></p>
+          <p class="stat-sub"><span class="t" data-nl="versus traditioneel" data-en="versus traditional">versus traditioneel</span></p>
+        </div>
+
+        <div class="stat-item" data-pct="100" data-target="100">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">%</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="autonoom" data-en="autonomous">autonoom</span></p>
+          <p class="stat-sub"><span class="t" data-nl="geen mensen op hoogte" data-en="no people at height">geen mensen op hoogte</span></p>
+        </div>
+
+        <div class="stat-item" data-pct="100" data-target="24">
+          <div class="stat-ring">
+            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
+            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">/7</span></div></div>
+          </div>
+          <p class="stat-label"><span class="t" data-nl="operationeel" data-en="operational">operationeel</span></p>
+          <p class="stat-sub"><span class="t" data-nl="dag en nacht beschikbaar" data-en="available day and night">dag en nacht beschikbaar</span></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ CTA ══ -->
+  <section class="cta-section reveal">
+    <h2 class="cta-title">
+      <span class="t" data-nl="Klaar om slimmer te reinigen?" data-en="Ready to clean smarter?">Klaar om slimmer te reinigen?</span>
+    </h2>
+    <p class="cta-sub">
+      <span class="t"
+        data-nl="Neem contact op voor een offerte op maat of een live demonstratie."
+        data-en="Get in touch for a tailored quote or a live demonstration.">
+        Neem contact op voor een offerte op maat of een live demonstratie.
+      </span>
+    </p>
+    <a href="contact.html" class="btn-solid">
+      <span class="t" data-nl="Contacteer ons" data-en="Contact Us">Contacteer ons</span>
+    </a>
+  </section>
+
+
   <footer>
     <a class="footer-brand" href="home.html">SkyCrawler</a>
     <p>© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
@@ -323,13 +733,79 @@
     </div>
   </footer>
 
+
   <script>
-    // ── Parallax ──────────────────────────────────────────────────
+    /* ── PARALLAX ── */
     window.addEventListener('scroll', () => {
       document.getElementById('heroBg').style.transform =
-        `translateY(${window.scrollY * 0.4}px)`;
+        'translateY(' + (window.scrollY * 0.4) + 'px)';
     }, { passive: true });
 
+    /* ── LANGUAGE TOGGLE ── */
+    (function() {
+      var btns = document.querySelectorAll('.lang-btn');
+      var lang = 'nl';
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          lang = btn.dataset.lang;
+          btns.forEach(function(b) { b.classList.toggle('active', b.dataset.lang === lang); });
+          document.documentElement.lang = lang;
+          document.querySelectorAll('.t[data-' + lang + ']').forEach(function(el) {
+            el.textContent = el.dataset[lang];
+          });
+        });
+      });
+    })();
+
+    /* ── REVEAL ON SCROLL ── */
+    (function() {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+    })();
+
+    /* ── STAT CIRCLES + COUNTERS ── */
+    (function() {
+      var CIRC = 251.33; // 2π × 40
+
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var item = entry.target;
+          obs.unobserve(item);
+          item.classList.add('vis');
+
+          var pct    = parseFloat(item.dataset.pct || 0);
+          var target = parseFloat(item.dataset.target || 0);
+          var fill   = item.querySelector('.fill');
+          var numEl  = item.querySelector('.stat-num');
+
+          /* Circle fill */
+          requestAnimationFrame(function() {
+            fill.style.strokeDashoffset = (CIRC * (1 - pct / 100)).toFixed(2);
+          });
+
+          /* Count up */
+          var dur = 1600;
+          var start = null;
+          var isInt = target === Math.floor(target);
+          function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            var cur = eased * target;
+            numEl.textContent = isInt ? Math.round(cur) : cur.toFixed(1);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }, { threshold: 0.28 });
+
+      document.querySelectorAll('.stat-item').forEach(function(el) { obs.observe(el); });
+    })();
   </script>
   <script src="footer.js"></script>
 
