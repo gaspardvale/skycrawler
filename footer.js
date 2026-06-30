@@ -8,7 +8,7 @@
   css.textContent =
     /* Reset old footer shell */
     'footer.sc-footer{' +
-      'padding:0!important;border-top:none!important;' +
+      'padding:0 0 2rem!important;border-top:none!important;' +
       'display:block!important;flex-direction:unset!important;' +
       'align-items:unset!important;justify-content:unset!important;' +
       'overflow:visible;position:relative!important;background:#dde8f5' +
@@ -18,8 +18,8 @@
     /* ── Info panel ── */
     '#sc-panel{' +
       'background:#e0e5ed;' +
-      'border-radius:28px 28px 0 0;' +
-      'margin-top:-28px;' +
+      'border-radius:24px;' +
+      'margin:-24px 2rem 0;' +
       'padding:3.8rem 4.5rem 2.2rem;' +
       'font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;' +
       'position:relative;z-index:2' +
@@ -81,7 +81,7 @@
     '}' +
     '#sc-btm span{font-size:.72rem;color:rgba(0,0,0,.32)}' +
     '@media(max-width:900px){' +
-      '#sc-panel{padding:2.5rem 2rem 1.8rem}' +
+      '#sc-panel{padding:2.5rem 1.5rem 1.8rem;margin-left:1rem;margin-right:1rem}' +
       '#sc-grid{grid-template-columns:1fr 1fr;gap:2rem 1.5rem}' +
       '.sc-brand-col{grid-column:span 2}' +
       '#sc-btm{flex-direction:column;gap:.5rem;text-align:center}' +
@@ -261,7 +261,7 @@
       '<span>' + (nl ? 'Gebouwd in Gent, België.' : 'Built in Ghent, Belgium.') + '</span>' +
     '</div>';
 
-  if (isSlim) { panel.style.marginTop = '0'; panel.style.borderRadius = '0'; }
+  if (isSlim) { panel.style.marginTop = '2rem'; }
   footer.appendChild(panel);
 
 })();
