@@ -30,7 +30,7 @@
 
     /* ── NAV ── */
     nav {
-      position: fixed;
+      position: absolute;
       top: 0; left: 0; right: 0;
       z-index: 200;
       display: flex;
@@ -39,8 +39,6 @@
       padding: 0 3rem;
       height: 64px;
       background: transparent;
-      border-bottom: 1px solid transparent;
-      transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
     }
 
 
@@ -70,27 +68,30 @@
       cursor: pointer; color: var(--white); font-size: 1.3rem;
     }
 
-    /* ── HERO HEADER ── */
-    .page-header {
+    /* ── SILK HERO ── */
+    .silk-hero {
       position: relative;
+      height: 100vh;
       overflow: hidden;
-      background: var(--black);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    #sideRaysMount {
+    #silkCanvas {
       position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      top: -20%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
     }
 
-    .page-header-content {
+    .silk-hero-content {
       position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 10rem 3rem 6rem;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      padding: 0 2rem;
     }
 
     .section-label {
@@ -409,7 +410,7 @@
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .page-header-content, .calculator { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .silk-hero-content, .calculator { padding-left: 1.5rem; padding-right: 1.5rem; }
       .calc-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
@@ -417,7 +418,7 @@
 </head>
 <body>
 
-  <nav id="mainNav">
+  <nav>
     <a class="logo-text" href="home.html">SkyCrawler</a>
     <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
     <ul>
@@ -429,14 +430,14 @@
     </ul>
   </nav>
 
-  <div class="page-header">
-    <div id="sideRaysMount"></div>
-    <div class="page-header-content">
+  <section class="silk-hero">
+    <canvas id="silkCanvas"></canvas>
+    <div class="silk-hero-content">
       <p class="section-label">Prijsmodel</p>
       <h1 class="page-title">Doordachte prijzen,<br>gesteund door <em>Analyse.</em></h1>
       <p class="page-sub">Het prijsmodel schaalt mee met uw behoeften. Pas de parameters aan om de optimale vlootgrootte en koststructuur te berekenen. Minimale afname: 4 robots per project.</p>
     </div>
-  </div>
+  </section>
 
   <div class="content-area"><div class="calculator">
     <div class="calc-grid">
@@ -530,60 +531,49 @@
     calc();
 
 
-    /* ── SIDE RAYS WebGL ── */
-    (function initSideRays() {
-      const mount = document.getElementById('sideRaysMount');
-      if (!mount) return;
+    /* ── SILK WebGL ── */
+    (function initSilk() {
+      const canvas = document.getElementById('silkCanvas');
+      if (!canvas) return;
+      const gl = canvas.getContext('webgl');
+      if (!gl) return;
 
       function hexToRgb(hex) {
         const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return m ? [parseInt(m[1],16)/255, parseInt(m[2],16)/255, parseInt(m[3],16)/255] : [1,1,1];
       }
 
-      const canvas = document.createElement('canvas');
-      canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
-      mount.appendChild(canvas);
-
-      const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
-      if (!gl) return;
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-      const vertSrc = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+      const vertSrc = `attribute vec2 position; void main() { gl_Position = vec4(position,0.0,1.0); }`;
       const fragSrc = `
 precision highp float;
-uniform float iTime; uniform vec2 iResolution;
-uniform float iSpeed; uniform vec3 iRayColor1; uniform vec3 iRayColor2;
-uniform float iIntensity; uniform float iSpread; uniform float iFlipX; uniform float iFlipY;
-uniform float iTilt; uniform float iSaturation; uniform float iBlend; uniform float iFalloff; uniform float iOpacity;
-float rayStrength(vec2 rs, vec2 rd, vec2 coord, float sA, float sB, float sp) {
-  vec2 s2c = coord - rs;
-  float ca = dot(normalize(s2c), rd);
-  return clamp((0.45+0.15*sin(ca*sA+iTime*sp))+(0.3+0.2*cos(-ca*sB+iTime*sp)),0.0,1.0)*
-         clamp((iResolution.x-length(s2c))/iResolution.x,0.5,1.0);
+uniform float uTime;
+uniform vec3  uColor;
+uniform float uSpeed;
+uniform float uScale;
+uniform float uRotation;
+uniform float uNoiseIntensity;
+uniform vec2  iResolution;
+const float e = 2.71828182845904523536;
+float noise(vec2 t) {
+  float G = e;
+  vec2 r = G * sin(G * t);
+  return fract(r.x * r.y * (1.0 + t.x));
+}
+vec2 rotateUvs(vec2 uv, float angle) {
+  float c = cos(angle); float s = sin(angle);
+  return mat2(c,-s,s,c) * uv;
 }
 void main() {
-  vec2 fc = gl_FragCoord.xy;
-  if (iFlipX>0.5) fc.x=iResolution.x-fc.x;
-  if (iFlipY>0.5) fc.y=iResolution.y-fc.y;
-  vec2 coord=vec2(fc.x,iResolution.y-fc.y);
-  vec2 rp=vec2(iResolution.x*1.05,iResolution.y*0.28);
-  float tr=iTilt*3.14159265/180.0; float cs=cos(tr),sn=sin(tr);
-  vec2 rel=coord-rp;
-  vec2 tc=vec2(rel.x*cs-rel.y*sn,rel.x*sn+rel.y*cs)+rp;
-  float hs=iSpread*0.275;
-  vec2 rd1=normalize(vec2(cos(0.785398+hs),sin(0.785398+hs)));
-  vec2 rd2=normalize(vec2(cos(0.785398-hs),sin(0.785398-hs)));
-  vec4 r1=vec4(iRayColor1,1.0)*rayStrength(rp,rd1,tc,36.2214,21.11349,iSpeed);
-  vec4 r2=vec4(iRayColor2,1.0)*rayStrength(rp,rd2,tc,22.3991,18.0234,iSpeed*0.2);
-  vec4 col=r1*(1.0-iBlend)*0.9+r2*iBlend*0.9;
-  float dl=length(fc.xy-vec2(rp.x,iResolution.y-rp.y))/iResolution.y;
-  float br=iIntensity*0.4/pow(max(dl,0.001),iFalloff);
-  col.rgb*=br;
-  float gr=dot(col.rgb,vec3(0.299,0.587,0.114));
-  col.rgb=mix(vec3(gr),col.rgb,iSaturation);
-  col.a=max(col.r,max(col.g,col.b))*iOpacity;
-  gl_FragColor=col;
+  vec2 vUv  = gl_FragCoord.xy / iResolution.xy;
+  float rnd = noise(gl_FragCoord.xy);
+  vec2 uv   = rotateUvs(vUv * uScale, uRotation);
+  vec2 tex  = uv * uScale;
+  float tOffset = uSpeed * uTime;
+  tex.y += 0.03 * sin(8.0 * tex.x - tOffset);
+  float pattern = 0.6 + 0.4 * sin(5.0*(tex.x+tex.y+cos(3.0*tex.x+5.0*tex.y)+0.02*tOffset)+sin(20.0*(tex.x+tex.y-0.1*tOffset)));
+  vec4 col = vec4(uColor,1.0) * vec4(pattern) - rnd/15.0*uNoiseIntensity;
+  col.a = 1.0;
+  gl_FragColor = col;
 }`;
 
       function mkShader(src, type) {
@@ -603,53 +593,40 @@ void main() {
       gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
 
       const u = {};
-      ['iTime','iResolution','iSpeed','iRayColor1','iRayColor2','iIntensity',
-       'iSpread','iFlipX','iFlipY','iTilt','iSaturation','iBlend','iFalloff','iOpacity'
-      ].forEach(n => { u[n] = gl.getUniformLocation(prog, n); });
+      ['uTime','uColor','uSpeed','uScale','uRotation','uNoiseIntensity','iResolution'].forEach(n => {
+        u[n] = gl.getUniformLocation(prog, n);
+      });
 
-      gl.uniform1f(u.iSpeed, 1.2);
-      gl.uniform3fv(u.iRayColor1, hexToRgb('#5227FF'));
-      gl.uniform3fv(u.iRayColor2, hexToRgb('#FF9FFC'));
-      gl.uniform1f(u.iIntensity, 2.0);
-      gl.uniform1f(u.iSpread, 2.0);
-      gl.uniform1f(u.iFlipX, 0.0);
-      gl.uniform1f(u.iFlipY, 0.0);
-      gl.uniform1f(u.iTilt, 0.0);
-      gl.uniform1f(u.iSaturation, 1.4);
-      gl.uniform1f(u.iBlend, 0.75);
-      gl.uniform1f(u.iFalloff, 1.6);
-      gl.uniform1f(u.iOpacity, 0.9);
+      gl.uniform3fv(u.uColor, hexToRgb('#2d1472'));
+      gl.uniform1f(u.uSpeed, 5.0);
+      gl.uniform1f(u.uScale, 1.0);
+      gl.uniform1f(u.uRotation, 0.0);
+      gl.uniform1f(u.uNoiseIntensity, 1.5);
 
       function resize() {
         const dpr = Math.min(window.devicePixelRatio, 2);
-        canvas.width  = mount.clientWidth  * dpr;
-        canvas.height = mount.clientHeight * dpr;
+        canvas.width  = canvas.offsetWidth  * dpr;
+        canvas.height = canvas.offsetHeight * dpr;
         gl.viewport(0, 0, canvas.width, canvas.height);
         gl.uniform2f(u.iResolution, canvas.width, canvas.height);
       }
       window.addEventListener('resize', resize);
       resize();
 
-      (function loop(t) {
-        gl.uniform1f(u.iTime, t * 0.001);
+      const t0 = performance.now();
+      (function loop() {
+        gl.uniform1f(u.uTime, (performance.now() - t0) * 0.0001);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         requestAnimationFrame(loop);
-      })(0);
+      })();
     })();
 
-    /* ── PARALLAX ── */
+    /* ── HERO PARALLAX ── */
     (function() {
-      const mount = document.getElementById('sideRaysMount');
-      let ticking = false;
+      const c = document.getElementById('silkCanvas');
       window.addEventListener('scroll', () => {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            mount.style.transform = 'translateY(' + (window.scrollY * 0.4) + 'px)';
-            ticking = false;
-          });
-          ticking = true;
-        }
+        c.style.transform = 'translateY(' + (window.scrollY * 0.3) + 'px)';
       }, { passive: true });
     })();
 
