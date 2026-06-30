@@ -171,17 +171,17 @@
     }
 
     .partner-badge {
-      display: flex; flex-direction: column; gap: 0.45rem;
-      padding: 1.1rem 1.3rem;
-      background: rgba(0,0,0,0.04);
-      border-radius: 10px;
-      border-left: 2px solid rgba(0,0,0,0.1);
+      display: inline-flex; flex-direction: column; gap: 0.28rem;
+      padding: 0.75rem 1.1rem;
+      background: rgba(0,0,0,0.05);
+      border-radius: 14px;
+      align-self: flex-start;
     }
     .partner-name {
-      font-size: 0.88rem; font-weight: 600; color: var(--off-black);
+      font-size: 0.84rem; font-weight: 600; color: var(--off-black);
     }
     .partner-sub {
-      font-size: 0.8rem; font-weight: 300; color: var(--mid);
+      font-size: 0.76rem; font-weight: 300; color: var(--mid);
     }
 
     /* ── FORM ZONE ── */
@@ -210,10 +210,15 @@
       border-radius: 10px;
       font-family: inherit; font-size: 0.92rem; font-weight: 300;
       color: var(--off-black); background: var(--white); outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
       resize: none; appearance: none;
     }
+    .field input:hover, .field textarea:hover, .field select:hover {
+      background: #f7f8fa;
+      border-color: rgba(0,0,0,0.18);
+    }
     .field input:focus, .field textarea:focus, .field select:focus {
+      background: var(--white);
       border-color: var(--blue);
       box-shadow: 0 0 0 3px rgba(88,182,255,0.12);
     }
@@ -430,20 +435,20 @@
 
             <div class="field">
               <label><span class="t" data-nl="Voornaam" data-en="First name">Voornaam</span></label>
-              <input type="text" placeholder="Jan" />
+              <input type="text" />
             </div>
             <div class="field">
               <label><span class="t" data-nl="Achternaam" data-en="Last name">Achternaam</span></label>
-              <input type="text" placeholder="Janssen" />
+              <input type="text" />
             </div>
 
             <div class="field">
               <label><span class="t" data-nl="Bedrijf / Organisatie" data-en="Company / Organisation">Bedrijf / Organisatie</span></label>
-              <input type="text" placeholder="Besix NV" />
+              <input type="text" />
             </div>
             <div class="field">
               <label>E-mail</label>
-              <input type="email" placeholder="jan@besix.com" />
+              <input type="email" />
             </div>
 
             <div class="field form-full">
