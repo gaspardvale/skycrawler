@@ -340,25 +340,6 @@
       margin: 0 auto 7rem;
     }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid rgba(0,0,0,0.08);
-      padding: 2rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-brand {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--off-black);
-      text-decoration: none;
-    }
-
-    footer p { font-size: 0.78rem; color: var(--mid); }
-
-    .foot-links { display: flex; gap: 1.8rem; }
     .foot-links a {
       font-size: 0.78rem;
       color: var(--mid);
@@ -545,14 +526,8 @@
     </div>
   </div>
 
-  <footer>
-    <a class="footer-brand" href="home.html">SkyCrawler</a>
-    <p data-nl="© 2026 SkyCrawler — Alle rechten voorbehouden." data-en="© 2026 SkyCrawler — All rights reserved.">© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
-    <div class="foot-links">
-      <a href="tarieven.html"><span data-nl="Tarieven" data-en="Pricing">Tarieven</span></a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </footer>
+  <footer data-slim></footer>
+  <script src="footer.js"></script>
 
   <script>
     // Nav hide/show on scroll direction

@@ -91,6 +91,7 @@
   /* ─── Mount ─────────────────────────────────────────────────────── */
   var footer = document.querySelector('footer');
   if (!footer) return;
+  var isSlim = footer.hasAttribute('data-slim');
   footer.className = 'sc-footer';
   footer.innerHTML = '';
 
@@ -102,6 +103,7 @@
     return e;
   }
 
+  if (!isSlim) {
   /* ─── SVG canvas ─────────────────────────────────────────────────── */
   var VW = 1440, VH = 370, GY = 358; /* GY = ground y */
   var svg = el('svg', {
@@ -204,6 +206,7 @@
 
   /* Ground line */
   el('rect', { x: 0, y: GY, width: VW, height: VH - GY, fill: '#dde8f5' }, svg);
+  } /* end !isSlim */
 
   /* ─── INFO PANEL ─────────────────────────────────────────────────── */
   var lang = localStorage.getItem('sc-lang') || 'nl';
@@ -258,6 +261,7 @@
       '<span>' + (nl ? 'Gebouwd in Gent, België.' : 'Built in Ghent, Belgium.') + '</span>' +
     '</div>';
 
+  if (isSlim) { panel.style.marginTop = '0'; panel.style.borderRadius = '0'; }
   footer.appendChild(panel);
 
 })();
