@@ -60,13 +60,15 @@
     '}' +
     'a#sc-vale:hover{opacity:.75}' +
     '#sc-vale-horse{' +
-      'height:26px;width:auto;' +
-      'filter:brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(180deg)' +
-        ' drop-shadow(0 0 6px rgba(88,182,255,0.7)) brightness(1.2)' +
+      'display:inline-block;height:26px;width:26px;flex-shrink:0;' +
+      'background:#58b6ff;' +
+      '-webkit-mask:url("horseman_logo_transparent.png") no-repeat center/contain;' +
+      'mask:url("horseman_logo_transparent.png") no-repeat center/contain;' +
+      'filter:drop-shadow(0 0 6px rgba(88,182,255,0.65));' +
+      'transition:filter .2s' +
     '}' +
     'a#sc-vale:hover #sc-vale-horse{' +
-      'filter:brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(180deg)' +
-        ' drop-shadow(0 0 12px rgba(88,182,255,1)) brightness(1.4)' +
+      'filter:drop-shadow(0 0 14px rgba(88,182,255,1))' +
     '}' +
     '#sc-vale>span{font-size:.68rem;font-weight:500;letter-spacing:.15em;' +
       'text-transform:uppercase;color:rgba(0,0,0,.32)}' +
@@ -248,7 +250,7 @@
     '</div>' +
 
     '<a id="sc-vale" href="https://vale.codes" target="_blank" rel="noopener">' +
-      '<img src="horseman_logo_transparent.png" id="sc-vale-horse" alt="VALE" />' +
+      '<span id="sc-vale-horse" role="img" aria-label="VALE horse logo"></span>' +
       '<span>' + (nl ? 'Mogelijk gemaakt door' : 'Powered by') + ' <strong>VALE</strong></span>' +
     '</a>' +
     '<div id="sc-btm">' +
