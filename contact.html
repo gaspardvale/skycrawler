@@ -10,278 +10,269 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black: #000;
       --off-black: #1d1d1f;
       --mid: #6e6e73;
       --light: #f5f5f7;
       --white: #fff;
+      --blue: #58b6ff;
+      --blue-dk: #1a5fa8;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--white);
-      color: var(--off-black);
-      overflow-x: hidden;
+      background: var(--white); color: var(--off-black); overflow-x: hidden;
     }
 
-    /* ── SITE LOGO (always visible) ── */
+    /* ── SITE LOGO ── */
     .site-logo {
       position: fixed; top: 0; left: 0; z-index: 210;
       height: 64px; display: flex; align-items: center; padding: 0 3rem;
     }
-    .nav-logo { height: 26px; width: auto; display: block; transition: filter 0.3s; }
+    .nav-logo { height: 26px; width: auto; display: block; filter: brightness(0) invert(1); transition: filter 0.3s; }
+    .site-logo.light-mode .nav-logo { filter: none; }
 
-    /* ── SITE LANG (always visible) ── */
+    /* ── SITE LANG ── */
     .site-lang {
       position: fixed; top: 0; right: 0; z-index: 210;
       height: 64px; display: flex; align-items: center; gap: 1rem; padding: 0 3rem;
     }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0.38rem;
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 980px; padding: 0.28rem 0.82rem;
+      transition: border-color 0.3s;
+    }
+    .site-lang.light-mode .lang-toggle { border-color: rgba(0,0,0,0.16); }
+    .lang-btn {
+      background: none; border: none; cursor: pointer; font-family: inherit;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35); padding: 0; transition: color 0.3s; line-height: 1;
+    }
+    .site-lang.light-mode .lang-btn { color: rgba(0,0,0,0.28); }
+    .lang-btn.active { color: rgba(255,255,255,0.92); }
+    .site-lang.light-mode .lang-btn.active { color: rgba(0,0,0,0.88); }
+    .lang-sep { font-size: 0.6rem; color: rgba(255,255,255,0.22); user-select: none; }
+    .site-lang.light-mode .lang-sep { color: rgba(0,0,0,0.16); }
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.8); font-size: 1.3rem; transition: color 0.3s;
+    }
+    .site-lang.light-mode .hamburger { color: var(--off-black); }
 
-    /* ── NAV (links only, slides up on scroll) ── */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: flex-start;
       padding-left: calc(3rem + 26px + 2rem);
       height: 64px; background: transparent;
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); pointer-events: none;
     }
-
     nav.nav-hidden { transform: translateY(-100%); }
     nav ul { list-style: none; display: flex; gap: 2rem; pointer-events: auto; }
-
     nav ul a {
       text-decoration: none; font-size: 0.88rem; font-weight: 500;
-      color: rgba(0,0,0,0.65); transition: color 0.3s; letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.82); transition: color 0.3s; letter-spacing: -0.01em;
+    }
+    nav ul a:hover { color: rgba(255,255,255,0.45); }
+    nav.light-mode ul a { color: rgba(0,0,0,0.65); }
+    nav.light-mode ul a:hover { color: rgba(0,0,0,0.35); }
+
+    /* ── DARK HERO ── */
+    .contact-hero {
+      background: #07070f;
+      position: relative; overflow: hidden;
+      padding: calc(64px + 6rem) 8vw 7rem;
+    }
+    .contact-hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 70% at 12% 45%, rgba(88,182,255,0.10) 0%, transparent 65%);
+    }
+    /* Faint decorative word in background */
+    .contact-hero::after {
+      content: 'Contact';
+      position: absolute; bottom: -0.12em; right: -0.05em;
+      font-size: clamp(10rem, 20vw, 18rem); font-weight: 800;
+      letter-spacing: -0.07em; line-height: 1;
+      color: rgba(255,255,255,0.025);
+      pointer-events: none; user-select: none;
+    }
+    .ch-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+    .ch-eyebrow {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    .ch-eyebrow::before {
+      content: ''; display: block; width: 18px; height: 2px; background: currentColor; flex-shrink: 0;
+    }
+    .ch-title {
+      font-size: clamp(2.4rem, 5.5vw, 4.4rem); font-weight: 700;
+      letter-spacing: -0.045em; line-height: 1.06; color: #fff;
+      max-width: 740px; margin-bottom: 1.8rem;
+    }
+    .ch-sub {
+      font-size: clamp(0.9rem, 1.4vw, 1rem); font-weight: 300;
+      color: rgba(255,255,255,0.38); max-width: 480px; line-height: 1.75;
     }
 
-    nav ul a:hover { color: rgba(0,0,0,0.35); }
-
-    .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--off-black); font-size: 1.3rem; transition: color 0.3s; }
-
-    .lang-toggle {
-      display: flex; align-items: center; gap: 0.38rem;
-      border: 1px solid rgba(0,0,0,0.16); border-radius: 980px; padding: 0.28rem 0.82rem; transition: border-color 0.3s;
+    /* ── MAIN BODY ── */
+    .contact-body { background: var(--white); }
+    .contact-wrap {
+      max-width: 1260px; margin: 0 auto;
+      display: grid; grid-template-columns: 360px 1fr;
     }
 
-    .lang-btn {
-      background: none; border: none; cursor: pointer; font-family: inherit;
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
-      color: rgba(0,0,0,0.28); padding: 0; transition: color 0.3s; line-height: 1;
+    /* ── SIDEBAR ── */
+    .c-sidebar {
+      background: var(--light);
+      border-right: 1px solid rgba(0,0,0,0.06);
+      padding: 5rem 3rem 5rem 8vw;
+      display: flex; flex-direction: column; gap: 3rem;
+    }
+    .info-head {
+      font-size: 0.56rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(0,0,0,0.28); margin-bottom: 1rem;
+    }
+    .contact-links { display: flex; flex-direction: column; }
+    .contact-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      text-decoration: none;
+      font-size: 0.88rem; font-weight: 500; color: var(--off-black);
+      transition: color 0.18s;
+    }
+    .contact-link:first-child { border-top: 1px solid rgba(0,0,0,0.07); }
+    .contact-link:hover { color: var(--blue-dk); }
+    .contact-link-arrow {
+      font-size: 0.78rem; opacity: 0.3;
+      transition: opacity 0.18s, transform 0.18s;
+      display: inline-block;
+    }
+    .contact-link:hover .contact-link-arrow { opacity: 1; transform: translateX(4px); }
+
+    .location-val {
+      font-size: 0.88rem; font-weight: 300; color: var(--mid); line-height: 1.72;
     }
 
-    .lang-btn.active { color: rgba(0,0,0,0.88); }
-    .lang-sep { font-size: 0.6rem; color: rgba(0,0,0,0.16); user-select: none; }
-
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: calc(64px + 3rem) 3rem 4rem;
-      max-width: 1100px; margin: 0 auto;
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 1.4rem; }
+    .step { display: flex; align-items: flex-start; gap: 1rem; }
+    .step-n {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--blue); flex-shrink: 0; padding-top: 0.18rem; min-width: 22px;
+    }
+    .step-txt {
+      font-size: 0.86rem; font-weight: 400; color: var(--off-black); line-height: 1.55;
+    }
+    .step-txt small {
+      display: block; font-size: 0.78rem; font-weight: 300;
+      color: var(--mid); margin-top: 0.18rem;
     }
 
-    .page-label {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--mid); margin-bottom: 1.2rem;
+    .partner-badge {
+      display: flex; flex-direction: column; gap: 0.45rem;
+      padding: 1.1rem 1.3rem;
+      background: rgba(0,0,0,0.04);
+      border-radius: 10px;
+      border-left: 2px solid rgba(0,0,0,0.1);
+    }
+    .partner-name {
+      font-size: 0.88rem; font-weight: 600; color: var(--off-black);
+    }
+    .partner-sub {
+      font-size: 0.8rem; font-weight: 300; color: var(--mid);
     }
 
-    .page-title {
-      font-size: clamp(2.8rem, 6vw, 4.4rem);
-      font-weight: 700; line-height: 1.05;
-      letter-spacing: -0.035em; color: var(--off-black);
-      margin-bottom: 1.4rem; max-width: 760px;
+    /* ── FORM ZONE ── */
+    .c-form-zone {
+      padding: 5rem 8vw 5rem 4.5rem;
     }
-
-    .page-title em { font-style: italic; }
-
-    .page-sub {
-      font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-      font-weight: 300; color: var(--mid);
-      max-width: 500px; line-height: 1.7;
+    .form-heading {
+      font-size: clamp(1.3rem, 2.2vw, 1.85rem); font-weight: 700;
+      letter-spacing: -0.03em; color: var(--off-black); margin-bottom: 0.55rem;
     }
-
-    /* ── ORIGIN SECTION ── */
-    .section {
-      padding: 7rem 3rem;
-      max-width: 1100px;
-      margin: 0 auto;
+    .form-sub {
+      font-size: 0.88rem; font-weight: 300; color: var(--mid); margin-bottom: 2.5rem;
     }
-
-    .section + .section { border-top: 1px solid rgba(0,0,0,0.08); }
-
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 1rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      color: var(--off-black);
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
-
-    .prose {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--mid);
-      line-height: 1.75;
-      max-width: 620px;
-    }
-
-    /* ── CONTACT INFO ── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .info-card {
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      padding: 2.4rem 2.4rem 2.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .info-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.28);
-      margin-bottom: 0.4rem;
-    }
-
-    .info-card h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--off-black);
-      margin-bottom: 0.4rem;
-    }
-
-    .info-card p {
-      font-size: 0.88rem;
-      font-weight: 300;
-      color: var(--mid);
-      line-height: 1.65;
-    }
-
-    /* ── FORM ── */
     .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;
     }
-
     .form-full { grid-column: span 2; }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
     .field label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--off-black);
-      letter-spacing: 0.01em;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(0,0,0,0.38);
     }
-
-    .field input,
-    .field textarea {
-      padding: 0.85rem 1rem;
-      border: 1px solid rgba(0,0,0,0.14);
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 0.92rem;
-      font-weight: 300;
-      color: var(--off-black);
-      background: var(--white);
-      outline: none;
-      transition: border-color 0.2s;
-      resize: none;
+    .field input, .field textarea, .field select {
+      padding: 0.92rem 1.05rem;
+      border: 1.5px solid rgba(0,0,0,0.10);
+      border-radius: 10px;
+      font-family: inherit; font-size: 0.92rem; font-weight: 300;
+      color: var(--off-black); background: var(--white); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none; appearance: none;
     }
-
-    .field input:focus,
-    .field textarea:focus {
-      border-color: rgba(0,0,0,0.4);
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(88,182,255,0.12);
     }
-
-    .field textarea { min-height: 130px; }
-
+    .field textarea { min-height: 148px; }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236e6e73' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center;
+      padding-right: 2.5rem; cursor: pointer;
+    }
     .btn-submit {
-      margin-top: 1.2rem;
-      padding: 0.85rem 2.4rem;
-      background: var(--off-black);
-      color: var(--white);
-      border: none;
-      border-radius: 980px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      margin-top: 1.6rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.95rem 2.8rem;
+      background: var(--off-black); color: var(--white);
+      border: none; border-radius: 980px;
+      font-family: inherit; font-size: 0.92rem; font-weight: 600;
+      letter-spacing: -0.01em; cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     }
-
     .btn-submit:hover {
-      background: var(--black);
-      transform: translateY(-2px);
+      background: #000; transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
     }
+    .btn-submit svg { flex-shrink: 0; transition: transform 0.2s; }
+    .btn-submit:hover svg { transform: translateX(3px); }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid rgba(0,0,0,0.08);
-      padding: 2rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 2rem 3rem; display: flex;
+      align-items: center; justify-content: space-between;
     }
-
-    .footer-brand {
-      font-size: 0.85rem; font-weight: 600;
-      color: var(--off-black); text-decoration: none;
-    }
-
+    .footer-brand { font-size: 0.85rem; font-weight: 600; color: var(--off-black); text-decoration: none; }
     footer p { font-size: 0.78rem; color: var(--mid); }
-
     .foot-links { display: flex; gap: 1.8rem; }
-    .foot-links a {
-      font-size: 0.78rem; color: var(--mid);
-      text-decoration: none; transition: color 0.18s;
-    }
+    .foot-links a { font-size: 0.78rem; color: var(--mid); text-decoration: none; transition: color 0.18s; }
     .foot-links a:hover { color: var(--off-black); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .contact-wrap { grid-template-columns: 1fr; }
+      .c-sidebar {
+        padding: 4rem 2rem;
+        border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07);
+      }
+      .c-form-zone { padding: 4rem 2rem; }
+    }
     @media (max-width: 768px) {
       .site-logo, .site-lang { padding: 0 1.2rem; }
       .hamburger { display: block; }
       nav ul {
         display: none; position: fixed; inset: 0;
         flex-direction: column; align-items: center; justify-content: center;
-        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
-        pointer-events: auto;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300; pointer-events: auto;
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
-      .section { padding: 4rem 1.5rem; }
-      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
-      .contact-grid, .form-grid { grid-template-columns: 1fr; }
+      .contact-hero { padding: calc(64px + 4rem) 1.8rem 5rem; }
+      .form-grid { grid-template-columns: 1fr; }
       .form-full { grid-column: span 1; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
@@ -289,13 +280,13 @@
 </head>
 <body>
 
-  <div class="site-logo">
+  <div class="site-logo" id="siteLogo">
     <a href="home.html">
       <img src="black_robot_logo_transparent.png" alt="SkyCrawler" class="nav-logo" />
     </a>
   </div>
 
-  <div class="site-lang">
+  <div class="site-lang" id="siteLang">
     <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">☰</button>
     <div class="lang-toggle">
       <button class="lang-btn active" data-lang="nl">NL</button>
@@ -304,7 +295,7 @@
     </div>
   </div>
 
-  <nav>
+  <nav id="mainNav">
     <ul>
       <li><a href="techniek.html"><span class="t" data-nl="Techniek" data-en="Technology">Techniek</span></a></li>
       <li><a href="tarieven.html"><span class="t" data-nl="Tarieven" data-en="Pricing">Tarieven</span></a></li>
@@ -313,94 +304,240 @@
     </ul>
   </nav>
 
-  <div class="page-header">
-    <p class="page-label">Contact</p>
-    <h1 class="page-title"><span data-nl="Interesse in een" data-en="Interested in a">Interesse in een</span><br><span data-nl="pilotproject of investering?" data-en="pilot project or investment?">pilotproject of investering?</span></h1>
-    <p class="page-sub" data-nl="Ons team staat klaar om uw vragen te beantwoorden." data-en="Our team is ready to answer your questions.">Ons team staat klaar om uw vragen te beantwoorden.</p>
-  </div>
-
-  <!-- CONTACT -->
-  <div class="section">
-    <div class="contact-grid">
-      <div class="info-card">
-        <p class="info-label" data-nl="Hoofdkwartier" data-en="Headquarters">Hoofdkwartier</p>
-        <h4 data-nl="Locatie" data-en="Location">Locatie</h4>
-        <p data-nl="Gent / Technologiepark Zwijnaarde — Oost-Vlaanderen, België" data-en="Ghent / Technologiepark Zwijnaarde — East Flanders, Belgium">Gent / Technologiepark Zwijnaarde<br>Oost-Vlaanderen, België</p>
-      </div>
-      <div class="info-card">
-        <p class="info-label">E-mail</p>
-        <h4 data-nl="Direct Contact" data-en="Direct Contact">Direct Contact</h4>
-        <p>contact@skycrawler.com<br>invest@skycrawler.com</p>
-      </div>
-      <div class="info-card" style="grid-column: span 2;">
-        <p class="info-label" data-nl="Academische Partners" data-en="Academic Partners">Academische Partners</p>
-        <h4 data-nl="Universiteit Gent" data-en="Ghent University">Universiteit Gent</h4>
-        <p data-nl="Faculteit Ingenieurswetenschappen" data-en="Faculty of Engineering and Architecture">Faculteit Ingenieurswetenschappen</p>
-      </div>
+  <!-- ── Dark hero ── -->
+  <section class="contact-hero">
+    <div class="ch-inner">
+      <p class="ch-eyebrow">
+        <span class="t" data-nl="Contact" data-en="Contact">Contact</span>
+      </p>
+      <h1 class="ch-title">
+        <span class="t"
+          data-nl="Interesse in een pilotproject of investering?"
+          data-en="Interested in a pilot project or investment?">
+          Interesse in een pilotproject of investering?
+        </span>
+      </h1>
+      <p class="ch-sub">
+        <span class="t"
+          data-nl="Ons team staat klaar. Vul het formulier in of stuur ons een e-mail — we reageren binnen 24 uur op werkdagen."
+          data-en="Our team is ready. Fill in the form or send us an email — we respond within 24 hours on business days.">
+          Ons team staat klaar. Vul het formulier in of stuur ons een e-mail — we reageren binnen 24 uur op werkdagen.
+        </span>
+      </p>
     </div>
+  </section>
 
-    <form onsubmit="return false;">
-      <div class="form-grid">
-        <div class="field">
-          <label data-nl="Voornaam" data-en="First Name">Voornaam</label>
-          <input type="text" placeholder="Jan" />
+  <!-- ── Main: sidebar + form ── -->
+  <div class="contact-body">
+    <div class="contact-wrap">
+
+      <!-- Left: contact info -->
+      <aside class="c-sidebar">
+
+        <!-- Email links -->
+        <div>
+          <p class="info-head">
+            <span class="t" data-nl="Direct bereikbaar" data-en="Direct contact">Direct bereikbaar</span>
+          </p>
+          <div class="contact-links">
+            <a class="contact-link" href="mailto:contact@skycrawler.com">
+              contact@skycrawler.com
+              <span class="contact-link-arrow">→</span>
+            </a>
+            <a class="contact-link" href="mailto:invest@skycrawler.com">
+              invest@skycrawler.com
+              <span class="contact-link-arrow">→</span>
+            </a>
+          </div>
         </div>
-        <div class="field">
-          <label data-nl="Achternaam" data-en="Last Name">Achternaam</label>
-          <input type="text" placeholder="Janssen" />
+
+        <!-- Location -->
+        <div>
+          <p class="info-head">
+            <span class="t" data-nl="Locatie" data-en="Location">Locatie</span>
+          </p>
+          <p class="location-val">
+            <span class="t"
+              data-nl="Technologiepark Zwijnaarde&#10;Gent, Oost-Vlaanderen&#10;België"
+              data-en="Technologiepark Zwijnaarde&#10;Ghent, East Flanders&#10;Belgium">
+              Technologiepark Zwijnaarde<br>Gent, Oost-Vlaanderen<br>België
+            </span>
+          </p>
         </div>
-        <div class="field">
-          <label data-nl="Bedrijf / Organisatie" data-en="Company / Organisation">Bedrijf / Organisatie</label>
-          <input type="text" placeholder="Besix NV" />
+
+        <!-- What to expect -->
+        <div>
+          <p class="info-head">
+            <span class="t" data-nl="Wat u kunt verwachten" data-en="What to expect">Wat u kunt verwachten</span>
+          </p>
+          <div class="steps">
+            <div class="step">
+              <span class="step-n">01</span>
+              <p class="step-txt">
+                <span class="t" data-nl="Bevestiging binnen 24 uur" data-en="Confirmation within 24 hours">Bevestiging binnen 24 uur</span>
+                <small><span class="t" data-nl="op werkdagen" data-en="on business days">op werkdagen</span></small>
+              </p>
+            </div>
+            <div class="step">
+              <span class="step-n">02</span>
+              <p class="step-txt">
+                <span class="t" data-nl="Kennismakings&shy;gesprek of live demo" data-en="Introductory call or live demo">Kennismakingsgesprek of live demo</span>
+                <small><span class="t" data-nl="online of ter plaatse in Gent" data-en="online or on-site in Ghent">online of ter plaatse in Gent</span></small>
+              </p>
+            </div>
+            <div class="step">
+              <span class="step-n">03</span>
+              <p class="step-txt">
+                <span class="t" data-nl="Op maat pilot&shy;voorstel" data-en="Tailored pilot proposal">Op maat pilotvoorstel</span>
+                <small><span class="t" data-nl="gebaseerd op uw gebouw en noden" data-en="based on your building and needs">gebaseerd op uw gebouw en noden</span></small>
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="field">
-          <label>E-mail</label>
-          <input type="email" placeholder="jan@besix.com" />
+
+        <!-- Academic partner -->
+        <div>
+          <p class="info-head">
+            <span class="t" data-nl="Academische partner" data-en="Academic partner">Academische partner</span>
+          </p>
+          <div class="partner-badge">
+            <p class="partner-name">
+              <span class="t" data-nl="Universiteit Gent" data-en="Ghent University">Universiteit Gent</span>
+            </p>
+            <p class="partner-sub">
+              <span class="t" data-nl="Faculteit Ingenieurswetenschappen" data-en="Faculty of Engineering and Architecture">Faculteit Ingenieurswetenschappen</span>
+            </p>
+          </div>
         </div>
-        <div class="field form-full">
-          <label data-nl="Onderwerp" data-en="Subject">Onderwerp</label>
-          <input type="text" placeholder="Pilotproject, investering, ..." />
-        </div>
-        <div class="field form-full">
-          <label data-nl="Bericht" data-en="Message">Bericht</label>
-          <textarea placeholder="Vertel ons meer over uw project of vraag..."></textarea>
-        </div>
+
+      </aside>
+
+      <!-- Right: form -->
+      <div class="c-form-zone">
+        <h2 class="form-heading">
+          <span class="t" data-nl="Stuur ons een bericht" data-en="Send us a message">Stuur ons een bericht</span>
+        </h2>
+        <p class="form-sub">
+          <span class="t"
+            data-nl="Of u nu een gebouweigenaar, investeerder of journalist bent — we horen graag van u."
+            data-en="Whether you're a building owner, investor or journalist — we'd love to hear from you.">
+            Of u nu een gebouweigenaar, investeerder of journalist bent — we horen graag van u.
+          </span>
+        </p>
+
+        <form onsubmit="return false;">
+          <div class="form-grid">
+
+            <div class="field">
+              <label><span class="t" data-nl="Voornaam" data-en="First name">Voornaam</span></label>
+              <input type="text" placeholder="Jan" />
+            </div>
+            <div class="field">
+              <label><span class="t" data-nl="Achternaam" data-en="Last name">Achternaam</span></label>
+              <input type="text" placeholder="Janssen" />
+            </div>
+
+            <div class="field">
+              <label><span class="t" data-nl="Bedrijf / Organisatie" data-en="Company / Organisation">Bedrijf / Organisatie</span></label>
+              <input type="text" placeholder="Besix NV" />
+            </div>
+            <div class="field">
+              <label>E-mail</label>
+              <input type="email" placeholder="jan@besix.com" />
+            </div>
+
+            <div class="field form-full">
+              <label><span class="t" data-nl="Type aanvraag" data-en="Type of enquiry">Type aanvraag</span></label>
+              <select id="subjectSelect">
+                <option value="" disabled selected>
+                  <!-- filled by JS -->
+                </option>
+                <option class="t" data-nl="Pilotproject" data-en="Pilot project">Pilotproject</option>
+                <option class="t" data-nl="Investering" data-en="Investment">Investering</option>
+                <option class="t" data-nl="Technische vraag" data-en="Technical question">Technische vraag</option>
+                <option class="t" data-nl="Media / Pers" data-en="Media / Press">Media / Pers</option>
+                <option class="t" data-nl="Andere" data-en="Other">Andere</option>
+              </select>
+            </div>
+
+            <div class="field form-full">
+              <label><span class="t" data-nl="Bericht" data-en="Message">Bericht</span></label>
+              <textarea id="msgArea" placeholder="Vertel ons meer over uw project of vraag..."></textarea>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="t" data-nl="Verstuur bericht" data-en="Send message">Verstuur bericht</span>
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path d="M2 7.5h11M9 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
       </div>
-      <button type="submit" class="btn-submit" data-nl="Verstuur Bericht" data-en="Send Message">Verstuur Bericht</button>
-    </form>
+
+    </div>
   </div>
 
   <footer>
     <a class="footer-brand" href="home.html">SkyCrawler</a>
-    <p data-nl="© 2026 SkyCrawler — Alle rechten voorbehouden." data-en="© 2026 SkyCrawler — All rights reserved.">© 2026 SkyCrawler — Alle rechten voorbehouden.</p>
+    <p><span class="t" data-nl="© 2026 SkyCrawler — Alle rechten voorbehouden." data-en="© 2026 SkyCrawler — All rights reserved.">© 2026 SkyCrawler — Alle rechten voorbehouden.</span></p>
     <div class="foot-links">
-      <a href="tarieven.html"><span data-nl="Tarieven" data-en="Pricing">Tarieven</span></a>
+      <a href="tarieven.html"><span class="t" data-nl="Tarieven" data-en="Pricing">Tarieven</span></a>
       <a href="contact.html">Contact</a>
     </div>
   </footer>
 
+  <script src="footer.js"></script>
+
   <script>
-    // Nav hide/show on scroll direction
+    /* ── NAV HIDE / SHOW ── */
     (function() {
-      var nav = document.querySelector('nav');
-      var lastY = 0;
+      var nav = document.getElementById('mainNav'), lastY = 0;
       window.addEventListener('scroll', function() {
         var y = window.scrollY;
-        if (y > lastY && y > 80) { nav.classList.add('nav-hidden'); }
-        else { nav.classList.remove('nav-hidden'); }
+        nav.classList.toggle('nav-hidden', y > lastY && y > 80);
         lastY = y;
       }, { passive: true });
     })();
 
-    // Language toggle with localStorage persistence
+    /* ── LIGHT-MODE: hero is dark, body is light ── */
+    (function() {
+      var hero    = document.querySelector('.contact-hero');
+      var siteLogo = document.getElementById('siteLogo');
+      var siteLang = document.getElementById('siteLang');
+      var navEl    = document.getElementById('mainNav');
+      function tick() {
+        var heroBtm = hero.getBoundingClientRect().bottom;
+        var inDark  = heroBtm > 0;
+        siteLogo.classList.toggle('light-mode', !inDark);
+        siteLang.classList.toggle('light-mode', !inDark);
+        navEl.classList.toggle('light-mode', !inDark);
+      }
+      window.addEventListener('scroll', tick, { passive: true });
+      tick();
+    })();
+
+    /* ── LANGUAGE TOGGLE ── */
     (function() {
       function setLang(lang) {
         localStorage.setItem('sc-lang', lang);
+        document.documentElement.lang = lang;
         document.querySelectorAll('.lang-btn').forEach(function(b) {
           b.classList.toggle('active', b.dataset.lang === lang);
         });
-        document.querySelectorAll('[data-nl]').forEach(function(el) {
+        document.querySelectorAll('.t[data-nl]').forEach(function(el) {
           el.textContent = lang === 'nl' ? el.dataset.nl : (el.dataset.en || el.dataset.nl);
+        });
+        /* Placeholder translations */
+        var msg = document.getElementById('msgArea');
+        if (msg) msg.placeholder = lang === 'nl' ? 'Vertel ons meer over uw project of vraag...' : 'Tell us more about your project or question...';
+        /* Dropdown placeholder */
+        var sel = document.getElementById('subjectSelect');
+        if (sel && sel.options[0]) sel.options[0].text = lang === 'nl' ? 'Selecteer een categorie' : 'Select a category';
+        /* Option texts */
+        document.querySelectorAll('select option.t').forEach(function(opt) {
+          opt.textContent = lang === 'nl' ? opt.dataset.nl : (opt.dataset.en || opt.dataset.nl);
         });
       }
       var saved = localStorage.getItem('sc-lang') || 'nl';
