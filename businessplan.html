@@ -79,40 +79,29 @@
     .lang-btn.active { color: rgba(0,0,0,0.88); }
     .lang-sep { font-size: 0.6rem; color: rgba(0,0,0,0.16); user-select: none; }
 
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: calc(64px + 3rem) 3rem 4rem;
-      max-width: 1100px; margin: 0 auto;
-    }
+    /* ── HERO ── */
+    .bp-hero-wrap { position: relative; }
+    .bp-hero { position: relative; height: 60vh; min-height: 360px; overflow: hidden; }
+    .bp-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 50%; }
+    .bp-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.55) 100%); }
+    .bp-page-header { position: relative; z-index: 5; margin-top: -110px; padding: 0 8vw 4.5rem; }
+    .bp-page-panel { display: inline-block; padding: 2.2rem 2.8rem; background: rgba(14,14,18,0.72); backdrop-filter: blur(24px) saturate(1.2); -webkit-backdrop-filter: blur(24px) saturate(1.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.35); max-width: 660px; }
 
-    .page-label {
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--mid); margin-bottom: 1.2rem;
-    }
-
-    .page-title {
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 700; line-height: 1.05;
-      letter-spacing: -0.035em; color: var(--off-black);
-      margin-bottom: 1.4rem; max-width: 800px;
-    }
-
+    /* ── PAGE HEADER TEXT ── */
+    .page-label { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.48); margin-bottom: 1.1rem; }
+    .page-title { font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.02; letter-spacing: -0.04em; color: white; margin-bottom: 1.2rem; }
     .page-title em { font-style: italic; }
+    .page-sub { font-size: clamp(0.88rem, 1.3vw, 0.98rem); font-weight: 300; color: rgba(255,255,255,0.62); line-height: 1.72; }
 
-    .page-sub {
-      font-size: clamp(0.95rem, 1.6vw, 1.05rem);
-      font-weight: 300; color: var(--mid);
-      max-width: 560px; line-height: 1.7;
-    }
-
-    .page-photo { width: 100%; overflow: hidden; }
-
-    .page-photo img {
-      width: 100%; height: 58vh;
-      min-height: 340px; max-height: 560px;
-      object-fit: cover; display: block;
-    }
+    /* ── NAV ADAPTIVE ── */
+    .nav-logo { filter: none; transition: filter 0.35s; }
+    .logo-on-dark .nav-logo { filter: brightness(0) invert(1); }
+    nav.nav-on-dark ul a { color: rgba(255,255,255,0.8); }
+    nav.nav-on-dark ul a:hover { color: rgba(255,255,255,0.4); }
+    .lang-on-dark .lang-toggle { border-color: rgba(255,255,255,0.28); }
+    .lang-on-dark .lang-btn { color: rgba(255,255,255,0.42); }
+    .lang-on-dark .lang-btn.active { color: rgba(255,255,255,0.9); }
+    .lang-on-dark .lang-sep { color: rgba(255,255,255,0.18); }
 
     /* ── SECTIONS ── */
     .section {
@@ -279,6 +268,7 @@
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: var(--white); }
+      .bp-page-header { margin-top: -80px; padding: 0 1.5rem 3rem; }
       .hero-content, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
       .section { padding-top: 4rem; padding-bottom: 4rem; }
       .values-grid, .team-row { grid-template-columns: 1fr; }
@@ -312,14 +302,21 @@
     </ul>
   </nav>
 
-  <div class="page-header">
-    <p class="page-label" data-nl="Over Ons" data-en="About Us">Over Ons</p>
-    <h1 class="page-title"><span data-nl="Gebouwd door studenten." data-en="Built by students.">Gebouwd door studenten.</span><br><span data-nl="Gemaakt voor de wereld." data-en="Made for the world.">Gemaakt voor de wereld.</span></h1>
-    <p class="page-sub" data-nl="Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd." data-en="Three engineering students from Ghent University with one goal: making building maintenance safer, cleaner and smarter forever.">Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd.</p>
-  </div>
-
-  <div class="page-photo">
-    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=3840&q=90&fit=crop" alt="Stad" />
+  <div class="bp-hero-wrap">
+    <div class="bp-hero">
+      <img class="bp-hero-bg" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=3840&q=90&fit=crop" alt="Stad" />
+      <div class="bp-hero-overlay"></div>
+    </div>
+    <div class="bp-page-header">
+      <div class="bp-page-panel">
+        <p class="page-label" data-nl="Over Ons" data-en="About Us">Over Ons</p>
+        <h1 class="page-title">
+          <span data-nl="Gebouwd door studenten." data-en="Built by students.">Gebouwd door studenten.</span><br>
+          <span data-nl="Gemaakt voor de wereld." data-en="Made for the world.">Gemaakt voor de wereld.</span>
+        </h1>
+        <p class="page-sub" data-nl="Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd." data-en="Three engineering students from Ghent University with one goal: making building maintenance safer, cleaner and smarter forever.">Drie ingenieursstudenten van de Universiteit Gent met één doel: gebouwonderhoud veiliger, schoner en slimmer maken voor altijd.</p>
+      </div>
+    </div>
   </div>
 
   <!-- SECTION 1: Text left, Image right — Origin -->
@@ -423,16 +420,27 @@
   <script src="footer.js"></script>
 
   <script>
-    // Nav hide/show on scroll direction
+    // Nav hide/show + adaptive dark/light text
     (function() {
-      var nav = document.querySelector('nav');
+      var nav      = document.querySelector('nav');
+      var siteLogo = document.querySelector('.site-logo');
+      var siteLang = document.querySelector('.site-lang');
       var lastY = 0;
-      window.addEventListener('scroll', function() {
+      function update() {
         var y = window.scrollY;
-        if (y > lastY && y > 80) { nav.classList.add('nav-hidden'); }
-        else { nav.classList.remove('nav-hidden'); }
+        if (y > lastY && y > 80) nav.classList.add('nav-hidden');
+        else nav.classList.remove('nav-hidden');
         lastY = y;
-      }, { passive: true });
+        var navMid = y + 32;
+        var onDark = Array.from(document.querySelectorAll('.bp-hero')).some(function(s) {
+          return navMid >= s.offsetTop && navMid < s.offsetTop + s.offsetHeight;
+        });
+        nav.classList.toggle('nav-on-dark', onDark);
+        siteLogo.classList.toggle('logo-on-dark', onDark);
+        siteLang.classList.toggle('lang-on-dark', onDark);
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
     })();
 
     // Language toggle with localStorage persistence
