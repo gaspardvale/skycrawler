@@ -293,7 +293,7 @@
 
     /* Story-style segment progress (top-center) */
     .prob-progress-segs {
-      position: absolute; top: 2rem; left: 50%;
+      position: absolute; bottom: 2.5rem; left: 50%;
       transform: translateX(-50%);
       display: flex; gap: 7px; z-index: 20;
     }
@@ -305,18 +305,6 @@
       height: 100%; width: 0%;
       background: rgba(255,255,255,0.65); border-radius: 2px;
     }
-
-    /* Navigation dots (bottom-center) */
-    .prob-dots {
-      position: absolute; bottom: 2.5rem; left: 50%;
-      transform: translateX(-50%); display: flex; gap: 0.55rem;
-      align-items: center; z-index: 20;
-    }
-    .prob-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: rgba(255,255,255,0.14); transition: background 0.3s, transform 0.28s;
-    }
-    .prob-dot.active { background: rgba(255,255,255,0.75); transform: scale(1.5); }
 
     /* ════════════════════════════════
        SOLUTION — VERTICAL BAR CHARTS
@@ -490,7 +478,7 @@
       .prob-big, .prob-unit, .prob-title, .prob-body, .prob-callout {
         opacity: 1 !important; transform: none !important;
       }
-      .prob-dots, .prob-progress-segs { display: none; }
+      .prob-progress-segs { display: none; }
       /* Vertical charts: single column */
       .vchart-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .sol-feats { grid-template-columns: 1fr; gap: 2rem; }
@@ -709,13 +697,6 @@
           </div>
 
         </div><!-- /prob-track -->
-
-        <!-- Navigation dots -->
-        <div class="prob-dots" id="probDots">
-          <span class="prob-dot active"></span>
-          <span class="prob-dot"></span>
-          <span class="prob-dot"></span>
-        </div>
 
       </div><!-- /prob-sticky -->
     </div><!-- /prob-sticky-wrap -->
