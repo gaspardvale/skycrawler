@@ -30,20 +30,24 @@
       overflow-x: hidden;
     }
 
-    /* ── SITE LOGO (always visible) ── */
+    /* ── SITE LOGO ── */
     .site-logo {
       position: fixed; top: 0; left: 0; z-index: 210;
       height: 64px; display: flex; align-items: center; padding: 0 3rem;
     }
-    .nav-logo { height: 26px; width: auto; display: block; filter: brightness(0) invert(1); }
+    .nav-logo {
+      height: 26px; width: auto; display: block;
+      filter: brightness(0) invert(1);
+      transition: filter 0.35s ease;
+    }
 
-    /* ── SITE LANG (always visible) ── */
+    /* ── SITE LANG ── */
     .site-lang {
       position: fixed; top: 0; right: 0; z-index: 210;
       height: 64px; display: flex; align-items: center; gap: 1rem; padding: 0 3rem;
     }
 
-    /* ── NAV (links only, slides up on scroll) ── */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: flex-start;
@@ -52,34 +56,37 @@
       transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
       pointer-events: none;
     }
-
     nav.nav-hidden { transform: translateY(-100%); }
     nav ul { list-style: none; display: flex; gap: 2rem; pointer-events: auto; }
-
     nav ul a {
       text-decoration: none; font-size: 0.88rem; font-weight: 500;
-      color: rgba(255,255,255,0.82); transition: color 0.18s; letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.82);
+      transition: color 0.35s ease;
+      letter-spacing: -0.01em;
     }
-
     nav ul a:hover { color: rgba(255,255,255,0.45); }
-
-    .hamburger { display: none; background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.8); font-size: 1.3rem; }
-
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.8); font-size: 1.3rem;
+      transition: color 0.35s ease;
+    }
     .lang-toggle {
       display: flex; align-items: center; gap: 0.38rem;
-      border: 1px solid rgba(255,255,255,0.28); border-radius: 980px; padding: 0.28rem 0.82rem;
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 980px;
+      padding: 0.28rem 0.82rem;
+      transition: border-color 0.35s ease;
     }
-
     .lang-btn {
       background: none; border: none; cursor: pointer; font-family: inherit;
       font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.35); padding: 0; transition: color 0.18s; line-height: 1;
+      color: rgba(255,255,255,0.35); padding: 0;
+      transition: color 0.35s ease;
+      line-height: 1;
     }
-
     .lang-btn.active { color: rgba(255,255,255,0.92); }
     .lang-sep { font-size: 0.6rem; color: rgba(255,255,255,0.22); user-select: none; }
 
-    /* ── FLOATING CTA (slides in when hero scrolls away) ── */
+    /* ── FLOATING CTA ── */
     .cta-wrapper {
       max-width: 0; overflow: hidden;
       transition: max-width 0.38s cubic-bezier(0.4,0,0.2,1);
@@ -91,17 +98,12 @@
       border: 1px solid rgba(255,255,255,0.28); border-radius: 980px;
       font-size: 0.82rem; font-weight: 500; letter-spacing: -0.01em;
       color: rgba(255,255,255,0.88); text-decoration: none; white-space: nowrap;
-      opacity: 0; transition: opacity 0.2s 0.18s;
+      opacity: 0;
+      transition: color 0.35s ease, border-color 0.35s ease, opacity 0.2s 0.18s;
     }
     .cta-wrapper.active .hero-cta-pill { opacity: 1; }
 
-    /* ── LIGHT-MODE (scrolled past hero into white sections) ── */
-    .nav-logo { transition: filter 0.35s ease; }
-    .lang-toggle { transition: border-color 0.35s ease; }
-    .lang-btn { transition: color 0.18s; }
-    .hero-cta-pill { transition: color 0.35s ease, border-color 0.35s ease, opacity 0.2s 0.18s; }
-    nav ul a { transition: color 0.18s, opacity 0.35s; }
-
+    /* ── LIGHT-MODE ── */
     .site-logo.light-mode .nav-logo { filter: none; }
     .site-lang.light-mode .lang-toggle { border-color: rgba(0,0,0,0.16); }
     .site-lang.light-mode .lang-btn { color: rgba(0,0,0,0.28); }
@@ -114,365 +116,295 @@
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      height: 100vh;
-      min-height: 640px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
+      position: relative; height: 100vh; min-height: 640px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
     }
-
     .hero-bg {
-      position: absolute;
-      inset: -20%;
+      position: absolute; inset: -20%;
       background:
         linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.6) 100%),
         url('ChatGPT%20Image%20Jun%2027%2C%202026%2C%2011_46_20%20PM.png') center/cover no-repeat;
       will-change: transform;
     }
-
     .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      position: relative; z-index: 2; padding: 0 1.5rem;
+      display: flex; flex-direction: column; align-items: center;
     }
-
-    .hero-intro {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-logo-sm {
-      height: 20px;
-      width: auto;
-      filter: brightness(0) invert(1);
-      opacity: 0.6;
-    }
-
+    .hero-intro { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.8rem; }
+    .hero-logo-sm { height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
     .hero-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.48);
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.48);
     }
-
     .hero h1 {
-      font-size: clamp(3rem, 7vw, 5.8rem);
-      font-weight: 700;
-      line-height: 1.04;
-      letter-spacing: -0.04em;
-      color: #fff;
-      margin-bottom: 1.6rem;
+      font-size: clamp(3rem, 7vw, 5.8rem); font-weight: 700; line-height: 1.04;
+      letter-spacing: -0.04em; color: #fff; margin-bottom: 1.6rem;
     }
-
     .hero h1 em { font-style: italic; }
-
     .hero-sub {
-      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-      font-weight: 300;
-      color: rgba(255,255,255,0.62);
-      max-width: 460px;
-      line-height: 1.7;
-      margin-bottom: 3rem;
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem); font-weight: 300;
+      color: rgba(255,255,255,0.62); max-width: 460px; line-height: 1.7; margin-bottom: 3rem;
     }
-
     .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.85rem 2.4rem;
-      background: transparent;
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      border-radius: 980px;
-      border: 1px solid rgba(255,255,255,0.4);
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.85rem 2.4rem; background: transparent; color: #fff;
+      text-decoration: none; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.01em;
+      border-radius: 980px; border: 1px solid rgba(255,255,255,0.4);
       transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
     }
-
     .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.82);
-      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.82); background: rgba(255,255,255,0.08);
       box-shadow: 0 0 22px rgba(255,255,255,0.14);
     }
-
-    .scroll-ind {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-    }
-
+    .scroll-ind { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2; }
     .scroll-line {
-      width: 1px;
-      height: 44px;
+      width: 1px; height: 44px;
       background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
       animation: lineDown 2.2s ease-in-out infinite;
     }
-
     @keyframes lineDown {
       0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
       30%  { opacity: 1; }
       100% { transform: scaleY(1); transform-origin: top; opacity: 0.3; }
     }
 
-    /* ── WHY US ── */
-    .features {
-      padding: 8rem 3rem;
-      max-width: 1160px;
-      margin: 0 auto;
-    }
-
-    .section-eyebrow {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 3rem;
-    }
-
-    .section-eyebrow.lt { color: rgba(255,255,255,0.4); }
-
-    .feat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-    }
-
-    .feat-card {
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      padding: 3.2rem 2.6rem 3.6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      cursor: default;
-      transition: transform 0.32s cubic-bezier(.25,.46,.45,.94),
-                  box-shadow 0.32s,
-                  border-color 0.32s;
-    }
-
-    .feat-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 56px rgba(0,0,0,0.08);
-      border-color: rgba(0,0,0,0.18);
-    }
-
-    .feat-index { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.22); }
-    .feat-title { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 600; letter-spacing: -0.03em; color: var(--off-black); margin-top: 2rem; }
-    .feat-body  { font-size: 0.92rem; font-weight: 300; color: var(--mid); line-height: 1.72; }
-
     /* ── REVEAL ── */
     .reveal {
-      opacity: 0;
-      transform: translateY(32px);
+      opacity: 0; transform: translateY(28px);
       transition: opacity 0.72s ease, transform 0.72s ease;
     }
     .reveal.vis { opacity: 1; transform: translateY(0); }
-    .feat-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
-    .feat-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
 
-    /* ── STATS SECTIONS ── */
-    .stats-section { padding: 7rem 3rem; }
-    .problem-bg  { background: #dde8f5; }
-    .solution-bg { background: #07070f; }
+    /* ════════════════════════════════════════
+       PROBLEM SECTION
+    ════════════════════════════════════════ */
+    .prob-section { background: var(--white); }
 
-    .stats-inner {
-      max-width: 1100px;
-      margin: 0 auto;
+    .prob-header {
+      padding: 7rem 3rem 4.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 1.2rem;
+    }
+    .prob-headline {
+      font-size: clamp(1.9rem, 3.8vw, 3.1rem); font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1.1; color: var(--off-black); max-width: 700px;
     }
 
-    .stats-title {
-      font-size: clamp(1.7rem, 3.4vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      color: var(--off-black);
-      max-width: 700px;
-      margin-bottom: 4rem;
+    /* Alternating panels */
+    .prob-panel {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 560px; border-top: 1px solid rgba(0,0,0,0.07); overflow: hidden;
+    }
+    .prob-img { overflow: hidden; position: relative; }
+    .prob-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.9s ease;
+    }
+    .prob-panel:hover .prob-img img { transform: scale(1.04); }
+    .prob-text {
+      padding: 5rem 4.5rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    /* On "reverse" panels the image goes left, text goes right */
+    .prob-panel.rev .prob-text { order: 2; }
+    .prob-panel.rev .prob-img  { order: 1; }
+
+    .prob-big {
+      font-size: clamp(4rem, 8.5vw, 7.5rem); font-weight: 700;
+      letter-spacing: -0.055em; color: var(--off-black); line-height: 0.88;
+      margin-bottom: 0.35rem;
+    }
+    .prob-unit {
+      font-size: 0.67rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 1.7rem;
+    }
+    .prob-title {
+      font-size: clamp(1.35rem, 2.4vw, 1.95rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.15; color: var(--off-black); margin-bottom: 0.9rem;
+    }
+    .prob-body {
+      font-size: 0.92rem; font-weight: 300; color: var(--mid);
+      line-height: 1.78; max-width: 395px; margin-bottom: 1.6rem;
+    }
+    .prob-callout {
+      padding: 1rem 1.4rem; background: #f3f6fb;
+      border-left: 3px solid var(--blue-dk); border-radius: 0 8px 8px 0;
+      font-size: 0.83rem; color: var(--off-black); line-height: 1.62;
+    }
+    .prob-callout strong { font-weight: 600; }
+
+    /* ════════════════════════════════════════
+       SOLUTION SECTION
+    ════════════════════════════════════════ */
+    .sol-section {
+      background: #07070f; padding: 7rem 3rem 5.5rem;
+    }
+    /* Keep .solution-bg class for light-mode detection */
+    .sol-inner { max-width: 1100px; margin: 0 auto; }
+
+    .sol-eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 1.2rem;
+    }
+    .sol-title {
+      font-size: clamp(1.9rem, 3.6vw, 2.9rem); font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1.08; color: #fff;
+      max-width: 680px; margin-bottom: 4.5rem;
     }
 
-    .solution-bg .stats-title { color: #fff; }
+    /* Bar charts */
+    .charts-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3.5rem 5.5rem; margin-bottom: 5rem;
+    }
+    .chart-hd {
+      font-size: 0.67rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 1.3rem;
+    }
+    .bar-row {
+      display: grid; grid-template-columns: 95px 1fr 88px;
+      align-items: center; gap: 0.8rem; margin-bottom: 0.6rem;
+    }
+    .bar-name { font-size: 0.76rem; color: rgba(255,255,255,0.42); }
+    .bar-track {
+      height: 42px; background: rgba(255,255,255,0.05);
+      border-radius: 6px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 6px; width: 0;
+      transition: width 1.5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .bar-fill.animated { width: var(--w); }
+    .bar-fill.manual { background: rgba(255,255,255,0.13); }
+    .bar-fill.sky {
+      background: linear-gradient(90deg, #1a5fa8 0%, #58b6ff 100%);
+    }
+    .bar-val {
+      font-size: 0.77rem; font-weight: 600;
+      color: rgba(255,255,255,0.5); text-align: right; white-space: nowrap;
+    }
+    .bar-val.hi { color: #58b6ff; }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
+    /* Feature row (Why SkyCrawler, blended in) */
+    .sol-feats {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 4rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+    }
+    .sol-feat { }
+    .sol-feat-idx {
+      font-size: 0.66rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.18); margin-bottom: 0.85rem;
+    }
+    .sol-feat-title {
+      font-size: clamp(1.3rem, 2vw, 1.75rem); font-weight: 600;
+      letter-spacing: -0.03em; color: #fff; margin-bottom: 0.7rem;
+    }
+    .sol-feat-body {
+      font-size: 0.88rem; font-weight: 300;
+      color: rgba(255,255,255,0.4); line-height: 1.74;
     }
 
-    /* Stat item */
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.62s ease, transform 0.62s ease;
+    /* ════════════════════════════════════════
+       SOCIAL PROOF
+    ════════════════════════════════════════ */
+    .trust-section {
+      padding: 5.5rem 0 4.5rem; background: #f5f5f7; overflow: hidden;
     }
-    .stat-item.vis { opacity: 1; transform: translateY(0); }
-    .stat-item:nth-child(2) { transition-delay: 0.12s; }
-    .stat-item:nth-child(3) { transition-delay: 0.24s; }
-    .stat-item:nth-child(4) { transition-delay: 0.36s; }
-
-    /* Ring */
-    .stat-ring {
-      position: relative;
-      width: 128px;
-      height: 128px;
-      margin-bottom: 1.1rem;
+    .trust-header { text-align: center; padding: 0 2rem 2.8rem; }
+    .trust-eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 0.7rem;
+    }
+    .trust-title {
+      font-size: clamp(1.25rem, 2.4vw, 1.85rem); font-weight: 700;
+      letter-spacing: -0.03em; color: var(--off-black);
     }
 
-    .stat-ring svg {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      transform: rotate(-90deg);
+    .carousel-outer {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
     }
-
-    .stat-ring .track {
-      fill: none;
-      stroke: rgba(0,0,0,0.1);
-      stroke-width: 4.5;
+    .carousel-track {
+      display: flex; align-items: center;
+      animation: sc-car 34s linear infinite;
+      width: max-content;
     }
-
-    .solution-bg .stat-ring .track { stroke: rgba(255,255,255,0.1); }
-
-    .stat-ring .fill {
-      fill: none;
-      stroke: var(--blue-dk);
-      stroke-width: 4.5;
-      stroke-linecap: round;
-      stroke-dasharray: 251.33;
-      stroke-dashoffset: 251.33;
-      transition: stroke-dashoffset 1.8s cubic-bezier(.25,.46,.45,.94);
+    @keyframes sc-car {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
-
-    .solution-bg .stat-ring .fill { stroke: var(--blue); }
-
-    .stat-inner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .logo-item {
+      padding: 0 3.5rem; white-space: nowrap;
+      font-size: 0.83rem; font-weight: 700; letter-spacing: 0.08em;
+      color: #b4b8c2; text-transform: uppercase; line-height: 2.6;
     }
+    .logo-item.serif { font-style: italic; text-transform: none; letter-spacing: 0.02em; }
+    .logo-sep { color: #d5d7db; font-size: 0.7rem; padding: 0 0.5rem; }
 
-    .stat-val {
-      display: flex;
-      align-items: baseline;
-      gap: 0.05em;
+    /* ════════════════════════════════════════
+       FREE QUOTE SECTION
+    ════════════════════════════════════════ */
+    .quote-section {
+      background: #dde8f5; padding: 8.5rem 3rem; text-align: center;
     }
-
-    .stat-pfx {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--mid);
-      line-height: 1;
+    .quote-eyebrow {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--blue-dk); margin-bottom: 1.3rem;
     }
-
-    .stat-num {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--off-black);
-      line-height: 1;
+    .quote-title {
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem); font-weight: 700;
+      letter-spacing: -0.045em; color: var(--off-black);
+      margin-bottom: 1.2rem; line-height: 1.05;
     }
-
-    .stat-sfx {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--mid);
-      line-height: 1;
+    .quote-sub {
+      font-size: 1rem; font-weight: 300; color: var(--mid);
+      max-width: 490px; margin: 0 auto 3rem; line-height: 1.72;
     }
-
-    .solution-bg .stat-num { color: #fff; }
-    .solution-bg .stat-pfx,
-    .solution-bg .stat-sfx { color: rgba(255,255,255,0.45); }
-
-    .stat-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--off-black);
-      line-height: 1.3;
-      margin-bottom: 0.28rem;
+    .btn-quote {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 1.05rem 3rem; background: var(--off-black); color: #fff;
+      text-decoration: none; border-radius: 980px;
+      font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     }
-
-    .solution-bg .stat-label { color: #fff; }
-
-    .stat-sub {
-      font-size: 0.74rem;
-      color: var(--mid);
-      line-height: 1.4;
+    .btn-quote:hover {
+      background: #000; transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.18);
     }
-
-    .solution-bg .stat-sub { color: rgba(255,255,255,0.38); }
+    .btn-quote svg { flex-shrink: 0; }
 
     /* ── CTA ── */
     .cta-section {
-      background: #dde8f5;
-      padding: 8rem 3rem;
-      text-align: center;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      background: #dde8f5; padding: 8rem 3rem; text-align: center;
+      border-top: 1px solid rgba(0,0,0,0.07);
     }
-
     .cta-title {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      color: var(--off-black);
-      margin-bottom: 1.2rem;
+      font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700;
+      letter-spacing: -0.035em; color: var(--off-black); margin-bottom: 1.2rem;
     }
-
     .cta-sub {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--mid);
-      max-width: 440px;
-      margin: 0 auto 3rem;
-      line-height: 1.7;
+      font-size: 1rem; font-weight: 300; color: var(--mid);
+      max-width: 440px; margin: 0 auto 3rem; line-height: 1.7;
     }
-
     .btn-solid {
-      display: inline-block;
-      padding: 0.9rem 2.8rem;
-      background: var(--off-black);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 980px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+      display: inline-block; padding: 0.9rem 2.8rem; background: var(--off-black);
+      color: #fff; text-decoration: none; border-radius: 980px;
+      font-size: 0.92rem; font-weight: 600; letter-spacing: -0.01em;
       transition: background 0.2s, transform 0.2s;
     }
-
-    .btn-solid:hover {
-      background: #000;
-      transform: translateY(-2px);
-    }
+    .btn-solid:hover { background: #000; transform: translateY(-2px); }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid rgba(0,0,0,0.08);
-      padding: 2rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      border-top: 1px solid rgba(0,0,0,0.08); padding: 2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
     }
-
     .footer-brand { font-size: 0.85rem; font-weight: 600; color: var(--off-black); text-decoration: none; }
     footer p { font-size: 0.78rem; color: var(--mid); }
     .foot-links { display: flex; gap: 1.8rem; }
@@ -480,24 +412,32 @@
     .foot-links a:hover { color: var(--off-black); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    @media (max-width: 960px) {
+      .charts-grid { grid-template-columns: 1fr; gap: 2.8rem; }
+      .sol-feats { grid-template-columns: 1fr; gap: 2.2rem; }
+      .prob-panel { grid-template-columns: 1fr; min-height: auto; }
+      .prob-panel.rev .prob-text { order: 2; }
+      .prob-panel.rev .prob-img  { order: 1; }
+      .prob-img { min-height: 320px; }
+      .prob-text { padding: 3.5rem 2.5rem; }
     }
-
     @media (max-width: 768px) {
       .site-logo, .site-lang { padding: 0 1.2rem; }
       .hamburger { display: block; }
       nav ul {
         display: none; position: fixed; inset: 0;
         flex-direction: column; align-items: center; justify-content: center;
-        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300;
-        pointer-events: auto;
+        gap: 2.5rem; background: rgba(0,0,0,0.96); z-index: 300; pointer-events: auto;
       }
       nav ul.open { display: flex; }
       nav ul.open a { font-size: 1.5rem; color: #fff; }
-      .feat-grid { grid-template-columns: 1fr; }
-      .features { padding: 4rem 1.5rem; }
-      .stats-section { padding: 4rem 1.5rem; }
+      .prob-header { padding: 4.5rem 1.5rem 3rem; }
+      .prob-text { padding: 3rem 1.5rem; }
+      .prob-img { min-height: 260px; }
+      .sol-section { padding: 4.5rem 1.5rem 3.5rem; }
+      .bar-row { grid-template-columns: 72px 1fr 72px; }
+      .trust-section { padding: 4rem 0 3.5rem; }
+      .quote-section { padding: 5.5rem 1.5rem; }
       .cta-section { padding: 5rem 1.5rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     }
@@ -534,11 +474,10 @@
     </ul>
   </nav>
 
+
   <!-- ══ HERO ══ -->
   <section class="hero" id="top">
-
     <div class="hero-bg" id="heroBg"></div>
-
     <div class="hero-content">
       <div class="hero-intro">
         <img src="black_robot_logo_transparent.png" alt="" class="hero-logo-sm" />
@@ -559,157 +498,362 @@
         <span class="t" data-nl="Neem contact" data-en="Contact us">Neem contact</span>
       </a>
     </div>
-
     <div class="scroll-ind"><div class="scroll-line"></div></div>
   </section>
 
 
-  <!-- ══ WHY US ══ -->
-  <section class="features" id="features">
-    <p class="section-eyebrow">
-      <span class="t" data-nl="Waarom SkyCrawler" data-en="Why SkyCrawler">Waarom SkyCrawler</span>
-    </p>
-    <div class="feat-grid">
-      <div class="feat-card reveal">
-        <span class="feat-index">01</span>
-        <h3 class="feat-title"><span class="t" data-nl="Efficiënter" data-en="More Efficient">Efficiënter</span></h3>
-        <p class="feat-body"><span class="t"
-          data-nl="Tot drie keer sneller dan traditionele methoden — zonder menselijke arbeiders op hoogte."
-          data-en="Up to three times faster than traditional methods — without human workers at height.">
-          Tot drie keer sneller dan traditionele methoden — zonder menselijke arbeiders op hoogte.
-        </span></p>
-      </div>
-      <div class="feat-card reveal">
-        <span class="feat-index">02</span>
-        <h3 class="feat-title"><span class="t" data-nl="Veiliger" data-en="Safer">Veiliger</span></h3>
-        <p class="feat-body"><span class="t"
-          data-nl="Operators werken vanaf de grond of het dak. Geen risico meer op grote hoogte."
-          data-en="Operators work from the ground or roof. No more risk at great height.">
-          Operators werken vanaf de grond of het dak. Geen risico meer op grote hoogte.
-        </span></p>
-      </div>
-      <div class="feat-card reveal">
-        <span class="feat-index">03</span>
-        <h3 class="feat-title"><span class="t" data-nl="Innovatief" data-en="Innovative">Innovatief</span></h3>
-        <p class="feat-body"><span class="t"
-          data-nl="Volledig autonome reiniging dankzij onze geavanceerde robottechnologie."
-          data-en="Fully autonomous cleaning powered by our advanced robotics technology.">
-          Volledig autonome reiniging dankzij onze geavanceerde robottechnologie.
-        </span></p>
-      </div>
-    </div>
-  </section>
+  <!-- ══ PROBLEM ══ -->
+  <section class="prob-section" id="problem">
 
-
-  <!-- ══ PROBLEM STATS ══ -->
-  <section class="stats-section problem-bg" id="problem">
-    <div class="stats-inner">
+    <div class="prob-header reveal">
       <p class="section-eyebrow">
         <span class="t" data-nl="Het probleem" data-en="The Problem">Het probleem</span>
       </p>
-      <h2 class="stats-title">
+      <h2 class="prob-headline">
         <span class="t"
-          data-nl="Manuele gevelreiniging is gevaarlijk, traag en duur."
-          data-en="Manual facade cleaning is dangerous, slow and expensive.">
-          Manuele gevelreiniging is gevaarlijk, traag en duur.
+          data-nl="Manuele gevelreiniging is gevaarlijk, astronomisch duur en eindeloos traag."
+          data-en="Manual façade cleaning is dangerous, astronomically expensive and endlessly slow.">
+          Manuele gevelreiniging is gevaarlijk, astronomisch duur en eindeloos traag.
         </span>
       </h2>
-      <div class="stats-grid">
+    </div>
 
-        <div class="stat-item" data-pct="94" data-target="94">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">%</span></div></div>
+    <!-- Panel 1: Cost — text left, image right -->
+    <div class="prob-panel reveal">
+      <div class="prob-text">
+        <div class="prob-big">$4M+</div>
+        <div class="prob-unit">
+          <span class="t" data-nl="jaarlijkse reinigingskost" data-en="annual cleaning cost">jaarlijkse reinigingskost</span>
+        </div>
+        <h3 class="prob-title">
+          <span class="t" data-nl="Astronomische kosten" data-en="Astronomical Costs">Astronomische kosten</span>
+        </h3>
+        <p class="prob-body">
+          <span class="t"
+            data-nl="Manuele gevelreiniging kost gemiddeld €8–15 per m² per beurt. Voor grote glazen torens — met steigers, touwtoegang, chemicaliën en veiligheidspersoneel — lopen de jaarlijkse kosten snel op tot honderdduizenden, zelfs miljoenen euro's."
+            data-en="Manual façade cleaning costs an average of €8–15 per m² per cycle. For large glass towers — with scaffolding, rope access, chemicals and safety crews — annual costs rapidly climb into hundreds of thousands, even millions of euros.">
+            Manuele gevelreiniging kost gemiddeld €8–15 per m² per beurt. Voor grote glazen torens — met steigers, touwtoegang, chemicaliën en veiligheidspersoneel — lopen de jaarlijkse kosten snel op tot honderdduizenden, zelfs miljoenen euro's.
+          </span>
+        </p>
+        <div class="prob-callout">
+          <strong>Burj Khalifa (Dubai) —</strong>
+          <span class="t"
+            data-nl="24.348 glasplaten gereinigd door 36 arbeiders in cycli van 36 dagen. Geschatte jaarlijkse kost: meer dan $4 miljoen."
+            data-en="24,348 glass panels cleaned by 36 workers in 36-day cycles. Estimated annual cost: over $4 million.">
+            24.348 glasplaten gereinigd door 36 arbeiders in cycli van 36 dagen. Geschatte jaarlijkse kost: meer dan $4 miljoen.
+          </span>
+        </div>
+      </div>
+      <div class="prob-img">
+        <img
+          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=88&fit=crop"
+          alt="Glazen wolkenkrabber gevel"
+          loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Panel 2: Danger — image left, text right -->
+    <div class="prob-panel rev reveal">
+      <div class="prob-img">
+        <img
+          src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=88&fit=crop"
+          alt="Arbeiders op grote hoogte"
+          loading="lazy" />
+      </div>
+      <div class="prob-text">
+        <div class="prob-big">36%</div>
+        <div class="prob-unit">
+          <span class="t" data-nl="van alle dodelijke bouwongevallen" data-en="of all fatal construction accidents">van alle dodelijke bouwongevallen</span>
+        </div>
+        <h3 class="prob-title">
+          <span class="t" data-nl="Een levensgevaarlijk beroep" data-en="A Life-Threatening Profession">Een levensgevaarlijk beroep</span>
+        </h3>
+        <p class="prob-body">
+          <span class="t"
+            data-nl="Vallen van hoogte is de nummer één oorzaak van dodelijke bouwongevallen wereldwijd — verantwoordelijk voor 36% van alle bouwsterfgevallen in de VS (OSHA). In de EU sterven jaarlijks meer dan 880 bouwarbeiders door valpartijen van steigers en ladders."
+            data-en="Falls from height are the number one cause of fatal construction accidents worldwide — responsible for 36% of all US construction deaths (OSHA). In the EU, over 880 construction workers die annually from falls from scaffolding and ladders.">
+            Vallen van hoogte is de nummer één oorzaak van dodelijke bouwongevallen wereldwijd — verantwoordelijk voor 36% van alle bouwsterfgevallen in de VS (OSHA). In de EU sterven jaarlijks meer dan 880 bouwarbeiders door valpartijen van steigers en ladders.
+          </span>
+        </p>
+        <div class="prob-callout">
+          <strong>
+            <span class="t" data-nl="Raamreiniging" data-en="Window cleaning">Raamreiniging</span>
+          </strong> —
+          <span class="t"
+            data-nl="één van de vijf gevaarlijkste beroepen ter wereld. De ILO registreert wereldwijd 340 miljoen arbeidsongevallen per jaar, met hoogtewerkzaamheden bovenaan de lijst."
+            data-en="one of the five most dangerous professions in the world. The ILO registers 340 million occupational accidents globally per year, with height work consistently at the top.">
+            één van de vijf gevaarlijkste beroepen ter wereld. De ILO registreert wereldwijd 340 miljoen arbeidsongevallen per jaar, met hoogtewerkzaamheden bovenaan de lijst.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 3: Speed — text left, image right -->
+    <div class="prob-panel reveal">
+      <div class="prob-text">
+        <div class="prob-big">
+          <span class="t" data-nl="36 dgn" data-en="36 days">36 dgn</span>
+        </div>
+        <div class="prob-unit">
+          <span class="t" data-nl="per reinigingscyclus · 36 arbeiders" data-en="per cleaning cycle · 36 workers">per reinigingscyclus · 36 arbeiders</span>
+        </div>
+        <h3 class="prob-title">
+          <span class="t" data-nl="Ondraaglijk traag" data-en="Unbearably Slow">Ondraaglijk traag</span>
+        </h3>
+        <p class="prob-body">
+          <span class="t"
+            data-nl="Een doorsnee raamreiniger wast slechts 50–70 m² gevelvlak per uur. Een middelgrote toren van 30.000 m² glas vereist duizenden werkuren per beurt. Resultaat: de meeste wolkenkrabbers worden slechts 2 à 4 keer per jaar gereinigd — onvoldoende voor duurzaam gevelonderhoud."
+            data-en="An average window cleaner washes only 50–70 m² of façade per hour. A mid-sized tower with 30,000 m² of glass requires thousands of worker-hours per cycle. The result: most skyscrapers are cleaned only 2–4 times per year — insufficient for proper façade maintenance.">
+            Een doorsnee raamreiniger wast slechts 50–70 m² gevelvlak per uur. Een middelgrote toren van 30.000 m² glas vereist duizenden werkuren per beurt. Resultaat: de meeste wolkenkrabbers worden slechts 2 à 4 keer per jaar gereinigd — onvoldoende voor duurzaam gevelonderhoud.
+          </span>
+        </p>
+        <div class="prob-callout">
+          <strong>Shanghai Tower (632 m)</strong> —
+          <span class="t"
+            data-nl="121 etages, 127.000 m² glas. Manuele reiniging vereist meer dan 2.500 arbeidsdagen per reinigingsbeurt."
+            data-en="121 floors, 127,000 m² of glass. Manual cleaning requires over 2,500 worker-days per cleaning cycle.">
+            121 etages, 127.000 m² glas. Manuele reiniging vereist meer dan 2.500 arbeidsdagen per reinigingsbeurt.
+          </span>
+        </div>
+      </div>
+      <div class="prob-img">
+        <img
+          src="https://images.unsplash.com/photo-1545987796-200677ee1011?w=900&q=88&fit=crop"
+          alt="Raamreiniger op wolkenkrabber"
+          loading="lazy" />
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ══ SOLUTION ══ -->
+  <section class="sol-section solution-bg" id="solution">
+    <div class="sol-inner">
+
+      <p class="sol-eyebrow reveal">
+        <span class="t" data-nl="Onze oplossing" data-en="Our Solution">Onze oplossing</span>
+      </p>
+      <h2 class="sol-title reveal">
+        <span class="t"
+          data-nl="SkyCrawler verandert alles."
+          data-en="SkyCrawler changes everything.">
+          SkyCrawler verandert alles.
+        </span>
+      </h2>
+
+      <!-- 2 × 2 bar chart grid -->
+      <div class="charts-grid">
+
+        <!-- Chart 1: Speed -->
+        <div class="chart-block reveal" data-chart>
+          <h4 class="chart-hd">
+            <span class="t" data-nl="Reinigingssnelheid (m²/uur)" data-en="Cleaning Speed (m²/hour)">Reinigingssnelheid (m²/uur)</span>
+          </h4>
+          <div class="bar-row">
+            <span class="bar-name"><span class="t" data-nl="Manueel" data-en="Manual">Manueel</span></span>
+            <div class="bar-track"><div class="bar-fill manual" style="--w:33%"></div></div>
+            <span class="bar-val">50 m²/h</span>
           </div>
-          <p class="stat-label"><span class="t" data-nl="vermijdbare valaccidenten" data-en="preventable fall accidents">vermijdbare valaccidenten</span></p>
-          <p class="stat-sub"><span class="t" data-nl="bij gevelwerkzaamheden" data-en="during facade work">bij gevelwerkzaamheden</span></p>
+          <div class="bar-row">
+            <span class="bar-name">SkyCrawler</span>
+            <div class="bar-track"><div class="bar-fill sky" style="--w:100%"></div></div>
+            <span class="bar-val hi">150 m²/h</span>
+          </div>
         </div>
 
-        <div class="stat-item" data-pct="75" data-target="3">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">×</span></div></div>
+        <!-- Chart 2: Cost per m² -->
+        <div class="chart-block reveal" data-chart>
+          <h4 class="chart-hd">
+            <span class="t" data-nl="Kostprijs per m²" data-en="Cost per m²">Kostprijs per m²</span>
+          </h4>
+          <div class="bar-row">
+            <span class="bar-name"><span class="t" data-nl="Manueel" data-en="Manual">Manueel</span></span>
+            <div class="bar-track"><div class="bar-fill manual" style="--w:100%"></div></div>
+            <span class="bar-val">€12 / m²</span>
           </div>
-          <p class="stat-label"><span class="t" data-nl="trager dan robots" data-en="slower than robots">trager dan robots</span></p>
-          <p class="stat-sub"><span class="t" data-nl="manuele reiniging" data-en="manual cleaning">manuele reiniging</span></p>
+          <div class="bar-row">
+            <span class="bar-name">SkyCrawler</span>
+            <div class="bar-track"><div class="bar-fill sky" style="--w:37%"></div></div>
+            <span class="bar-val hi">€4.50 / m²</span>
+          </div>
         </div>
 
-        <div class="stat-item" data-pct="65" data-target="12">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-pfx">€</span><span class="stat-num">0</span><span class="stat-sfx">/m²</span></div></div>
+        <!-- Chart 3: Workers at height -->
+        <div class="chart-block reveal" data-chart>
+          <h4 class="chart-hd">
+            <span class="t" data-nl="Arbeiders op hoogte" data-en="Workers at Height">Arbeiders op hoogte</span>
+          </h4>
+          <div class="bar-row">
+            <span class="bar-name"><span class="t" data-nl="Manueel" data-en="Manual">Manueel</span></span>
+            <div class="bar-track"><div class="bar-fill manual" style="--w:100%"></div></div>
+            <span class="bar-val">6+</span>
           </div>
-          <p class="stat-label"><span class="t" data-nl="gem. reinigingskost" data-en="avg. cleaning cost">gem. reinigingskost</span></p>
-          <p class="stat-sub"><span class="t" data-nl="traditionele methoden" data-en="traditional methods">traditionele methoden</span></p>
+          <div class="bar-row">
+            <span class="bar-name">SkyCrawler</span>
+            <div class="bar-track" style="position:relative;">
+              <div class="bar-fill sky" style="--w:0%"></div>
+            </div>
+            <span class="bar-val hi">
+              <span class="t" data-nl="NUL" data-en="ZERO">NUL</span>
+            </span>
+          </div>
         </div>
 
-        <div class="stat-item" data-pct="80" data-target="400">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">+</span></div></div>
+        <!-- Chart 4: Annual operating hours -->
+        <div class="chart-block reveal" data-chart>
+          <h4 class="chart-hd">
+            <span class="t" data-nl="Operationele uren / jaar" data-en="Operating Hours / Year">Operationele uren / jaar</span>
+          </h4>
+          <div class="bar-row">
+            <span class="bar-name"><span class="t" data-nl="Manueel" data-en="Manual">Manueel</span></span>
+            <div class="bar-track"><div class="bar-fill manual" style="--w:24%"></div></div>
+            <span class="bar-val">2.080 u</span>
           </div>
-          <p class="stat-label"><span class="t" data-nl="bouwongevallen / jaar" data-en="construction accidents / yr">bouwongevallen / jaar</span></p>
-          <p class="stat-sub"><span class="t" data-nl="hoogtewerkzaamheden BE" data-en="height work Belgium">hoogtewerkzaamheden BE</span></p>
+          <div class="bar-row">
+            <span class="bar-name">SkyCrawler</span>
+            <div class="bar-track"><div class="bar-fill sky" style="--w:100%"></div></div>
+            <span class="bar-val hi">8.760 u</span>
+          </div>
         </div>
 
+      </div><!-- /charts-grid -->
+
+      <!-- Why SkyCrawler feature cards blended in -->
+      <div class="sol-feats">
+        <div class="sol-feat reveal">
+          <p class="sol-feat-idx">01</p>
+          <h3 class="sol-feat-title">
+            <span class="t" data-nl="Efficiënter" data-en="More Efficient">Efficiënter</span>
+          </h3>
+          <p class="sol-feat-body">
+            <span class="t"
+              data-nl="Drie keer sneller dan manuele reiniging en 24/7 operationeel — zonder overuren, weervertraging of personeelsplanning."
+              data-en="Three times faster than manual cleaning and operational 24/7 — without overtime, weather delays or staff scheduling.">
+              Drie keer sneller dan manuele reiniging en 24/7 operationeel — zonder overuren, weervertraging of personeelsplanning.
+            </span>
+          </p>
+        </div>
+        <div class="sol-feat reveal" style="transition-delay:0.1s">
+          <p class="sol-feat-idx">02</p>
+          <h3 class="sol-feat-title">
+            <span class="t" data-nl="Veiliger" data-en="Safer">Veiliger</span>
+          </h3>
+          <p class="sol-feat-body">
+            <span class="t"
+              data-nl="Nul medewerkers op hoogte. Operators bedienen SkyCrawler volledig op afstand — vanop de grond of het dak."
+              data-en="Zero workers at height. Operators control SkyCrawler entirely remotely — from the ground or rooftop.">
+              Nul medewerkers op hoogte. Operators bedienen SkyCrawler volledig op afstand — vanop de grond of het dak.
+            </span>
+          </p>
+        </div>
+        <div class="sol-feat reveal" style="transition-delay:0.2s">
+          <p class="sol-feat-idx">03</p>
+          <h3 class="sol-feat-title">
+            <span class="t" data-nl="Innovatief" data-en="Innovative">Innovatief</span>
+          </h3>
+          <p class="sol-feat-body">
+            <span class="t"
+              data-nl="AI-navigatie, LiDAR-mapping en vacuümtechnologie maken van elk gebouw een perfect gereinigd visitekaartje."
+              data-en="AI navigation, LiDAR mapping and vacuum technology turn every building into a perfectly clean showpiece.">
+              AI-navigatie, LiDAR-mapping en vacuümtechnologie maken van elk gebouw een perfect gereinigd visitekaartje.
+            </span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══ SOCIAL PROOF ══ -->
+  <section class="trust-section" id="trust">
+    <div class="trust-header reveal">
+      <p class="trust-eyebrow">
+        <span class="t" data-nl="Vertrouwd door" data-en="Trusted by">Vertrouwd door</span>
+      </p>
+      <h2 class="trust-title">
+        <span class="t"
+          data-nl="Toonaangevende gebouwbeheerders kiezen SkyCrawler"
+          data-en="Leading property managers choose SkyCrawler">
+          Toonaangevende gebouwbeheerders kiezen SkyCrawler
+        </span>
+      </h2>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track">
+        <!-- First set -->
+        <span class="logo-item">NEXUM GROUP</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Vertix Property</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">APEX FACILITIES</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Magnus Building</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">ORBITAL REAL ESTATE</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Quantum Estates</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">PINNACLE FM</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Tower Prime</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">ZENITH ASSETS</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Meridian Services</span>
+        <span class="logo-sep">·</span>
+        <!-- Duplicate set for seamless loop -->
+        <span class="logo-item">NEXUM GROUP</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Vertix Property</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">APEX FACILITIES</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Magnus Building</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">ORBITAL REAL ESTATE</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Quantum Estates</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">PINNACLE FM</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Tower Prime</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item">ZENITH ASSETS</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-item serif">Meridian Services</span>
+        <span class="logo-sep">·</span>
       </div>
     </div>
   </section>
 
 
-  <!-- ══ SOLUTION STATS ══ -->
-  <section class="stats-section solution-bg" id="solution">
-    <div class="stats-inner">
-      <p class="section-eyebrow lt">
-        <span class="t" data-nl="Onze oplossing" data-en="Our Solution">Onze oplossing</span>
-      </p>
-      <h2 class="stats-title">
-        <span class="t"
-          data-nl="SkyCrawler doet het anders."
-          data-en="SkyCrawler does it differently.">
-          SkyCrawler doet het anders.
-        </span>
-      </h2>
-      <div class="stats-grid">
-
-        <div class="stat-item" data-pct="100" data-target="3">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">×</span></div></div>
-          </div>
-          <p class="stat-label"><span class="t" data-nl="sneller dan manueel" data-en="faster than manual">sneller dan manueel</span></p>
-          <p class="stat-sub"><span class="t" data-nl="bewezen efficiëntie" data-en="proven efficiency">bewezen efficiëntie</span></p>
-        </div>
-
-        <div class="stat-item" data-pct="60" data-target="60">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">%</span></div></div>
-          </div>
-          <p class="stat-label"><span class="t" data-nl="kostenreductie" data-en="cost reduction">kostenreductie</span></p>
-          <p class="stat-sub"><span class="t" data-nl="versus traditioneel" data-en="versus traditional">versus traditioneel</span></p>
-        </div>
-
-        <div class="stat-item" data-pct="100" data-target="100">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">%</span></div></div>
-          </div>
-          <p class="stat-label"><span class="t" data-nl="autonoom" data-en="autonomous">autonoom</span></p>
-          <p class="stat-sub"><span class="t" data-nl="geen mensen op hoogte" data-en="no people at height">geen mensen op hoogte</span></p>
-        </div>
-
-        <div class="stat-item" data-pct="100" data-target="24">
-          <div class="stat-ring">
-            <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="40"/><circle class="fill" cx="50" cy="50" r="40"/></svg>
-            <div class="stat-inner"><div class="stat-val"><span class="stat-num">0</span><span class="stat-sfx">/7</span></div></div>
-          </div>
-          <p class="stat-label"><span class="t" data-nl="operationeel" data-en="operational">operationeel</span></p>
-          <p class="stat-sub"><span class="t" data-nl="dag en nacht beschikbaar" data-en="available day and night">dag en nacht beschikbaar</span></p>
-        </div>
-
-      </div>
-    </div>
+  <!-- ══ FREE QUOTE ══ -->
+  <section class="quote-section reveal" id="quote">
+    <p class="quote-eyebrow">
+      <span class="t" data-nl="Gratis Offerte" data-en="Free Quote">Gratis Offerte</span>
+    </p>
+    <h2 class="quote-title">
+      <span class="t"
+        data-nl="Wat kost uw gebouw?"
+        data-en="What does your building cost?">
+        Wat kost uw gebouw?
+      </span>
+    </h2>
+    <p class="quote-sub">
+      <span class="t"
+        data-nl="Vul de parameters van uw gebouw in en bereken direct de optimale vlootgrootte en kostprijs. Volledig gratis, zonder verplichtingen."
+        data-en="Enter your building parameters and instantly calculate the optimal fleet size and total cost. Completely free, no obligations.">
+        Vul de parameters van uw gebouw in en bereken direct de optimale vlootgrootte en kostprijs. Volledig gratis, zonder verplichtingen.
+      </span>
+    </p>
+    <a href="tarieven.html#calculator" class="btn-quote">
+      <span class="t" data-nl="Bereken mijn offerte" data-en="Calculate my quote">Bereken mijn offerte</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
   </section>
 
 
@@ -743,7 +887,7 @@
 
   <script>
     /* ── PARALLAX ── */
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       document.getElementById('heroBg').style.transform =
         'translateY(' + (window.scrollY * 0.4) + 'px)';
     }, { passive: true });
@@ -760,7 +904,7 @@
       }, { passive: true });
     })();
 
-    /* ── LANGUAGE TOGGLE (with localStorage) ── */
+    /* ── LANGUAGE TOGGLE ── */
     (function() {
       function setLang(lang) {
         localStorage.setItem('sc-lang', lang);
@@ -779,16 +923,19 @@
       });
     })();
 
-    /* ── FLOATING CTA ── */
+    /* ── FLOATING CTA (appears when hero scrolls away, hides near CTA sections) ── */
     (function() {
-      var hero = document.querySelector('.hero');
+      var hero       = document.querySelector('.hero');
       var ctaSection = document.querySelector('.cta-section');
+      var quoteSect  = document.querySelector('.quote-section');
       var ctaWrapper = document.getElementById('ctaWrapper');
       if (!hero || !ctaWrapper) return;
       window.addEventListener('scroll', function() {
         var heroBtm = hero.getBoundingClientRect().bottom;
         var ctaTop  = ctaSection ? ctaSection.getBoundingClientRect().top : Infinity;
-        if (heroBtm < 80 && ctaTop > 64) {
+        var qTop    = quoteSect  ? quoteSect.getBoundingClientRect().top  : Infinity;
+        var nearCta = Math.min(ctaTop, qTop) < 200;
+        if (heroBtm < 80 && !nearCta) {
           ctaWrapper.classList.add('active');
         } else {
           ctaWrapper.classList.remove('active');
@@ -798,15 +945,15 @@
 
     /* ── LIGHT-MODE DETECTION ── */
     (function() {
-      var hero       = document.querySelector('.hero');
-      var darkSects  = document.querySelectorAll('.solution-bg');
-      var siteLogo   = document.querySelector('.site-logo');
-      var siteLang   = document.querySelector('.site-lang');
-      var navEl      = document.querySelector('nav');
+      var hero      = document.querySelector('.hero');
+      var darkSects = document.querySelectorAll('.solution-bg');
+      var siteLogo  = document.querySelector('.site-logo');
+      var siteLang  = document.querySelector('.site-lang');
+      var navEl     = document.querySelector('nav');
       if (!hero) return;
       function tick() {
         var heroBtm = hero.getBoundingClientRect().bottom;
-        var inDark = heroBtm > 0; // still in hero
+        var inDark = heroBtm > 0;
         if (!inDark) {
           darkSects.forEach(function(s) {
             var r = s.getBoundingClientRect();
@@ -827,187 +974,27 @@
         entries.forEach(function(e) {
           if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
         });
-      }, { threshold: 0.12 });
+      }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
     })();
 
-    /* ── STAT CIRCLES + COUNTERS ── */
+    /* ── BAR CHART ANIMATION ── */
     (function() {
-      var CIRC = 251.33; // 2π × 40
-
       var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting) return;
-          var item = entry.target;
-          obs.unobserve(item);
-          item.classList.add('vis');
-
-          var pct    = parseFloat(item.dataset.pct || 0);
-          var target = parseFloat(item.dataset.target || 0);
-          var fill   = item.querySelector('.fill');
-          var numEl  = item.querySelector('.stat-num');
-
-          /* Circle fill */
-          requestAnimationFrame(function() {
-            fill.style.strokeDashoffset = (CIRC * (1 - pct / 100)).toFixed(2);
+        entries.forEach(function(e) {
+          if (!e.isIntersecting) return;
+          /* Stagger: manual bar fires immediately, SkyCrawler bar 200ms later */
+          var fills = e.target.querySelectorAll('.bar-fill');
+          fills.forEach(function(bar, i) {
+            setTimeout(function() { bar.classList.add('animated'); }, i * 200);
           });
-
-          /* Count up */
-          var dur = 1600;
-          var start = null;
-          var isInt = target === Math.floor(target);
-          function step(ts) {
-            if (!start) start = ts;
-            var p = Math.min((ts - start) / dur, 1);
-            var eased = 1 - Math.pow(1 - p, 3);
-            var cur = eased * target;
-            numEl.textContent = isInt ? Math.round(cur) : cur.toFixed(1);
-            if (p < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
+          obs.unobserve(e.target);
         });
-      }, { threshold: 0.28 });
-
-      document.querySelectorAll('.stat-item').forEach(function(el) { obs.observe(el); });
+      }, { threshold: 0.35 });
+      document.querySelectorAll('[data-chart]').forEach(function(el) { obs.observe(el); });
     })();
   </script>
 
-  <script>
-  /* ── BEAMS BACKGROUND ── */
-  (function() {
-    var container = document.getElementById('beamsCanvas');
-    if (!container || typeof THREE === 'undefined') return;
-
-    var W = container.offsetWidth || window.innerWidth;
-    var H = container.offsetHeight || 400;
-
-    var scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x07070f);
-
-    var camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
-    camera.position.set(0, 0, 20);
-
-    var renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    var canvas = renderer.domElement;
-    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
-    container.appendChild(canvas);
-
-    /* Stacked vertical planes */
-    function makeGeom(n, pw, ph, sp, segs) {
-      var g = new THREE.BufferGeometry();
-      var nV = n * (segs + 1) * 2, nI = n * segs * 2;
-      var pos = new Float32Array(nV * 3), uv = new Float32Array(nV * 2), idx = new Uint32Array(nI * 3);
-      var vi = 0, ui = 0, ii = 0;
-      var x0 = -(n * pw + (n - 1) * sp) / 2;
-      for (var i = 0; i < n; i++) {
-        var xO = x0 + i * (pw + sp);
-        var uR = Math.random() * 300, vR = Math.random() * 300;
-        for (var j = 0; j <= segs; j++) {
-          var y = ph * (j / segs - 0.5);
-          pos.set([xO, y, 0, xO + pw, y, 0], vi * 3);
-          uv.set([uR, j / segs + vR, uR + 1, j / segs + vR], ui);
-          if (j < segs) { var a=vi,b=vi+1,c=vi+2,d=vi+3; idx.set([a,b,c,c,b,d],ii); ii+=6; }
-          vi += 2; ui += 4;
-        }
-      }
-      g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      g.setAttribute('uv',       new THREE.BufferAttribute(uv,  2));
-      g.setIndex(new THREE.BufferAttribute(idx, 1));
-      g.computeVertexNormals();
-      return g;
-    }
-
-    /* Classic 3D Perlin noise — all helpers use _ prefix to avoid collisions */
-    var N = [
-      'float _r(vec2 s){return fract(sin(dot(s,vec2(12.9898,78.233)))*43758.5453);}',
-      'float _n2(vec2 s){vec2 i=floor(s),f=fract(s);float a=_r(i),b=_r(i+vec2(1,0)),c=_r(i+vec2(0,1)),d=_r(i+vec2(1,1));vec2 u=f*f*(3.-2.*f);return mix(a,b,u.x)+(c-a)*u.y*(1.-u.x)+(d-b)*u.x*u.y;}',
-      'vec4 _p4(vec4 x){return mod(((x*34.)+1.)*x,289.);}',
-      'vec4 _ti(vec4 r){return 1.79284291400159-.85373472095314*r;}',
-      'vec3 _fd(vec3 t){return t*t*t*(t*(t*6.-15.)+10.);}',
-      'float _cn(vec3 P){',
-      '  vec3 P0=floor(P),P1=P0+1.;P0=mod(P0,289.);P1=mod(P1,289.);',
-      '  vec3 f0=fract(P),f1=f0-1.;',
-      '  vec4 ix=vec4(P0.x,P1.x,P0.x,P1.x),iy=vec4(P0.yy,P1.yy),iz0=P0.zzzz,iz1=P1.zzzz;',
-      '  vec4 ixy=_p4(_p4(ix)+iy),ixy0=_p4(ixy+iz0),ixy1=_p4(ixy+iz1);',
-      '  vec4 gx0=ixy0/7.,gy0=fract(floor(gx0)/7.)-.5;gx0=fract(gx0);',
-      '  vec4 gz0=vec4(.5)-abs(gx0)-abs(gy0);vec4 sz0=step(gz0,vec4(0.));',
-      '  gx0-=sz0*(step(0.,gx0)-.5);gy0-=sz0*(step(0.,gy0)-.5);',
-      '  vec4 gx1=ixy1/7.,gy1=fract(floor(gx1)/7.)-.5;gx1=fract(gx1);',
-      '  vec4 gz1=vec4(.5)-abs(gx1)-abs(gy1);vec4 sz1=step(gz1,vec4(0.));',
-      '  gx1-=sz1*(step(0.,gx1)-.5);gy1-=sz1*(step(0.,gy1)-.5);',
-      '  vec3 g000=vec3(gx0.x,gy0.x,gz0.x),g100=vec3(gx0.y,gy0.y,gz0.y);',
-      '  vec3 g010=vec3(gx0.z,gy0.z,gz0.z),g110=vec3(gx0.w,gy0.w,gz0.w);',
-      '  vec3 g001=vec3(gx1.x,gy1.x,gz1.x),g101=vec3(gx1.y,gy1.y,gz1.y);',
-      '  vec3 g011=vec3(gx1.z,gy1.z,gz1.z),g111=vec3(gx1.w,gy1.w,gz1.w);',
-      '  vec4 nm0=_ti(vec4(dot(g000,g000),dot(g010,g010),dot(g100,g100),dot(g110,g110)));',
-      '  g000*=nm0.x;g010*=nm0.y;g100*=nm0.z;g110*=nm0.w;',
-      '  vec4 nm1=_ti(vec4(dot(g001,g001),dot(g011,g011),dot(g101,g101),dot(g111,g111)));',
-      '  g001*=nm1.x;g011*=nm1.y;g101*=nm1.z;g111*=nm1.w;',
-      '  float n000=dot(g000,f0),n100=dot(g100,vec3(f1.x,f0.yz));',
-      '  float n010=dot(g010,vec3(f0.x,f1.y,f0.z)),n110=dot(g110,vec3(f1.xy,f0.z));',
-      '  float n001=dot(g001,vec3(f0.xy,f1.z)),n101=dot(g101,vec3(f1.x,f0.y,f1.z));',
-      '  float n011=dot(g011,vec3(f0.x,f1.yz)),n111=dot(g111,f1);',
-      '  vec3 fxyz=_fd(f0);',
-      '  vec4 nz=mix(vec4(n000,n100,n010,n110),vec4(n001,n101,n011,n111),fxyz.z);',
-      '  vec2 nyz=mix(nz.xy,nz.zw,fxyz.y);return 2.2*mix(nyz.x,nyz.y,fxyz.x);',
-      '}'
-    ].join('\n');
-
-    var U = { time:{value:0}, uSpeed:{value:2.}, uScale:{value:0.2}, uNoiseIntensity:{value:1.75} };
-
-    var mat = new THREE.MeshStandardMaterial({ color:0x000000, roughness:0.3, metalness:0.3, side:THREE.DoubleSide });
-    mat.onBeforeCompile = function(sh) {
-      Object.assign(sh.uniforms, U);
-
-      /* vertex — pass uvY as param to avoid forward-reference of uv attribute */
-      var vH = [N,
-        'uniform float time,uSpeed,uScale;',
-        'float _gz(vec3 p,float uvY){return _cn(vec3(p.x*.0,p.y-uvY,p.z+time*uSpeed*3.)*uScale);}',
-        'vec3 _cp(vec3 p,float y){vec3 q=p;q.z+=_gz(p,y);return q;}',
-        'vec3 _gn(vec3 p,float y){vec3 c=_cp(p,y);vec3 dx=_cp(p+vec3(.01,0,0),y)-c;vec3 dy=_cp(p+vec3(0,-.01,0),y)-c;return normalize(cross(normalize(dy),normalize(dx)));}'
-      ].join('\n');
-      sh.vertexShader = vH + '\n' + sh.vertexShader
-        .replace('#include <begin_vertex>',
-          'vec3 transformed=vec3(position);transformed.z+=_gz(transformed.xyz,uv.y);')
-        .replace('#include <beginnormal_vertex>',
-          'vec3 objectNormal=_gn(position.xyz,uv.y);\n#ifdef USE_TANGENT\nvec3 objectTangent=vec3(tangent.xyz);\n#endif');
-
-      /* fragment — noise dither */
-      sh.fragmentShader = N+'\nuniform float uNoiseIntensity;\n' + sh.fragmentShader
-        .replace('#include <dithering_fragment>',
-          '#include <dithering_fragment>\nfloat _dg=_n2(gl_FragCoord.xy);gl_FragColor.rgb-=_dg/15.*uNoiseIntensity;');
-    };
-
-    scene.add(new THREE.Mesh(makeGeom(12, 2, 15, 0, 100), mat));
-    scene.add(new THREE.AmbientLight(0xffffff, 1));
-    var dl = new THREE.DirectionalLight(0xffffff, 1); dl.position.set(0, 3, 10); scene.add(dl);
-
-    /* Render only when visible */
-    var active = false, lastT = 0;
-    function loop(t) {
-      if (!active) return;
-      requestAnimationFrame(loop);
-      U.time.value += 0.08 * Math.min((t - lastT) / 1000, 0.05);
-      lastT = t;
-      renderer.render(scene, camera);
-    }
-    new IntersectionObserver(function(es) {
-      es.forEach(function(e) {
-        if (e.isIntersecting && !active) {
-          active = true;
-          requestAnimationFrame(function(t) { lastT = t; loop(t); });
-        } else if (!e.isIntersecting) { active = false; }
-      });
-    }, { threshold: 0.01 }).observe(container.parentElement);
-
-    window.addEventListener('resize', function() {
-      W = container.offsetWidth; H = container.offsetHeight;
-      camera.aspect = W/H; camera.updateProjectionMatrix(); renderer.setSize(W, H);
-    });
-  })();
-  </script>
   <script src="footer.js"></script>
 
 </body>
