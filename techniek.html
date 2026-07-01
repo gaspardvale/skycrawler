@@ -52,10 +52,10 @@
     .t-page-header { position: relative; z-index: 5; margin-top: -110px; padding: 0 8vw 4.5rem; }
     .t-header-row { display: flex; gap: 4rem; align-items: flex-start; }
     .t-page-panel { flex-shrink: 0; max-width: 560px; padding: 2.2rem 2.8rem; background: rgba(255,255,255,0.68); backdrop-filter: blur(22px) saturate(1.1); -webkit-backdrop-filter: blur(22px) saturate(1.1); border: 1px solid rgba(255,255,255,0.9); border-radius: 18px; box-shadow: 0 4px 28px rgba(0,0,0,0.07); }
-    .t-header-aside { flex: 1; padding-bottom: 0.4rem; }
-    .t-header-aside p { font-size: clamp(1.2rem, 2vw, 1.75rem); line-height: 1.4; text-shadow: 0 2px 18px rgba(0,0,0,0.7), 0 1px 6px rgba(0,0,0,0.5); }
-    .stmt-bold { font-weight: 700; color: #fff; }
-    .stmt-light { font-weight: 300; color: rgba(255,255,255,0.72); }
+    .t-header-aside { flex: 1; padding-top: 122px; }
+    .t-header-aside p { font-size: clamp(1.2rem, 2vw, 1.75rem); line-height: 1.4; }
+    .stmt-bold { font-weight: 700; color: var(--off-black); }
+    .stmt-light { font-weight: 300; color: var(--mid); }
     .t-hero-eyebrow { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(0,0,0,0.42); margin-bottom: 1.1rem; }
     .t-hero-title { font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: var(--off-black); margin-bottom: 1.2rem; }
     .t-hero-sub { font-size: clamp(0.88rem, 1.3vw, 0.98rem); font-weight: 300; color: var(--mid); line-height: 1.72; }
@@ -63,7 +63,7 @@
     /* ── STATEMENT (legacy, kept for reference) ── */
 
     /* ── DIAGRAM SECTION ── */
-    .t-diagram { background: var(--white); padding: 9rem 3rem 7rem; }
+    .t-diagram { background: var(--white); padding: 6rem 3rem 7rem; }
     .t-diagram-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
     .t-d-eyebrow { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-bottom: 1rem; }
     .t-d-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: var(--off-black); margin-bottom: 2.4rem; }
@@ -142,6 +142,7 @@
       nav ul.open a { font-size: 1.5rem; color: white; }
       .t-page-header { margin-top: -80px; padding: 0 1.5rem 3rem; }
       .t-header-row { flex-direction: column; gap: 2rem; }
+      .t-header-aside { padding-top: 0; }
       .t-header-aside p { font-size: clamp(1.1rem, 4vw, 1.4rem); }
       .t-diagram { padding: 5rem 1.5rem; }
       .t-section { padding: 5rem 1.5rem; }
