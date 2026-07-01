@@ -249,29 +249,6 @@
 
 
     /* ── RESPONSIVE ── */
-    /* ── FAQ ── */
-    .faq-section { padding: 7rem 3rem; max-width: 860px; margin: 0 auto; }
-    .faq-label { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); margin-bottom: 1rem; }
-    .faq-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.03em; color: var(--off-black); margin-bottom: 3.5rem; }
-    .faq-list { border-top: 1px solid rgba(0,0,0,0.08); }
-    .faq-item { border-bottom: 1px solid rgba(0,0,0,0.08); }
-    .faq-question {
-      width: 100%; background: none; border: none; text-align: left;
-      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
-      padding: 1.6rem 0; cursor: pointer; font-family: inherit;
-    }
-    .faq-q-text { font-size: 0.96rem; font-weight: 500; color: var(--off-black); line-height: 1.45; }
-    .faq-icon {
-      width: 24px; height: 24px; flex-shrink: 0;
-      border: 1px solid rgba(0,0,0,0.14); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(0,0,0,0.3); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.2s;
-    }
-    .faq-item.open .faq-icon { transform: rotate(45deg); border-color: rgba(0,0,0,0.3); }
-    .faq-answer-wrap { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
-    .faq-item.open .faq-answer-wrap { max-height: 300px; }
-    .faq-answer { font-size: 0.88rem; font-weight: 300; color: var(--mid); line-height: 1.8; padding: 0 2.5rem 1.6rem 0; }
-
     @media (max-width: 900px) {
       .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
       .two-col.reverse .text-col { order: 0; }
@@ -296,7 +273,6 @@
       .section { padding-top: 4rem; padding-bottom: 4rem; }
       .values-grid, .team-row { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
-      .faq-section { padding: 4rem 1.5rem; }
     }
   </style>
 </head>
@@ -440,98 +416,6 @@
     </div>
   </div>
 
-  <hr style="border:none;border-top:1px solid rgba(0,0,0,0.08);margin:0 3rem;">
-
-  <!-- FAQ -->
-  <div class="faq-section">
-    <p class="faq-label" data-nl="Veelgestelde vragen" data-en="Frequently asked questions">Veelgestelde vragen</p>
-    <h2 class="faq-title" data-nl="Alles wat u wil weten over SkyCrawler." data-en="Everything you want to know about SkyCrawler.">Alles wat u wil weten over SkyCrawler.</h2>
-
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Hoe hecht SkyCrawler zich vast aan een gebouw?" data-en="How does SkyCrawler attach to a building?">Hoe hecht SkyCrawler zich vast aan een gebouw?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="SkyCrawler gebruikt een systeem van industriële vacuümzuignappen die een constante negatieve druk op de gevelplaat houden. Elke zuignap werkt onafhankelijk, zodat het systeem op koers blijft — ook bij kleine oneffenheden in de gevel of tijdelijke drukvariaties door wind." data-en="SkyCrawler uses a system of industrial vacuum suction cups that maintain constant negative pressure against the facade panel. Each cup operates independently, keeping the system on track even across minor surface irregularities or temporary pressure variations caused by wind.">SkyCrawler gebruikt een systeem van industriële vacuümzuignappen die een constante negatieve druk op de gevelplaat houden. Elke zuignap werkt onafhankelijk, zodat het systeem op koers blijft — ook bij kleine oneffenheden in de gevel of tijdelijke drukvariaties door wind.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Op welk type gevels kan SkyCrawler werken?" data-en="What types of facades can SkyCrawler work on?">Op welk type gevels kan SkyCrawler werken?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="Het systeem is ontworpen voor vlakke en licht gebogen glazen gevels — het meest voorkomende type bij moderne hoogbouw en kantoorgebouwen. Samengestelde materialen zoals gecoat aluminium of geëmailleerd glas zijn eveneens compatibel. Sterk geprofileerde of poeuze gevelmaterialen zijn momenteel buiten bereik." data-en="The system is designed for flat and mildly curved glass facades — the most common type on modern high-rises and office buildings. Composite materials such as coated aluminium or enamelled glass are also compatible. Heavily profiled or porous facade materials are currently outside scope.">Het systeem is ontworpen voor vlakke en licht gebogen glazen gevels — het meest voorkomende type bij moderne hoogbouw en kantoorgebouwen. Samengestelde materialen zoals gecoat aluminium of geëmailleerd glas zijn eveneens compatibel. Sterk geprofileerde of poreuze gevelmaterialen zijn momenteel buiten bereik.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Wat als de zuignap het begeeft op hoogte?" data-en="What happens if a suction cup fails at height?">Wat als de zuignap het begeeft op hoogte?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="SkyCrawler werkt met meerdere redundante zuignappen tegelijk. Een drukdaling in één module triggert onmiddellijk een compensatieprotocol: het systeem vergrendelt zijn positie en geeft een alarm via de beheerinterface. Bovendien is het platform verbonden met een fysieke veiligheidskabel die een vrije val in alle omstandigheden verhindert." data-en="SkyCrawler operates with multiple redundant suction cups simultaneously. A pressure drop in one module immediately triggers a compensation protocol: the system locks its position and sends an alert via the management interface. Additionally, the platform is connected to a physical safety tether that prevents free fall under all circumstances.">SkyCrawler werkt met meerdere redundante zuignappen tegelijk. Een drukdaling in één module triggert onmiddellijk een compensatieprotocol: het systeem vergrendelt zijn positie en geeft een alarm via de beheerinterface. Bovendien is het platform verbonden met een fysieke veiligheidskabel die een vrije val in alle omstandigheden verhindert.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Kan SkyCrawler werken bij wind of regen?" data-en="Can SkyCrawler operate in wind or rain?">Kan SkyCrawler werken bij wind of regen?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="SkyCrawler is ontworpen om te opereren bij windsnelheden tot 40 km/u en bij lichte neerslag. De AI-module past het reinigingsschema automatisch aan op basis van weerdata: bij ongunstige condities wordt de taak gepauzeerd en hernomen zodra het veilig is. Nachtwerk — wanneer wind doorgaans lager is — wordt actief benut." data-en="SkyCrawler is designed to operate in wind speeds up to 40 km/h and in light precipitation. The AI module automatically adjusts the cleaning schedule based on weather data: when conditions are unfavourable, the task is paused and resumed as soon as it is safe to do so. Night operations — when wind is typically lower — are actively leveraged.">SkyCrawler is ontworpen om te opereren bij windsnelheden tot 40 km/u en bij lichte neerslag. De AI-module past het reinigingsschema automatisch aan op basis van weerdata: bij ongunstige condities wordt de taak gepauzeerd en hernomen zodra het veilig is. Nachtwerk — wanneer wind doorgaans lager is — wordt actief benut.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Zijn er nog mensen nodig tijdens de reiniging?" data-en="Are workers still needed during a cleaning run?">Zijn er nog mensen nodig tijdens de reiniging?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="Nee. Zodra SkyCrawler is gemonteerd en de reinigingsroute is ingesteld, verloopt het proces volledig autonoom. Een SkyCrawler-technieker staat op afstand beschikbaar voor monitoring en interventie. Er zijn geen werkers op hoogte vereist — wat zowel de veiligheidsrisico's als de personeelskosten drastisch vermindert." data-en="No. Once SkyCrawler is mounted and the cleaning route is configured, the process runs fully autonomously. A SkyCrawler technician is available remotely for monitoring and intervention. No workers at height are required — which drastically reduces both safety risks and labour costs.">Nee. Zodra SkyCrawler is gemonteerd en de reinigingsroute is ingesteld, verloopt het proces volledig autonoom. Een SkyCrawler-technieker staat op afstand beschikbaar voor monitoring en interventie. Er zijn geen werkers op hoogte vereist — wat zowel de veiligheidsrisico's als de personeelskosten drastisch vermindert.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Hoe navigeert SkyCrawler over de gevel?" data-en="How does SkyCrawler navigate across the facade?">Hoe navigeert SkyCrawler over de gevel?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="De navigatie combineert LiDAR-puntenwolken, inertiale sensoren en een digitale gebouwplattegrond die vooraf wordt ingeladen. De AI vergelijkt continu de verwachte met de werkelijke positie en corrigeert kleine afwijkingen in realtime. Gevelelementen zoals raamkaders en ventilatieopeningen worden automatisch herkend en omzeild." data-en="Navigation combines LiDAR point clouds, inertial sensors and a digital building map loaded in advance. The AI continuously compares expected versus actual position and corrects small deviations in real time. Facade elements such as window frames and ventilation openings are automatically identified and avoided.">De navigatie combineert LiDAR-puntenwolken, inertiale sensoren en een digitale gebouwplattegrond die vooraf wordt ingeladen. De AI vergelijkt continu de verwachte met de werkelijke positie en corrigeert kleine afwijkingen in realtime. Gevelelementen zoals raamkaders en ventilatieopeningen worden automatisch herkend en omzeild.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Is de reinigingsmethode milieuvriendelijk?" data-en="Is the cleaning method environmentally friendly?">Is de reinigingsmethode milieuvriendelijk?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="SkyCrawler werkt met gefilterd regenwater en sterk gereduceerde zeephoeveelheden, gecombineerd met microvezelborstels die vuil mechanisch losmaken. Het waterverbruik ligt 70–80% lager dan bij traditionele gevelreiniging. Er worden geen agressieve chemicaliën gebruikt en afvalwater wordt intern gefilterd voor hergebruik." data-en="SkyCrawler operates with filtered rainwater and significantly reduced soap quantities, combined with microfibre brushes that loosen dirt mechanically. Water consumption is 70–80% lower than traditional facade cleaning. No aggressive chemicals are used and wastewater is internally filtered for reuse.">SkyCrawler werkt met gefilterd regenwater en sterk gereduceerde zeephoeveelheden, gecombineerd met microvezelborstels die vuil mechanisch losmaken. Het waterverbruik ligt 70–80% lager dan bij traditionele gevelreiniging. Er worden geen agressieve chemicaliën gebruikt en afvalwater wordt intern gefilterd voor hergebruik.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span class="faq-q-text" data-nl="Hoe werkt de samenwerking in de praktijk?" data-en="How does the partnership work in practice?">Hoe werkt de samenwerking in de praktijk?</span>
-          <span class="faq-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="0" x2="5" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="0" y1="5" x2="10" y2="5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        </button>
-        <div class="faq-answer-wrap">
-          <p class="faq-answer" data-nl="We starten met een gebouwscan en een vrijblijvend pilotvoorstel op maat. Na akkoord zorgt ons team voor installatie, configuratie en de eerste reinigingsrun — inclusief een gedetailleerd rapport. Daarna draait SkyCrawler op een vaste planning die u via ons dashboard kunt volgen en aanpassen." data-en="We begin with a building scan and a no-obligation tailored pilot proposal. Once agreed, our team handles installation, configuration and the first cleaning run — including a detailed report. After that, SkyCrawler runs on a fixed schedule that you can monitor and adjust via our dashboard.">We starten met een gebouwscan en een vrijblijvend pilotvoorstel op maat. Na akkoord zorgt ons team voor installatie, configuratie en de eerste reinigingsrun — inclusief een gedetailleerd rapport. Daarna draait SkyCrawler op een vaste planning die u via ons dashboard kunt volgen en aanpassen.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <footer data-slim></footer>
   <script src="footer.js"></script>
 
@@ -577,14 +461,6 @@
       });
     })();
 
-    // FAQ accordion
-    document.querySelectorAll('.faq-item').forEach(function(item) {
-      item.querySelector('.faq-question').addEventListener('click', function() {
-        var isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(function(o) { o.classList.remove('open'); o.querySelector('.faq-question').setAttribute('aria-expanded', 'false'); });
-        if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
-      });
-    });
   </script>
 
 </body>
